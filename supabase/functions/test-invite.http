@@ -1,0 +1,25 @@
+### Test invite-member function locally
+POST http://localhost:54321/functions/v1/invite-member
+Content-Type: application/json
+Authorization: Bearer {{supabaseAuthToken}}
+
+{
+  "workspace_id": "your-workspace-id",
+  "role": "Member",
+  "function": "Engineering"
+}
+
+### Test invite-member function in production
+POST {{baseUrl}}/functions/v1/invite-member
+Content-Type: application/json
+Authorization: Bearer {{supabaseAuthToken}}
+
+{
+  "workspace_id": "your-workspace-id",
+  "role": "Member",
+  "function": "Engineering"
+}
+
+### Variables
+@baseUrl = https://your-project-ref.supabase.co
+@supabaseAuthToken = your-auth-token-here
