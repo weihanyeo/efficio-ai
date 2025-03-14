@@ -1,12 +1,22 @@
-import React from 'react';
-import { Webhook, GitBranch, Globe, Bot, Copy, Check, AlertCircle, Lock } from 'lucide-react';
+"use-client";
+import React from "react";
+import {
+  Webhook,
+  GitBranch,
+  Globe,
+  Bot,
+  Copy,
+  Check,
+  AlertCircle,
+  Lock,
+} from "lucide-react";
 
 interface WebhookConfig {
   id: string;
   name: string;
   url: string;
   secret: string;
-  status: 'active' | 'inactive';
+  status: "active" | "inactive";
   lastDelivery?: string;
   successRate?: number;
 }
@@ -14,21 +24,21 @@ interface WebhookConfig {
 export const IntegrationSettings = () => {
   const [webhooks, setWebhooks] = React.useState<WebhookConfig[]>([
     {
-      id: '1',
-      name: 'GitHub Integration',
-      url: 'https://api.github.com/webhooks/123',
-      secret: 'whsec_abcdef123456',
-      status: 'active',
-      lastDelivery: '2 minutes ago',
-      successRate: 98
-    }
+      id: "1",
+      name: "GitHub Integration",
+      url: "https://api.github.com/webhooks/123",
+      secret: "whsec_abcdef123456",
+      status: "active",
+      lastDelivery: "2 minutes ago",
+      successRate: 98,
+    },
   ]);
 
   const [copied, setCopied] = React.useState<string | null>(null);
   const [showNewWebhook, setShowNewWebhook] = React.useState(false);
   const [newWebhook, setNewWebhook] = React.useState({
-    name: '',
-    url: ''
+    name: "",
+    url: "",
   });
 
   const handleCopy = (text: string, id: string) => {
@@ -44,10 +54,10 @@ export const IntegrationSettings = () => {
         name: newWebhook.name,
         url: newWebhook.url,
         secret: `whsec_${Math.random().toString(36).substr(2, 10)}`,
-        status: 'active'
+        status: "active",
       };
       setWebhooks([...webhooks, webhook]);
-      setNewWebhook({ name: '', url: '' });
+      setNewWebhook({ name: "", url: "" });
       setShowNewWebhook(false);
     }
   };
@@ -73,29 +83,31 @@ export const IntegrationSettings = () => {
             <div>
               <h3 className="font-medium">Smart Webhook Processing</h3>
               <p className="text-sm text-gray-400 mt-1">
-                Our AI automatically identifies and categorizes incoming webhook data based on the source domain and payload structure.
-                This enables automatic task creation, updates, and intelligent routing of information.
+                Our AI automatically identifies and categorizes incoming webhook
+                data based on the source domain and payload structure. This
+                enables automatic task creation, updates, and intelligent
+                routing of information.
               </p>
             </div>
           </div>
-          
+
           <div className="mt-4 grid grid-cols-3 gap-4">
             {[
               {
                 icon: <Globe className="w-4 h-4 text-blue-400" />,
-                title: 'Auto-Detection',
-                description: 'Automatically identifies webhook sources'
+                title: "Auto-Detection",
+                description: "Automatically identifies webhook sources",
               },
               {
                 icon: <GitBranch className="w-4 h-4 text-green-400" />,
-                title: 'Smart Routing',
-                description: 'Routes data to appropriate project sections'
+                title: "Smart Routing",
+                description: "Routes data to appropriate project sections",
               },
               {
                 icon: <Bot className="w-4 h-4 text-purple-400" />,
-                title: 'AI Processing',
-                description: 'Extracts context and creates relevant tasks'
-              }
+                title: "AI Processing",
+                description: "Extracts context and creates relevant tasks",
+              },
             ].map((feature, index) => (
               <div key={index} className="p-3 bg-[#262626] rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
@@ -112,13 +124,20 @@ export const IntegrationSettings = () => {
         <div className="space-y-4">
           <h3 className="text-lg font-medium">Active Webhooks</h3>
           {webhooks.map((webhook) => (
-            <div key={webhook.id} className="p-4 bg-[#1E1E1E] rounded-lg border border-[#363636]">
+            <div
+              key={webhook.id}
+              className="p-4 bg-[#1E1E1E] rounded-lg border border-[#363636]"
+            >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <h4 className="font-medium">{webhook.name}</h4>
-                  <span className={`px-2 py-0.5 text-xs rounded-full ${
-                    webhook.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'
-                  }`}>
+                  <span
+                    className={`px-2 py-0.5 text-xs rounded-full ${
+                      webhook.status === "active"
+                        ? "bg-green-500/20 text-green-400"
+                        : "bg-gray-500/20 text-gray-400"
+                    }`}
+                  >
                     {webhook.status}
                   </span>
                 </div>
@@ -151,7 +170,9 @@ export const IntegrationSettings = () => {
                     <span className="text-sm font-mono">{webhook.secret}</span>
                   </div>
                   <button
-                    onClick={() => handleCopy(webhook.secret, `secret-${webhook.id}`)}
+                    onClick={() =>
+                      handleCopy(webhook.secret, `secret-${webhook.id}`)
+                    }
                     className="p-1.5 hover:bg-[#363636] rounded-md"
                   >
                     {copied === `secret-${webhook.id}` ? (
@@ -180,21 +201,29 @@ export const IntegrationSettings = () => {
               <h3 className="text-lg font-semibold mb-4">Add New Webhook</h3>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium mb-2">Webhook Name</label>
+                  <label className="block text-sm font-medium mb-2">
+                    Webhook Name
+                  </label>
                   <input
                     type="text"
                     value={newWebhook.name}
-                    onChange={(e) => setNewWebhook({ ...newWebhook, name: e.target.value })}
+                    onChange={(e) =>
+                      setNewWebhook({ ...newWebhook, name: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
                     placeholder="e.g., GitHub Integration"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Webhook URL</label>
+                  <label className="block text-sm font-medium mb-2">
+                    Webhook URL
+                  </label>
                   <input
                     type="url"
                     value={newWebhook.url}
-                    onChange={(e) => setNewWebhook({ ...newWebhook, url: e.target.value })}
+                    onChange={(e) =>
+                      setNewWebhook({ ...newWebhook, url: e.target.value })
+                    }
                     className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
                     placeholder="https://"
                   />

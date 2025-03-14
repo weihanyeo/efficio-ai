@@ -1,5 +1,6 @@
+"use client";
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from "next/navigation";
 import { Bot, Mail, Lock, Eye, EyeOff, ArrowRight, Github, Chrome, Terminal, Zap, Sparkles, Brain } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -11,8 +12,8 @@ export const AuthPage = () => {
   const [name, setName] = React.useState('');
   const [error, setError] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const navigate = useRouter();
+  const location = usePathname();
   const { signIn, signUp, user } = useAuth();
 
   // Check for signup parameter in URL
@@ -42,7 +43,7 @@ export const AuthPage = () => {
       if (pendingInvite) {
         localStorage.removeItem('pendingInvite');
       }
-      navigate(from, { replace: true });
+      navigate.push(from, { replace: true });
     }
   }, [user, from, navigate, pendingInvite]);
 

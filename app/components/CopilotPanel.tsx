@@ -30,7 +30,7 @@ const commandSuggestions: CommandSuggestion[] = [
   },
 ];
 
-export const CopilotPanel = () => {
+export const CopilotPanel: React.FC<{ className?: string }> = ({ className = "" }) => {
   const [suggestions, setSuggestions] = useState<AISuggestion[]>([]);
   const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
@@ -139,7 +139,7 @@ export const CopilotPanel = () => {
   }
 
   return (
-    <div className="w-80 border-l border-[#262626] bg-[#161616] flex flex-col min-w-[300px]">
+    <div className={`w-80 border-l border-[#262626] bg-[#161616] flex flex-col min-w-[300px] ${className}`}>
       <div className="p-4 border-b border-[#262626] flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Bot className="w-5 h-5 text-indigo-400" />

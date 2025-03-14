@@ -1,5 +1,6 @@
-import React from 'react';
-import { Moon, Sun, Monitor } from 'lucide-react';
+"use-client";
+import React from "react";
+import { Moon, Sun, Monitor } from "lucide-react";
 
 export const AppearanceSettings = () => {
   return (
@@ -9,9 +10,17 @@ export const AppearanceSettings = () => {
         {/* Theme Selection */}
         <div className="grid grid-cols-3 gap-4">
           {[
-            { icon: <Sun className="w-5 h-5" />, name: 'Light', value: 'light' },
-            { icon: <Moon className="w-5 h-5" />, name: 'Dark', value: 'dark' },
-            { icon: <Monitor className="w-5 h-5" />, name: 'System', value: 'system' }
+            {
+              icon: <Sun className="w-5 h-5" />,
+              name: "Light",
+              value: "light",
+            },
+            { icon: <Moon className="w-5 h-5" />, name: "Dark", value: "dark" },
+            {
+              icon: <Monitor className="w-5 h-5" />,
+              name: "System",
+              value: "system",
+            },
           ].map((theme) => (
             <button
               key={theme.value}
@@ -46,7 +55,7 @@ export const AppearanceSettings = () => {
         <div className="space-y-2">
           <label className="block text-sm font-medium">Interface Density</label>
           <div className="flex gap-4">
-            {['Comfortable', 'Compact', 'Custom'].map((density) => (
+            {["Comfortable", "Compact", "Custom"].map((density) => (
               <button
                 key={density}
                 className="px-4 py-2 bg-[#262626] rounded-md text-sm hover:bg-[#363636] transition-colors"

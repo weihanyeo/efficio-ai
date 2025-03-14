@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
-import { Shield, Key, Lock, Fingerprint } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+"use-client";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Shield, Key, Lock, Fingerprint } from "lucide-react";
+import { useAuth } from "../../contexts/AuthContext";
 
 export const SecuritySettings = () => {
-  const navigate = useNavigate();
+  const navigate = useRouter();
   const { user, profile, updatePassword, deleteAccount } = useAuth();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [confirmationInput, setConfirmationInput] = useState("")
-  const [emailConfirmation, setEmailConfirmation] = useState('');;
-  const [deleteInput, setDeleteInput] = useState('')
+  const [confirmationInput, setConfirmationInput] = useState("");
+  const [emailConfirmation, setEmailConfirmation] = useState("");
+  const [deleteInput, setDeleteInput] = useState("");
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [passwordLoading, setPasswordLoading] = useState(false);
@@ -25,7 +26,7 @@ export const SecuritySettings = () => {
 
   const handleCancelDelete = () => {
     setShowDeleteConfirm(false);
-    setEmailConfirmation('');
+    setEmailConfirmation("");
     setDeleteError(null);
   };
 
@@ -39,13 +40,14 @@ export const SecuritySettings = () => {
       await updatePassword(oldPassword, newPassword, confirmPassword);
       setSuccess(true);
     } catch (err) {
-      setPasswordError(err instanceof Error ? err.message : "An error occurred");
+      setPasswordError(
+        err instanceof Error ? err.message : "An error occurred"
+      );
     } finally {
       setPasswordLoading(false);
     }
   };
 
-  
   const handleAccountDeletion = async () => {
     setDeleteError(null);
     setDeleteLoading(true);
@@ -53,7 +55,7 @@ export const SecuritySettings = () => {
     try {
       await deleteAccount(confirmationInput);
       alert("Account deleted successfully.");
-      navigate("/");
+      navigate.push("/");
     } catch (err) {
       setDeleteError(err instanceof Error ? err.message : "An error occurred");
     } finally {
@@ -74,29 +76,37 @@ export const SecuritySettings = () => {
             </div>
 
             {passwordError && <p className="text-red-500">{passwordError}</p>}
-            {success && <p className="text-green-500">Password updated successfully!</p>}
+            {success && (
+              <p className="text-green-500">Password updated successfully!</p>
+            )}
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Current Password</label>
+                <label className="block text-sm font-medium mb-2">
+                  Current Password
+                </label>
                 <input
                   type="password"
                   value={oldPassword}
-                  onChange = {(e) => setOldPassword(e.target.value)}
+                  onChange={(e) => setOldPassword(e.target.value)}
                   className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">New Password</label>
+                <label className="block text-sm font-medium mb-2">
+                  New Password
+                </label>
                 <input
                   type="password"
                   value={newPassword}
-                  onChange = {(e) => setNewPassword(e.target.value)}
+                  onChange={(e) => setNewPassword(e.target.value)}
                   className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-2">Confirm New Password</label>
+                <label className="block text-sm font-medium mb-2">
+                  Confirm New Password
+                </label>
                 <input
                   type="password"
                   value={confirmPassword}
@@ -108,7 +118,7 @@ export const SecuritySettings = () => {
                 type="submit"
                 className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
                 disabled={passwordLoading}
-               >
+              >
                 {passwordLoading ? "Updating..." : "Update Password"}
               </button>
             </div>
@@ -121,7 +131,9 @@ export const SecuritySettings = () => {
                 <Lock className="w-5 h-5 text-indigo-400" />
                 <div>
                   <h3 className="font-medium">Two-Factor Authentication</h3>
-                  <p className="text-sm text-gray-400 mt-1">Add an extra layer of security to your account</p>
+                  <p className="text-sm text-gray-400 mt-1">
+                    Add an extra layer of security to your account
+                  </p>
                 </div>
               </div>
               <button className="px-4 py-2 bg-[#262626] text-sm text-gray-400 rounded-md hover:bg-[#363636]">
@@ -138,13 +150,26 @@ export const SecuritySettings = () => {
             </div>
             <div className="space-y-3">
               {[
-                { device: 'MacBook Pro', location: 'San Francisco, US', lastActive: '2 minutes ago' },
-                { device: 'iPhone 13', location: 'San Francisco, US', lastActive: '1 hour ago' }
+                {
+                  device: "MacBook Pro",
+                  location: "San Francisco, US",
+                  lastActive: "2 minutes ago",
+                },
+                {
+                  device: "iPhone 13",
+                  location: "San Francisco, US",
+                  lastActive: "1 hour ago",
+                },
               ].map((session, index) => (
-                <div key={index} className="flex items-center justify-between p-3 bg-[#262626] rounded-md">
+                <div
+                  key={index}
+                  className="flex items-center justify-between p-3 bg-[#262626] rounded-md"
+                >
                   <div>
                     <p className="font-medium">{session.device}</p>
-                    <p className="text-sm text-gray-400">{session.location} • {session.lastActive}</p>
+                    <p className="text-sm text-gray-400">
+                      {session.location} • {session.lastActive}
+                    </p>
                   </div>
                   <button className="px-3 py-1.5 text-sm text-red-400 hover:bg-red-500/10 rounded">
                     Revoke
@@ -156,9 +181,12 @@ export const SecuritySettings = () => {
 
           {/* Delete Account Section */}
           <div className="border border-[#363636] bg-[#262626] p-4 rounded-md">
-            <h3 className="text-lg font-semibold text-red-500">Delete Account</h3>
+            <h3 className="text-lg font-semibold text-red-500">
+              Delete Account
+            </h3>
             <p className="text-sm text-gray-400">
-              Permanently delete your account and all associated data. This action is irreversible.
+              Permanently delete your account and all associated data. This
+              action is irreversible.
             </p>
 
             {/* Show Confirm UI Only When Triggered */}
@@ -174,7 +202,9 @@ export const SecuritySettings = () => {
                   onChange={(e) => setConfirmationInput(e.target.value)}
                   className="w-full px-4 py-2 bg-[#1e1e1e] border border-[#363636] rounded-md text-white focus:outline-none focus:border-red-500"
                 />
-                {deleteError && <p className="text-sm text-red-500 mt-2">{deleteError}</p>}
+                {deleteError && (
+                  <p className="text-sm text-red-500 mt-2">{deleteError}</p>
+                )}
 
                 <div className="flex gap-3 mt-4">
                   <button

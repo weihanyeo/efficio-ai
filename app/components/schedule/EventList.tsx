@@ -1,3 +1,4 @@
+"use-client";
 import { useRef, useEffect, useState } from "react";
 import { MapPin } from "lucide-react";
 import { EventDetail, User } from "../../types/event";
@@ -185,7 +186,9 @@ export const EventList = ({
                           alt={user.name}
                           className="w-6 h-6 rounded-full"
                         />
-                        <span className="font-medium text-white">{user.name}</span>
+                        <span className="font-medium text-white">
+                          {user.name}
+                        </span>
                       </div>
                     </div>
                   ))}
@@ -198,10 +201,7 @@ export const EventList = ({
           <div className="flex relative">
             {/* Time Column */}
             <div className="w-20 flex-shrink-0 sticky left-0 bg-[#161616] z-20">
-              <AvailabilityIndicator
-                events={events}
-                users={displayUsers}
-              />
+              <AvailabilityIndicator events={events} users={displayUsers} />
               {HOURS.map((hour) => (
                 <div
                   key={hour}
@@ -249,7 +249,9 @@ export const EventList = ({
                           key={event.id}
                           onClick={() => onEventClick(event)}
                           className={`absolute left-0 right-0 mx-1 rounded-lg p-2 z-10 
-                            cursor-pointer ${event.color || 'bg-indigo-600'} hover:brightness-110 
+                            cursor-pointer ${
+                              event.color || "bg-indigo-600"
+                            } hover:brightness-110 
                             transition-all shadow-md hover:shadow-lg border border-[#363636]`}
                           style={{
                             top: `${top}px`,

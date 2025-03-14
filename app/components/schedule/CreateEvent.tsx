@@ -1,3 +1,4 @@
+"use-client";
 import { useState } from "react";
 import {
   X,
@@ -71,7 +72,9 @@ export const CreateEvent = ({
   };
 
   const handleUserSelect = (user: User) => {
-    const isOrganizer = eventDetail.organizers.some((org) => org.id === user.id);
+    const isOrganizer = eventDetail.organizers.some(
+      (org) => org.id === user.id
+    );
     const isAttendee = eventDetail.attendees.some((att) => att.id === user.id);
 
     if (!isOrganizer && !isAttendee) {
@@ -303,9 +306,7 @@ export const CreateEvent = ({
                     <button
                       key={color}
                       type="button"
-                      onClick={() =>
-                        setEventDetail({ ...eventDetail, color })
-                      }
+                      onClick={() => setEventDetail({ ...eventDetail, color })}
                       className={`w-8 h-8 rounded-full ${color} ${
                         eventDetail.color === color
                           ? "ring-2 ring-offset-2 ring-offset-[#161616] ring-white"
@@ -391,7 +392,9 @@ export const CreateEvent = ({
                     >
                       <CheckSquare
                         size={16}
-                        className={item.completed ? "text-green-500" : "text-gray-400"}
+                        className={
+                          item.completed ? "text-green-500" : "text-gray-400"
+                        }
                       />
                       <span className="flex-1">{item.task}</span>
                       <button

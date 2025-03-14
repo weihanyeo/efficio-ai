@@ -1,4 +1,5 @@
 'use client';
+
 import React from "react";
 import { useRouter } from "next/navigation";
 import {
@@ -36,7 +37,7 @@ const getTrendIcon = (trend: 'up' | 'down') => {
   return <TrendingDown className="w-4 h-4 text-red-400" />;
 };
 
-export const DashboardPage = () => {
+export const DashboardPage: React.FC<{ className?: string }> = ({ className = "" }) => {
   const navigate = useRouter();
   const { currentWorkspace } = useWorkspace();
 
@@ -132,11 +133,11 @@ export const DashboardPage = () => {
               <Zap className="w-5 h-5 text-yellow-400" />
             </div>
             <div className="flex items-center">
-              <span className="text-3xl font-semibold">{stats.velocity.current}</span>
+              <span className="text-3xl font-semibold">{stats?.velocity?.current || 0}</span>
               <div className="flex items-center ml-2">
-                {getTrendIcon(stats.velocity.trend)}
+                {stats?.velocity?.trend && getTrendIcon(stats.velocity.trend)}
                 <span className="text-sm text-gray-500 ml-1">
-                  vs {stats.velocity.previous}
+                  vs {stats?.velocity?.previous || 0}
                 </span>
               </div>
             </div>
@@ -149,9 +150,12 @@ export const DashboardPage = () => {
               <BarChart className="w-5 h-5 text-blue-400" />
             </div>
             <div className="flex items-center">
-              <span className="text-3xl font-semibold">{stats.code_quality.score}%</span>
+              <span className="text-3xl font-semibold">{stats?.code_quality?.score || 0}%</span>
               <div className="flex items-center ml-2">
-                {getTrendIcon(stats.code_quality.trend)}
+                {stats?.code_quality?.trend && getTrendIcon(stats.code_quality.trend)}
+                <span className="text-sm text-gray-500 ml-1">
+                  vs {stats?.code_quality?.previous || 0}%
+                </span>
               </div>
             </div>
           </div>

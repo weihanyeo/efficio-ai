@@ -1,6 +1,8 @@
 'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import {
   LayoutDashboard,
   Inbox,
@@ -191,7 +193,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
   );
 };
 
-export const Sidebar = () => {
+export const Sidebar: React.FC<{ className?: string }> = ({ className = "" }) => {
   const [isWorkspaceOpen, setIsWorkspaceOpen] = React.useState(false);
   const [showCreateWorkspace, setShowCreateWorkspace] = React.useState(false);
   const [showInviteMembers, setShowInviteMembers] = React.useState(false);
@@ -220,14 +222,14 @@ export const Sidebar = () => {
 
   if (loading) {
     return (
-      <div className="w-60 bg-[#161616] border-r border-[#262626] flex flex-col items-center justify-center">
+      <div className={`w-60 bg-[#161616] border-r border-[#262626] flex flex-col items-center justify-center ${className}`}>
         <div className="text-gray-400">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className="w-60 bg-[#161616] border-r border-[#262626] flex flex-col">
+    <div className={`w-60 bg-[#161616] border-r border-[#262626] flex flex-col ${className}`}>
       <div className="p-4 border-b border-[#262626]">
         <div className="relative">
           <button
@@ -283,16 +285,12 @@ export const Sidebar = () => {
 
       <nav className="flex-1 px-2 py-4">
         <div className="space-y-1">
-          <NavItem
-            to="/dashboard"
-            icon={<LayoutDashboard />}
-            label="Dashboard"
-          />
-          <NavItem to="/calendar" icon={<CalendarDays />} label="Calendar" />
-          <NavItem to="/issues" icon={<Inbox />} label="Issues" />
-          <NavItem to="/projects" icon={<FolderKanban />} label="Projects" />
-          <NavItem to="/team" icon={<Users />} label="Team" />
-          <NavItem to="/settings" icon={<Settings />} label="Settings" />
+          <NavLink to="/dashboard" icon={<LayoutDashboard />} label="Dashboard" />
+          <NavLink to="/calendar" icon={<CalendarDays />} label="Calendar" />
+          <NavLink to="/issues" icon={<Inbox />} label="Issues" />
+          <NavLink to="/projects" icon={<FolderKanban />} label="Projects" />
+          <NavLink to="/team" icon={<Users />} label="Team" />
+          <NavLink to="/settings" icon={<Settings />} label="Settings" />
         </div>
       </nav>
 
@@ -313,25 +311,22 @@ export const Sidebar = () => {
   );
 };
 
-const NavItem = ({
-  icon,
-  label,
-  to,
-}: {
+const NavLink: React.FC<{
+  to: string;
   icon: React.ReactNode;
   label: string;
-  to: string;
-}) => {
+}> = ({ to, icon, label }) => {
+  const pathname = usePathname();
+  const isActive = pathname === to;
+
   return (
     <Link
       href={to}
-      className={({ isActive }) =>
-        `flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors ${
-          isActive
-            ? "bg-[#262626] text-white"
-            : "text-gray-400 hover:bg-[#1E1E1E] hover:text-white"
-        }`
-      }
+      className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors ${
+        isActive
+          ? "bg-[#262626] text-white"
+          : "text-gray-400 hover:bg-[#1E1E1E] hover:text-white"
+      }`}
     >
       {React.cloneElement(icon as React.ReactElement, { className: "w-4 h-4" })}
       {label}

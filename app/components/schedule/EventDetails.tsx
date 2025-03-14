@@ -1,12 +1,6 @@
+"use-client";
 import { useState } from "react";
-import {
-  X,
-  Clock,
-  MapPin,
-  Plus,
-  Calendar,
-  CheckSquare,
-} from "lucide-react";
+import { X, Clock, MapPin, Plus, Calendar, CheckSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { EventDetail, User } from "../../types/event";
 
@@ -27,7 +21,9 @@ export const EventDetails = ({
 }: EventDetailsProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [newTask, setNewTask] = useState("");
-  const [selectedUserDetails, setSelectedUserDetails] = useState<User | null>(null);
+  const [selectedUserDetails, setSelectedUserDetails] = useState<User | null>(
+    null
+  );
 
   const handleAddTask = () => {
     if (newTask.trim()) {
@@ -167,12 +163,17 @@ export const EventDetails = ({
                   />
                   <span className="text-sm text-white">{attendee.name}</span>
                   {attendee.status && (
-                    <span className={`text-xs ${
-                      attendee.status === "accepted" ? "text-green-400" :
-                      attendee.status === "pending" ? "text-yellow-400" :
-                      attendee.status === "declined" ? "text-red-400" :
-                      "text-gray-400"
-                    }`}>
+                    <span
+                      className={`text-xs ${
+                        attendee.status === "accepted"
+                          ? "text-green-400"
+                          : attendee.status === "pending"
+                          ? "text-yellow-400"
+                          : attendee.status === "declined"
+                          ? "text-red-400"
+                          : "text-gray-400"
+                      }`}
+                    >
                       {attendee.status}
                     </span>
                   )}
@@ -196,7 +197,9 @@ export const EventDetails = ({
                       <div className="text-sm text-gray-400">{item.time}</div>
                     </div>
                     {item.description && (
-                      <p className="text-sm text-gray-400">{item.description}</p>
+                      <p className="text-sm text-gray-400">
+                        {item.description}
+                      </p>
                     )}
                     {item.speaker && (
                       <div className="text-sm text-gray-400">
@@ -230,7 +233,9 @@ export const EventDetails = ({
                   </button>
                   <span
                     className={`flex-1 ${
-                      item.completed ? "line-through text-gray-400" : "text-white"
+                      item.completed
+                        ? "line-through text-gray-400"
+                        : "text-white"
                     }`}
                   >
                     {item.task}
@@ -243,7 +248,8 @@ export const EventDetails = ({
                           ""
                         }
                         alt={
-                          users.find((u) => u.id === item.assignedTo)?.name || ""
+                          users.find((u) => u.id === item.assignedTo)?.name ||
+                          ""
                         }
                         className="w-5 h-5 rounded-full"
                       />
@@ -294,7 +300,9 @@ export const EventDetails = ({
       {isDeleting && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-[#161616] rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold mb-4 text-white">Delete Event</h3>
+            <h3 className="text-lg font-semibold mb-4 text-white">
+              Delete Event
+            </h3>
             <p className="text-gray-400 mb-6">
               Are you sure you want to delete this event? This action cannot be
               undone.

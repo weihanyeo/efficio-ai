@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { User } from 'lucide-react';
+"use-client";
+import React, { useState, useEffect } from "react";
+import { User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from "../../contexts/AuthContext";
 
 export const ProfileSettings = () => {
   const { profile, updateProfile } = useAuth();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [bio, setBio] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [bio, setBio] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (profile) {
-      setName(profile.full_name || ''); 
-      setEmail(profile.email || ''); 
-      setBio(profile.bio || ''); 
+      setName(profile.full_name || "");
+      setEmail(profile.email || "");
+      setBio(profile.bio || "");
     }
   }, [profile]);
 
@@ -46,14 +47,16 @@ export const ProfileSettings = () => {
               Change Avatar
             </button>
           </div>
-          
+
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium mb-2">Full Name</label>
+              <label className="block text-sm font-medium mb-2">
+                Full Name
+              </label>
               <input
                 type="text"
                 // defaultValue="Alice"
-                value={ name }
+                value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
               />
@@ -82,7 +85,7 @@ export const ProfileSettings = () => {
 
           <div className="pt-4">
             <button
-              type="submit" 
+              type="submit"
               className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
               disabled={loading}
             >
