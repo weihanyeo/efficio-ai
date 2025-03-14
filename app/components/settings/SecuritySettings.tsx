@@ -1,4 +1,4 @@
-"use-client";
+"use client"
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Shield, Key, Lock, Fingerprint } from "lucide-react";

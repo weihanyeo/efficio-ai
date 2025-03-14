@@ -1,4 +1,4 @@
-"use-client";
+"use client"
 import React, { useState } from "react";
 import { Trash2, AlertTriangle } from "lucide-react";
 import { useWorkspace } from "../../contexts/WorkspaceContext";

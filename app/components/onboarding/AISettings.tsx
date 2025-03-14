@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Bot, Brain, Sparkles, Settings, Lock } from 'lucide-react';
 

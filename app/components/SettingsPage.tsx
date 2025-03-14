@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Settings, User, Bell, Shield, Palette, Keyboard, Bot, Zap, LogOut, Briefcase } from 'lucide-react';
 import { ProfileSettings } from '../components/settings/ProfileSettings';
 import { NotificationSettings } from '../components/settings/NotificationSettings';
@@ -14,8 +13,7 @@ import { IntegrationSettings } from '../components/settings/IntegrationSettings'
 import { WorkspaceSettings } from '../components/settings/WorkspaceSettings';
 import { useAuth } from '../contexts/AuthContext';
 
-const SettingsNav = () => {
-  const pathname = usePathname();
+const SettingsNav = ({ activeTab, setActiveTab }: { activeTab: string; setActiveTab: (tab: string) => void }) => {
   const { signOut } = useAuth();
   const router = useRouter();
 
@@ -29,14 +27,14 @@ const SettingsNav = () => {
   };
 
   const navItems = [
-    { icon: <User size={16} />, label: 'Profile', path: '/settings/profile' },
-    { icon: <Briefcase size={16} />, label: 'Workspace', path: '/settings/workspace' },
-    { icon: <Bell size={16} />, label: 'Notifications', path: '/settings/notifications' },
-    { icon: <Shield size={16} />, label: 'Security', path: '/settings/security' },
-    { icon: <Palette size={16} />, label: 'Appearance', path: '/settings/appearance' },
-    { icon: <Keyboard size={16} />, label: 'Shortcuts', path: '/settings/shortcuts' },
-    { icon: <Bot size={16} />, label: 'AI Assistant', path: '/settings/ai' },
-    { icon: <Zap size={16} />, label: 'Integrations', path: '/settings/integrations' },
+    { icon: <User size={16} />, label: 'Profile', id: 'profile' },
+    { icon: <Briefcase size={16} />, label: 'Workspace', id: 'workspace' },
+    { icon: <Bell size={16} />, label: 'Notifications', id: 'notifications' },
+    { icon: <Shield size={16} />, label: 'Security', id: 'security' },
+    { icon: <Palette size={16} />, label: 'Appearance', id: 'appearance' },
+    { icon: <Keyboard size={16} />, label: 'Shortcuts', id: 'shortcuts' },
+    { icon: <Bot size={16} />, label: 'AI Assistant', id: 'ai' },
+    { icon: <Zap size={16} />, label: 'Integrations', id: 'integrations' },
   ];
 
   return (
@@ -49,12 +47,12 @@ const SettingsNav = () => {
       </div>
       <div className="p-2">
         {navItems.map((item) => {
-          const isActive = pathname === item.path;
+          const isActive = activeTab === item.id;
           return (
-            <Link
-              key={item.path}
-              href={item.path}
-              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors ${
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors w-full text-left ${
                 isActive
                   ? 'bg-[#262626] text-white'
                   : 'text-gray-400 hover:bg-[#1E1E1E] hover:text-white'
@@ -62,12 +60,12 @@ const SettingsNav = () => {
             >
               {item.icon}
               {item.label}
-            </Link>
+            </button>
           );
         })}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-red-400 hover:bg-[#1E1E1E] hover:text-red-300 mt-4"
+          className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-red-400 hover:bg-[#1E1E1E] hover:text-red-300 mt-4 w-full text-left"
         >
           <LogOut size={16} />
           Sign Out
@@ -78,36 +76,44 @@ const SettingsNav = () => {
 };
 
 export const SettingsPage = () => {
-  const pathname = usePathname();
-  const [activeComponent, setActiveComponent] = useState<React.ReactNode>(null);
+  const [activeTab, setActiveTab] = useState('profile');
+  const [activeComponent, setActiveComponent] = useState<React.ReactNode>(<ProfileSettings />);
 
   useEffect(() => {
-    // Determine which component to render based on the current pathname
-    if (pathname === '/settings/profile' || pathname === '/settings') {
-      setActiveComponent(<ProfileSettings />);
-    } else if (pathname === '/settings/workspace') {
-      setActiveComponent(<WorkspaceSettings />);
-    } else if (pathname === '/settings/notifications') {
-      setActiveComponent(<NotificationSettings />);
-    } else if (pathname === '/settings/security') {
-      setActiveComponent(<SecuritySettings />);
-    } else if (pathname === '/settings/appearance') {
-      setActiveComponent(<AppearanceSettings />);
-    } else if (pathname === '/settings/shortcuts') {
-      setActiveComponent(<ShortcutSettings />);
-    } else if (pathname === '/settings/ai') {
-      setActiveComponent(<AISettings />);
-    } else if (pathname === '/settings/integrations') {
-      setActiveComponent(<IntegrationSettings />);
-    } else {
-      // Default to profile settings if path doesn't match
-      setActiveComponent(<ProfileSettings />);
+    // Determine which component to render based on the active tab
+    switch (activeTab) {
+      case 'profile':
+        setActiveComponent(<ProfileSettings />);
+        break;
+      case 'workspace':
+        setActiveComponent(<WorkspaceSettings />);
+        break;
+      case 'notifications':
+        setActiveComponent(<NotificationSettings />);
+        break;
+      case 'security':
+        setActiveComponent(<SecuritySettings />);
+        break;
+      case 'appearance':
+        setActiveComponent(<AppearanceSettings />);
+        break;
+      case 'shortcuts':
+        setActiveComponent(<ShortcutSettings />);
+        break;
+      case 'ai':
+        setActiveComponent(<AISettings />);
+        break;
+      case 'integrations':
+        setActiveComponent(<IntegrationSettings />);
+        break;
+      default:
+        setActiveComponent(<ProfileSettings />);
     }
-  }, [pathname]);
+  }, [activeTab]);
 
   return (
     <div className="flex-1 flex overflow-hidden">
-      <SettingsNav />
+      <SettingsNav activeTab={activeTab} setActiveTab={setActiveTab} />
       <div className="flex-1 overflow-auto">
         {activeComponent}
       </div>

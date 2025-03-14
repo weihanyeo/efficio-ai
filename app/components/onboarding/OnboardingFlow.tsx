@@ -1,5 +1,6 @@
+"use client";
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from "next/navigation";
 import { Bot, Rocket, Users, Briefcase, ArrowRight, Check, User } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useWorkspace } from '../../contexts/WorkspaceContext';
@@ -37,13 +38,13 @@ export const OnboardingFlow = () => {
   const [teamEmails, setTeamEmails] = React.useState('');
   const { user, completeOnboarding } = useAuth();
   const { createWorkspace } = useWorkspace();
-  const navigate = useNavigate();
+  const navigate = useRouter();
 
   const handleSubmit = async () => {
     if (currentStep === steps.length - 1) {
       await completeOnboarding();
       // Final step - redirect to dashboard
-      navigate('/dashboard');
+      navigate.push('/dashboard');
       return;
     }
 

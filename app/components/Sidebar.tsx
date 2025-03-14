@@ -17,7 +17,6 @@ import {
   Bot,
 } from "lucide-react";
 import { useWorkspace } from '../contexts/WorkspaceContext';
-import type { Workspace } from '../types';
 
 interface CreateWorkspaceModalProps {
   onClose: () => void;

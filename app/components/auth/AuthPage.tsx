@@ -14,7 +14,7 @@ export const AuthPage = () => {
   const [loading, setLoading] = React.useState(false);
   const navigate = useRouter();
   const location = usePathname();
-  const { signIn, signUp, user } = useAuth();
+  const { signIn, signUp, user, onboardingCompleted } = useAuth();
 
   // Check for signup parameter in URL
   React.useEffect(() => {
@@ -43,9 +43,17 @@ export const AuthPage = () => {
       if (pendingInvite) {
         localStorage.removeItem('pendingInvite');
       }
-      navigate.push(from, { replace: true });
+      
+      // For newly registered users (who haven't completed onboarding),
+      // redirect to onboarding page
+      if (!onboardingCompleted) {
+        navigate.push('/onboarding', { replace: true });
+      } else {
+        // For existing users, redirect to dashboard or the requested page
+        navigate.push(from, { replace: true });
+      }
     }
-  }, [user, from, navigate, pendingInvite]);
+  }, [user, from, navigate, pendingInvite, onboardingCompleted]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,6 +65,7 @@ export const AuthPage = () => {
         await signIn(email, password);
       } else {
         await signUp(email, password, name);
+        // After signup, the user will be redirected to onboarding via the useEffect above
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
