@@ -44,7 +44,15 @@ export const SchedulePage = () => {
 
   const handleCreateEvent = async (newEvent: Omit<EventDetail, "id">) => {
     try {
+      // Log the event being created
+      console.log('Creating new event:', newEvent);
+      
       await createEvent(newEvent);
+      
+      // Force a refresh of the current date to trigger event list update
+      const refreshDate = new Date(currentDate);
+      setCurrentDate(refreshDate);
+      
       setIsCreateEventOpen(false);
     } catch (error) {
       console.error('Failed to create event:', error);

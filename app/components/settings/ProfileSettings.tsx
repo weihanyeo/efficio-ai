@@ -53,7 +53,6 @@ export const ProfileSettings = () => {
               </label>
               <input
                 type="text"
-                // defaultValue="Alice"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
@@ -63,7 +62,6 @@ export const ProfileSettings = () => {
               <label className="block text-sm font-medium mb-2">Email</label>
               <input
                 type="email"
-                defaultValue="alice@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
@@ -73,7 +71,6 @@ export const ProfileSettings = () => {
               <label className="block text-sm font-medium mb-2">Bio</label>
               <textarea
                 rows={4}
-                defaultValue="Senior Software Engineer passionate about building great products."
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"

@@ -107,10 +107,8 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
   };
 
   const handleDateSelect = (date: Date): void => {
-    if (!isPastDate(date)) {
-      setSelectedDate(date);
-      onDateChange(date); // Notify parent component about date change
-    }
+    setSelectedDate(date);
+    onDateChange(date); // Notify parent component about date change
   };
 
   return (
@@ -256,18 +254,14 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
               <motion.div
                 className={`
                 w-8 h-8 flex items-center justify-center rounded-lg
-                ${isPast ? "text-gray-600 cursor-not-allowed" : ""}
+                ${isPast ? "text-gray-600" : ""}
                 ${isSelected ? "bg-purple-600" : ""}
-                ${
-                  (isWeekendDay || isHolidayDate) && !isPast
-                    ? "bg-red-500/20"
-                    : ""
-                }
+                ${(isWeekendDay || isHolidayDate) ? "bg-red-500/20" : ""}
                 ${isToday ? "text-purple-400" : ""}
-                ${!isPast && !isSelected ? "hover:bg-gray-700" : ""}
-              `}
-                whileHover={!isPast ? { scale: 1.1 } : {}}
-                whileTap={!isPast ? { scale: 0.9 } : {}}
+                hover:bg-gray-700
+                `}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
               >
                 {date.getDate()}
               </motion.div>

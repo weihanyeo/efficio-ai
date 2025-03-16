@@ -79,22 +79,43 @@ export const UserFilter = ({
 
   const parseEventDate = (dateString: string): Date => {
     try {
-      // First, try parsing the date in the format "DD-MM-YYYY"
-      const [day, month, year] = dateString.split("-").map(Number);
-      const date = new Date(year, month - 1, day);
-
-      // Validate the date
-      if (isValidDate(date)) {
-        return date;
+      // Check if the date is in the format "DD-MM-YYYY"
+      const ddmmyyyyPattern = /^(\d{2})-(\d{2})-(\d{4})$/;
+      const ddmmyyyyMatch = dateString.match(ddmmyyyyPattern);
+      
+      if (ddmmyyyyMatch) {
+        const [_, day, month, year] = ddmmyyyyMatch;
+        const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+        
+        // Validate the date
+        if (isValidDate(date)) {
+          return date;
+        }
+      }
+      
+      // Check if the date is in the format "YYYY-MM-DD"
+      const yyyymmddPattern = /^(\d{4})-(\d{2})-(\d{2})$/;
+      const yyyymmddMatch = dateString.match(yyyymmddPattern);
+      
+      if (yyyymmddMatch) {
+        const [_, year, month, day] = yyyymmddMatch;
+        const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+        
+        // Validate the date
+        if (isValidDate(date)) {
+          return date;
+        }
       }
 
-      // Fallback to standard date parsing
+      // Try parsing as a standard date string
       const parsedDate = new Date(dateString);
       if (isValidDate(parsedDate)) {
         return parsedDate;
       }
 
-      throw new Error("Invalid date format");
+      // If all else fails, log an error and return current date
+      console.error("Failed to parse date:", dateString);
+      return new Date();
     } catch (error) {
       console.error("Error parsing date:", dateString, error);
       return new Date(); // Return current date as fallback
@@ -164,12 +185,23 @@ export const UserFilter = ({
         const dateRange = getDateRange(dateFilterOption);
 
         if (dateRange.from && dateRange.to) {
-          const eventDate = parseEventDate(event.date);
-
-          matchesDate = isWithinInterval(eventDate, {
-            start: startOfDay(dateRange.from),
-            end: endOfDay(dateRange.to),
-          });
+          try {
+            // Parse the event date and log it for debugging
+            const eventDate = parseEventDate(event.date);
+            console.log(`Event: ${event.title}, Date string: ${event.date}, Parsed date: ${eventDate.toISOString()}`);
+            console.log(`Date range: ${dateRange.from.toISOString()} to ${dateRange.to.toISOString()}`);
+            
+            // Check if the event date is within the range
+            matchesDate = isWithinInterval(eventDate, {
+              start: dateRange.from,
+              end: dateRange.to,
+            });
+            
+            console.log(`Is within interval: ${matchesDate}`);
+          } catch (error) {
+            console.error(`Error filtering date for event ${event.title}:`, error);
+            matchesDate = false;
+          }
         }
       }
 
@@ -203,120 +235,146 @@ export const UserFilter = ({
 
   return (
     <div className="h-full flex flex-col">
-      {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-[#262626]">
         <h2 className="text-lg font-semibold">Filter</h2>
-        <button
+        <motion.button
           onClick={() => setIsOpen(!isOpen)}
           className="p-1 hover:bg-[#262626] rounded-lg transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
           {isOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
-        </button>
+        </motion.button>
       </div>
-
-      {/* Content */}
-      {isOpen && (
-        <div className="flex-1 overflow-hidden">
-          {/* Tabs */}
-          <div className="flex border-b border-[#262626]">
-            <button
-              onClick={() => setActiveTab("users")}
-              className={`flex-1 px-4 py-2 text-sm font-medium ${
-                activeTab === "users"
-                  ? "text-white border-b-2 border-purple-500"
-                  : "text-gray-400 hover:text-white"
-              }`}
-            >
-              Users
-            </button>
-            <button
-              onClick={() => setActiveTab("events")}
-              className={`flex-1 px-4 py-2 text-sm font-medium ${
-                activeTab === "events"
-                  ? "text-white border-b-2 border-purple-500"
-                  : "text-gray-400 hover:text-white"
-              }`}
-            >
-              Events
-            </button>
-          </div>
-
-          {/* Search */}
-          <div className="p-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder={`Search ${activeTab}...`}
-                className="w-full pl-10 pr-4 py-2 bg-[#1E1E1E] border border-[#363636] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+  
+      <AnimatePresence mode="wait">
+        {isOpen ? (
+          <motion.div
+            key="expanded"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex-1 overflow-hidden"
+          >
+            <div className="flex border-b border-[#262626]">
+              <motion.button
+                className={`flex-1 px-4 py-2 text-sm font-medium ${
+                  activeTab === "users"
+                    ? "text-white border-b-2 border-purple-500"
+                    : "text-gray-400 hover:text-white"
+                }`}
+                onClick={() => setActiveTab("users")}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Users
+              </motion.button>
+              <motion.button
+                className={`flex-1 px-4 py-2 text-sm font-medium ${
+                  activeTab === "events"
+                    ? "text-white border-b-2 border-purple-500"
+                    : "text-gray-400 hover:text-white"
+                }`}
+                onClick={() => setActiveTab("events")}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                Events
+              </motion.button>
             </div>
-          </div>
-
-          {/* Filter Content */}
-          <div className="flex-1 overflow-y-auto p-4">
-            {activeTab === "users" ? (
-              <div className="space-y-2">
-                {filteredUsers.map((user) => (
-                  <button
-                    key={user.id}
-                    onClick={() => toggleUser(user.id)}
-                    className={`w-full flex items-center gap-3 p-2 rounded-lg transition-colors ${
-                      selectedUsers.has(user.id)
-                        ? "bg-purple-500/20 text-white"
-                        : "hover:bg-[#262626] text-gray-400 hover:text-white"
-                    }`}
+  
+            <div className="p-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                <input
+                  type="text"
+                  placeholder={`Search ${activeTab}...`}
+                  className="w-full pl-10 pr-4 py-2 bg-[#1E1E1E] border border-[#363636] rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+  
+            <div className="flex-1 overflow-y-auto p-4">
+              <AnimatePresence mode="wait">
+                {activeTab === "users" ? (
+                  <motion.div
+                    key="users"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-2"
                   >
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="w-8 h-8 rounded-full"
-                    />
-                    <div className="flex-1 text-left">
-                      <div className="font-medium">{user.name}</div>
-                      <div className="text-sm text-gray-400">
-                        {user.eventCount || 0} events
+                    {filteredUsers.map((user) => (
+                      <motion.button
+                        key={user.id}
+                        onClick={() => toggleUser(user.id)}
+                        className={`w-full flex items-center gap-3 p-2 rounded-lg transition-colors ${
+                          selectedUsers.has(user.id)
+                            ? "bg-purple-500/20 text-white"
+                            : "hover:bg-[#262626] text-gray-400 hover:text-white"
+                        }`}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <img
+                          src={user.avatar}
+                          alt={user.name}
+                          className="w-8 h-8 rounded-full"
+                        />
+                        <div className="flex-1 text-left">
+                          <div className="font-medium">{user.name}</div>
+                          <div className="text-sm text-gray-400">
+                            {user.eventCount || 0} events
+                          </div>
+                        </div>
+                      </motion.button>
+                    ))}
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="events"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-4"
+                  >
+                    {/* Event Type Filter */}
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <Filter size={16} className="text-gray-400" />
+                        <h3 className="text-sm font-medium">Event Type</h3>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        {eventTypes.map((type) => (
+                          <button
+                            key={type}
+                            onClick={() => {
+                              const newFilter = new Set(eventTypeFilter);
+                              if (newFilter.has(type)) {
+                                newFilter.delete(type);
+                              } else {
+                                newFilter.add(type);
+                              }
+                              setEventTypeFilter(newFilter);
+                            }}
+                            className={`p-2 rounded-lg text-sm transition-colors ${
+                              eventTypeFilter.has(type)
+                                ? "bg-purple-500/20 text-white"
+                                : "bg-[#262626] text-gray-400 hover:text-white"
+                            }`}
+                          >
+                            {type.charAt(0).toUpperCase() + type.slice(1)}
+                          </button>
+                        ))}
                       </div>
                     </div>
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {/* Event Type Filter */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <Filter size={16} className="text-gray-400" />
-                    <h3 className="text-sm font-medium">Event Type</h3>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {eventTypes.map((type) => (
-                      <button
-                        key={type}
-                        onClick={() => {
-                          const newFilter = new Set(eventTypeFilter);
-                          if (newFilter.has(type)) {
-                            newFilter.delete(type);
-                          } else {
-                            newFilter.add(type);
-                          }
-                          setEventTypeFilter(newFilter);
-                        }}
-                        className={`p-2 rounded-lg text-sm transition-colors ${
-                          eventTypeFilter.has(type)
-                            ? "bg-purple-500/20 text-white"
-                            : "bg-[#262626] text-gray-400 hover:text-white"
-                        }`}
-                      >
-                        {type.charAt(0).toUpperCase() + type.slice(1)}
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
-                {/* Date Filter */}
+                    {/* Date Filter */}
                 <div>
                   <div className="flex items-center gap-2 mb-2">
                     <Calendar size={16} className="text-gray-400" />
@@ -338,7 +396,6 @@ export const UserFilter = ({
                       <option value="custom">Custom Range</option>
                     </select>
 
-                    <AnimatePresence>
                       {dateFilterOption === "custom" && (
                         <motion.div
                           initial={{ opacity: 0, height: 0 }}
@@ -382,7 +439,6 @@ export const UserFilter = ({
                           </div>
                         </motion.div>
                       )}
-                    </AnimatePresence>
 
                     {dateFilterOption !== "all" &&
                       dateFilterOption !== "custom" && (
@@ -414,9 +470,8 @@ export const UserFilter = ({
                       )}
                   </div>
                 </div>
-
-                {/* Filtered Events */}
-                <div className="space-y-2">
+{/* Filtered Events */}
+<div className="space-y-2">
                   {filteredEvents.map((event) => (
                     <motion.div
                       key={event.id}
@@ -450,11 +505,45 @@ export const UserFilter = ({
                     </motion.div>
                   ))}
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="collapsed"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="flex-1 space-y-2 pt-3"
+          >
+            {filteredUsers.map((user, index) => (
+              <motion.button
+                key={user.id}
+                onClick={() => toggleUser(user.id)}
+                className="w-full flex justify-center p-2"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+              >
+                <img
+                  src={user.avatar}
+                  alt={user.name}
+                  className={`w-12 h-12 rounded-full transition-all ${
+                    selectedUsers.has(user.id)
+                      ? "ring-4 ring-purple-500"
+                      : "hover:ring-2 hover:ring-[#363636]"
+                  }`}
+                />
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

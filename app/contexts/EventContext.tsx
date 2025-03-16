@@ -14,7 +14,7 @@ interface EventContextType {
   error: Error | null;
   setSelectedUsers: (users: Set<string>) => void;
   setCurrentDate: (date: Date) => void;
-  createEvent: (eventData: Omit<EventDetail, 'id'>) => Promise<void>;
+  createEvent: (eventData: Omit<EventDetail, 'id'>) => Promise<string>;
   updateEvent: (eventId: string, eventData: Partial<EventDetail>) => Promise<void>;
   deleteEvent: (eventId: string) => Promise<void>;
 }
@@ -72,9 +72,15 @@ export const EventProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     try {
       setError(null);
-      const eventId = await createEventQuery(currentWorkspace.id, eventData);
-      const newEvent: EventDetail = { ...eventData, id: eventId };
+      const eventResult = await createEventQuery(currentWorkspace.id, eventData);
+      // Use the complete event data returned from createEventQuery
+      const newEvent: EventDetail = { 
+        ...eventData, 
+        id: eventResult.id 
+      };
+      console.log("Adding new event to state:", newEvent);
       setEvents(prev => [...prev, newEvent]);
+      return newEvent.id;
     } catch (err) {
       setError(err instanceof Error ? err : new Error('Failed to create event'));
       throw err;
