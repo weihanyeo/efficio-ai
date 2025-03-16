@@ -39,7 +39,7 @@ export const createInviteCode = async (params: CreateInviteParams): Promise<Crea
     if (error) throw error;
     
     // Get the site URL from environment or fallback to localhost
-    const siteUrl = import.meta.env.VITE_PUBLIC_SITE_URL || 'http://localhost:5173';
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
     
     // Create the invite URL
     const inviteUrl = `${siteUrl}/invite/${data.token}`;
@@ -97,7 +97,7 @@ export const acceptInvite = async (
     
     // Call the Edge Function to accept the invite
     const response = await fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/accept-invite`,
+      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/accept-invite`,
       {
         method: 'POST',
         headers: {
