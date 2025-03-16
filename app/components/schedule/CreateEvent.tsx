@@ -121,7 +121,7 @@ export const CreateEvent = ({
       const endTime = new Date(`${eventDetail.date}T${eventDetail.endTime}`);
 
       if (startTime >= endTime) {
-        newWarnings.time = "Start time must be before end time    .";
+        newWarnings.time = "Start time must be before end time";
       }
 
       // Check event duration (optional warning)
@@ -152,11 +152,11 @@ export const CreateEvent = ({
         : null;
 
       if (
-        (startHour !== null && (startHour < 7 || startHour >= 22)) ||
-        (endHour !== null && (endHour < 7 || endHour > 22))
+        (startHour !== null && (startHour < 7 || startHour >= 21)) ||
+        (endHour !== null && (endHour < 7 || endHour > 21))
       ) {
         newWarnings.businessHours =
-          "Event is scheduled outside business hours (7 AM - 10 PM)";
+          "Event is scheduled outside business hours (7 AM - 9 PM)";
       }
     }
 
@@ -269,6 +269,13 @@ export const CreateEvent = ({
   // Helper component for displaying warnings
   const WarningMessage = ({ message }: { message: string }) => (
     <div className="flex items-center gap-2 text-amber-400 text-sm mt-1 animate-fadeIn">
+      <AlertTriangle size={14} />
+      <span>{message}</span>
+    </div>
+  );
+
+  const ErrorMessage = ({ message }: { message: string }) => (
+    <div className="flex items-center gap-2 text-red-400 text-sm mt-1 animate-fadeIn">
       <AlertTriangle size={14} />
       <span>{message}</span>
     </div>
@@ -479,15 +486,14 @@ export const CreateEvent = ({
                     </div>
                   </div>
 
-                  {/* Business hours warning - keep this one as requested */}
-                  {warnings.businessHours && (
-                    <div className="bg-amber-400/10 border border-amber-400/30 rounded-lg p-3">
-                      <div className="flex items-center gap-2 text-amber-400">
-                        <AlertTriangle size={16} />
-                        <span className="text-sm">{warnings.businessHours}</span>
-                      </div>
-                    </div>
-                  )}
+                  <div className="space-y-2">
+                    {warnings.time && <WarningMessage message={warnings.time} />}
+                    {warnings.businessHours && <WarningMessage message={warnings.businessHours} />}
+                    {warnings.duration && <WarningMessage message={warnings.duration} />}
+                    {warnings.pastEvent && <WarningMessage message={warnings.pastEvent} />}
+                    {warnings.date && <WarningMessage message={warnings.date} />}
+                    {warnings.title && <WarningMessage message={warnings.title} />}
+                  </div>
 
                   {/* Location */}
                   <div>

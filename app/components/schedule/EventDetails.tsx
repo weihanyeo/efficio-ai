@@ -303,7 +303,7 @@ export const EventDetails = ({
             <h3 className="text-lg font-semibold mb-4 text-white">
               Delete Event
             </h3>
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-400 mb-6 text-wrap">
               Are you sure you want to delete this event? This action cannot be
               undone.
             </p>

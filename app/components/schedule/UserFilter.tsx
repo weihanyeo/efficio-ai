@@ -255,7 +255,7 @@ export const UserFilter = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="flex-1 overflow-hidden"
+            className="flex-1 overflow-y-auto"
           >
             <div className="flex border-b border-[#262626]">
               <motion.button

@@ -10,8 +10,8 @@ import type { Project } from '../types';
 import { ProjectDetail } from './ProjectDetail';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { showSuccess, showError } from "./utils/toast";
+import { ToastContainer } from "./ToastContainer";
 
 const formatStatus = (status: string) => {
   switch (status) {
@@ -493,10 +493,10 @@ export const ProjectsPage = () => {
   const handleDeleteProject = async (projectId: string) => {
     try {
       await deleteProject(projectId);
-      toast.success('Project deleted successfully');
+      showSuccess('Project deleted successfully');
       setContextMenu(null); // Close the context menu
     } catch (error) {
-      toast.error('Failed to delete project');
+      showError('Failed to delete project');
     }
   };
 
@@ -843,6 +843,17 @@ export const ProjectsPage = () => {
         {/* Date editing modal */}
         <DateEditModal />
       </div>
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 };
