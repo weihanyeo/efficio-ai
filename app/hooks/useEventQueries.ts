@@ -148,6 +148,11 @@ export const useEventQueries = () => {
         workspace_id: workspaceId
       });
 
+      // Get the current user's ID
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) throw new Error('User not authenticated');
+
       const { data: eventData, error: eventError } = await supabase
         .from('events')
         .insert({
@@ -160,6 +165,7 @@ export const useEventQueries = () => {
           type: event.type,
           color: event.color,
           workspace_id: workspaceId,
+          user_id: user.id, // Add the user_id field to associate the event with the current user
         })
         .select()
         .single();
@@ -354,60 +360,45 @@ export const useEventQueries = () => {
         }
       }
 
-      // Update checklist items if changed
+      // Update checklist items if provided
       if (eventData.checklist) {
         try {
-          // For checklist items, we'll take a different approach
-          // First, get the event details to ensure we have access
-          const { data: eventDetails, error: eventError } = await supabase
-            .from('events')
-            .select('*')
-            .eq('id', eventId)
-            .single();
+          console.log("Updating checklist items for event:", eventId);
+          
+          // Delete existing items first
+          const { error: deleteError } = await supabase
+            .from('event_checklist_items')
+            .delete()
+            .eq('event_id', eventId);
             
-          if (eventError) {
-            console.error("Error fetching event details:", eventError);
-            throw eventError;
+          if (deleteError) {
+            console.error("Error deleting checklist items:", deleteError);
+            throw deleteError;
           }
           
-          // Now handle the checklist items through a custom RPC function
-          // This avoids direct RLS issues by using a server-side function
-          const { error: checklistError } = await supabase.rpc('update_event_checklist', {
-            p_event_id: eventId,
-            p_checklist_items: eventData.checklist.map(item => ({
-              id: item.id || null,
-              task: item.task,
-              completed: item.completed || false,
-              assigned_to: item.assignedTo || null
-            }))
-          });
+          // If there are no new items, we're done
+          if (eventData.checklist.length === 0) {
+            return;
+          }
           
-          if (checklistError) {
-            console.error("Error updating checklist via RPC:", checklistError);
+          // Insert new items
+          const { error: insertError } = await supabase
+            .from('event_checklist_items')
+            .insert(
+              eventData.checklist.map(item => ({
+                event_id: eventId,
+                task: item.task,
+                completed: item.completed || false,
+                assigned_to: item.assignedTo || null
+              }))
+            );
             
-            // Fallback approach if RPC isn't available
-            console.log("Using fallback approach for checklist items");
+          if (insertError) {
+            console.error("Error inserting checklist items:", insertError);
             
-            // Delete existing items first
-            const { error: deleteError } = await supabase
-              .from('event_checklist_items')
-              .delete()
-              .eq('event_id', eventId);
-              
-            if (deleteError) {
-              console.error("Fallback: Error deleting checklist items:", deleteError);
-              throw deleteError;
-            }
-            
-            // If there are no new items, we're done
-            if (eventData.checklist.length === 0) {
-              return;
-            }
-            
-            // Try to insert items individually with more context
+            // Try to insert items individually if bulk insert fails
             for (const item of eventData.checklist) {
-              // Use the event's owner for the checklist item
-              const { error: insertError } = await supabase
+              const { error: singleInsertError } = await supabase
                 .from('event_checklist_items')
                 .insert({
                   event_id: eventId,
@@ -416,8 +407,8 @@ export const useEventQueries = () => {
                   assigned_to: item.assignedTo || null
                 });
                 
-              if (insertError) {
-                console.error("Fallback: Error inserting checklist item:", insertError);
+              if (singleInsertError) {
+                console.error("Error inserting individual checklist item:", singleInsertError);
                 // Continue trying other items instead of failing completely
               }
             }

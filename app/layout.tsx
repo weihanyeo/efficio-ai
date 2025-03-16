@@ -5,6 +5,7 @@ import { WorkspaceProvider } from "./contexts/WorkspaceContext";
 import { ProjectProvider } from "./contexts/ProjectContext";
 import { EventProvider } from "./contexts/EventContext";
 import { Layout } from "./components/Layout";
+import { ToastContainer } from './components/ToastContainer';
 
 export const metadata = {
   title: "Efficio AI",
@@ -25,6 +26,7 @@ export default function RootLayout({
               <EventProvider>
                 <Layout className="flex flex-grow">
                   <main className="flex-1 bg-[#0D0D0D] overflow-y-auto">
+                  <ToastContainer />
                     {children}
                   </main>
                 </Layout>

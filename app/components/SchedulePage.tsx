@@ -9,6 +9,8 @@ import { CreateEvent } from "./schedule/CreateEvent";
 import { parseEventDate, isSameDate } from "./utils/dateUtils";
 import { useEvents } from "../contexts/EventContext";
 import type { EventDetail } from "../types/event";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const SchedulePage = () => {
   const { events, users, selectedUsers, setSelectedUsers, currentDate, setCurrentDate, createEvent, updateEvent, deleteEvent } = useEvents();
@@ -28,17 +30,35 @@ export const SchedulePage = () => {
     try {
       await deleteEvent(eventId);
       setSelectedEvent(null);
+      toast.success("Event deleted successfully!", {
+        autoClose: 3000,
+      });
     } catch (error) {
       console.error('Failed to delete event:', error);
+      toast.error("Failed to delete event. Please try again.", {
+        autoClose: 5000,
+      });
     }
   };
 
   const handleUpdateEvent = async (updatedEvent: EventDetail) => {
     try {
       await updateEvent(updatedEvent.id, updatedEvent);
-      setSelectedEvent(null);
+      
+      // Update the selected event instead of closing the detail view
+      setSelectedEvent(updatedEvent);
+      
+      // Show a success toast for the update
+      toast.success("Event updated successfully!", {
+        autoClose: 3000,
+      });
     } catch (error) {
       console.error('Failed to update event:', error);
+      
+      // Show error toast
+      toast.error("Failed to update event. Please try again.", {
+        autoClose: 5000,
+      });
     }
   };
 
@@ -49,13 +69,50 @@ export const SchedulePage = () => {
       
       await createEvent(newEvent);
       
+      // Show success toast after event is created
+      toast.success("Event created successfully!", {
+        autoClose: 5000, // 5 seconds duration
+        position: "top-right",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        style: {
+          background: "rgba(30, 30, 30, 0.9)",
+          backdropFilter: "blur(12px)",
+          color: "#ffffff",
+          borderLeft: "4px solid #10b981",
+          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+          fontWeight: 500,
+          borderRadius: "8px",
+          padding: "16px",
+        },
+      });
+      
       // Force a refresh of the current date to trigger event list update
       const refreshDate = new Date(currentDate);
       setCurrentDate(refreshDate);
-      
-      setIsCreateEventOpen(false);
     } catch (error) {
       console.error('Failed to create event:', error);
+      
+      // Show error toast
+      toast.error("Failed to create event. Please try again.", {
+        autoClose: 5000,
+        position: "top-right",
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        style: {
+          background: "rgba(30, 30, 30, 0.9)",
+          backdropFilter: "blur(12px)",
+          color: "#ffffff",
+          borderLeft: "5px solid #ef4444",
+          boxShadow: "0 6px 20px rgba(255, 50, 50, 0.4)",
+          fontWeight: 600,
+          borderRadius: "12px",
+        },
+      });
     }
   };
 
@@ -139,6 +196,17 @@ export const SchedulePage = () => {
           users={users}
         />
       </div>
+      <ToastContainer 
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 };

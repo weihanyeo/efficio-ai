@@ -14,8 +14,6 @@ import {
 import { motion } from "framer-motion";
 import { EventDetail, User, ChecklistItem } from "../../types/event";
 import { formatEventDate } from "../utils/dateUtils";
-import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 interface CreateEventProps {
   isOpen: boolean;
@@ -182,85 +180,9 @@ export const CreateEvent = ({
     if (warnings.pastEvent) criticalErrors.push(warnings.pastEvent);
     if (warnings.date) criticalErrors.push(warnings.date);
 
-    // If there are critical errors, show toast and prevent submission
+    // If there are critical errors, prevent submission
     if (criticalErrors.length > 0) {
-      criticalErrors.forEach((error) => {
-        toast.error(error, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          style: {
-            background: "rgba(30, 30, 30, 0.8)", // Glass effect
-            backdropFilter: "blur(12px)", // Smooth blurred background
-            color: "#ffffff",
-            borderLeft: "5px solid #DC2626",
-            boxShadow: "0 6px 20px rgba(255, 50, 50, 0.4)", // Stronger depth
-            fontWeight: 600,
-            borderRadius: "12px",
-            padding: "16px",
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            maxWidth: "400px", // Prevents content from being too wide
-            wordWrap: "break-word", // Ensures long text wraps properly
-            whiteSpace: "normal", // Prevents text from cutting off
-          },
-          progressStyle: {
-            background: "linear-gradient(to right, #ff3d3d, #ff6b6b)",
-            height: "5px",
-            borderRadius: "4px",
-          },
-          icon: "🚨",
-          className: "toast-animation",// lol i cant remove this..
-        });            
-      });
       return;
-    }
-
-    // Show warnings as toasts but allow submission
-    if (warnings.businessHours) {
-      toast.warning(warnings.businessHours, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        style: {
-          background: "#1E1E1E",
-          color: "#ffffff",
-          borderLeft: "4px solid #f59e0b",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-          fontWeight: 500,
-          borderRadius: "8px",
-        },
-        progressStyle: {
-          background: "linear-gradient(to right, #f59e0b, #fbbf24)",
-        },
-        icon: true,
-      });
-    }
-
-    if (warnings.duration) {
-      toast.info(warnings.duration, {
-        position: "top-right",
-        autoClose: 5000,
-        style: {
-          background: "#1E1E1E",
-          color: "#ffffff",
-          borderLeft: "4px solid #3b82f6",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-          fontWeight: 500,
-          borderRadius: "8px",
-        },
-        progressStyle: {
-          background: "linear-gradient(to right, #3b82f6, #60a5fa)",
-        },
-        icon: true,
-      });
     }
 
     // Validate required fields before submission
@@ -269,65 +191,79 @@ export const CreateEvent = ({
       return;
     }
 
-    // Show success toast
-    toast.success("Event created successfully!", {
-      position: "top-right",
-      autoClose: 3000,
-      style: {
-        background: "#1E1E1E",
-        color: "#ffffff",
-        borderLeft: "4px solid #10b981",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-        fontWeight: 500,
-        borderRadius: "8px",
-      },
-      progressStyle: {
-        background: "linear-gradient(to right, #10b981, #34d399)",
-      },
-      icon: true,
-    });
-
+    // Submit the event data to parent component
     onSubmit(eventDetail);
+    
+    // Close the modal immediately after submission
+    onClose();
+  };
+
+  // Helper function to check if event is outside business hours
+  const checkBusinessHours = (startTime: string, endTime: string): string | null => {
+    if (!startTime || !endTime) return null;
+    
+    const startParts = startTime.split(':');
+    const endParts = endTime.split(':');
+    
+    if (startParts.length !== 2 || endParts.length !== 2) return null;
+    
+    const startHour = parseInt(startParts[0]);
+    const endHour = parseInt(endParts[0]);
+    
+    // Define business hours (9 AM to 6 PM)
+    const businessStartHour = 9;
+    const businessEndHour = 18;
+    
+    if (startHour < businessStartHour || endHour > businessEndHour) {
+      return "This event is scheduled outside of regular business hours (9 AM - 6 PM).";
+    }
+    
+    return null;
   };
 
   // Validate required fields and set appropriate warnings
   const validateRequiredFields = () => {
-    const newWarnings: {
-      date?: string;
-      time?: string;
-      businessHours?: string;
-      title?: string;
-    } = { ...warnings };
+    const requiredFields = {
+      title: "Event title is required",
+      date: "Event date is required",
+      startTime: "Start time is required",
+      endTime: "End time is required",
+    };
 
-    let isValid = true;
+    const errors: string[] = [];
+    Object.entries(requiredFields).forEach(([field, message]) => {
+      if (!eventDetail[field as keyof typeof eventDetail]) {
+        errors.push(message);
+      }
+    });
 
-    // Check title
-    if (!eventDetail.title.trim()) {
-      newWarnings.title = "Title is required";
-      isValid = false;
+    if (errors.length > 0) {
+      return false;
     }
 
-    // Check date
-    if (!eventDetail.date) {
-      newWarnings.date = "Date is required";
-      isValid = false;
+    // Check if end time is after start time
+    if (eventDetail.startTime && eventDetail.endTime) {
+      const startParts = eventDetail.startTime.split(':');
+      const endParts = eventDetail.endTime.split(':');
+      
+      if (startParts.length === 2 && endParts.length === 2) {
+        const startHour = parseInt(startParts[0]);
+        const startMinute = parseInt(startParts[1]);
+        const endHour = parseInt(endParts[0]);
+        const endMinute = parseInt(endParts[1]);
+        
+        if (endHour < startHour || (endHour === startHour && endMinute <= startMinute)) {
+          return false;
+        }
+      }
     }
 
-    // Check start and end times
-    if (!eventDetail.startTime) {
-      newWarnings.time = "Start time is required";
-      isValid = false;
-    }
+    // Check for business hours warning
+    const warnings = {
+      businessHours: checkBusinessHours(eventDetail.startTime, eventDetail.endTime)
+    };
 
-    if (!eventDetail.endTime) {
-      newWarnings.time = newWarnings.time
-        ? "Start and end times are required"
-        : "End time is required";
-      isValid = false;
-    }
-
-    setWarnings(newWarnings);
-    return isValid;
+    return true;
   };
 
   // Helper component for displaying warnings
@@ -389,18 +325,6 @@ export const CreateEvent = ({
     
     // If it's the creator, don't allow removal
     if (isCreator) {
-      toast.info("You cannot remove yourself as an attendee", {
-        position: "top-right",
-        autoClose: 3000,
-        style: {
-          background: "#1E1E1E",
-          color: "#ffffff",
-          borderLeft: "4px solid #3b82f6",
-          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-          fontWeight: 500,
-          borderRadius: "8px",
-        },
-      });
       return;
     }
     
@@ -416,15 +340,11 @@ export const CreateEvent = ({
 
   return (
     <>
-      <ToastContainer
-        theme="dark"
-        toastClassName="rounded-lg"
-        closeButton={false}
-      />
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
+        transition={{ duration: 0.15 }}
         className="fixed inset-0 z-50 bg-black/50 overflow-y-auto py-6"
       >
         <div className="min-h-screen flex items-center justify-center">

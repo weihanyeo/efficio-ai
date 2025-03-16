@@ -71,9 +71,9 @@ export const EventDetails = ({
   };
 
   return (
-    <div className="bg-[#161616] rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden">
+    <div className="bg-[#161616] rounded-lg shadow-xl w-full max-w-2xl flex flex-col max-h-[90vh]">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-[#262626]">
+      <div className="flex items-center justify-between p-6 border-b border-[#262626] flex-shrink-0">
         <h2 className="text-xl font-semibold text-white">{event.title}</h2>
         <button
           onClick={onClose}
@@ -83,8 +83,8 @@ export const EventDetails = ({
         </button>
       </div>
 
-      {/* Content */}
-      <div className="p-6 overflow-y-auto max-h-[calc(90vh-80px)]">
+      {/* Content - Make this scrollable */}
+      <div className="p-6 overflow-y-auto flex-grow">
         <div className="space-y-6">
           {/* Date and Time */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -286,8 +286,8 @@ export const EventDetails = ({
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="flex justify-end gap-4 p-6 border-t border-[#262626]">
+      {/* Footer - Keep this fixed at the bottom */}
+      <div className="flex justify-end gap-4 p-6 border-t border-[#262626] flex-shrink-0 bg-[#161616] sticky bottom-0">
         <button
           onClick={handleDeleteClick}
           className="px-4 py-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
