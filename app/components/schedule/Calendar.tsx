@@ -113,7 +113,7 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
 
   return (
     <motion.div
-      className="bg-black text-white p-4"
+      className="bg-secondary text-foreground p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
@@ -121,7 +121,7 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
       <div className="flex justify-between items-center mb-2">
         <motion.button
           onClick={() => navigateWeek("prev")}
-          className="p-2 hover:bg-gray-700 rounded-full transition-colors"
+          className="p-2 hover:bg-muted rounded-full transition-colors text-foreground"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -135,7 +135,7 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
                 setIsMonthOpen(!isMonthOpen);
                 setIsYearOpen(false);
               }}
-              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+              className="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-muted transition-colors text-foreground"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -149,15 +149,15 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-full mt-1 bg-gray-800 rounded-lg shadow-lg overflow-hidden z-50"
+                  className="absolute top-full mt-1 bg-card rounded-lg shadow-lg overflow-hidden z-50"
                 >
                   <div className="max-h-60 overflow-y-auto flex flex-col">
                     {months.map((month, index) => (
                       <motion.button
                         key={month}
                         onClick={() => handleMonthSelect(index)}
-                        className="w-full px-4 py-2 text-left hover:bg-gray-700 transition-colors"
-                        whileHover={{ backgroundColor: "#374151" }}
+                        className="w-full px-4 py-2 text-left hover:bg-muted transition-colors text-foreground"
+                        whileHover={{ backgroundColor: "var(--muted)" }}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.03 }}
@@ -178,7 +178,7 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
                 setIsYearOpen(!isYearOpen);
                 setIsMonthOpen(false);
               }}
-              className="px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
+              className="px-4 py-2 rounded-lg hover:bg-muted transition-colors text-foreground"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -191,15 +191,15 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.2 }}
-                  className="absolute top-full mt-1 bg-gray-800 rounded-lg shadow-lg overflow-hidden z-50"
+                  className="absolute top-full mt-1 bg-card rounded-lg shadow-lg overflow-hidden z-50"
                 >
                   <div className="max-h-60 overflow-y-auto flex flex-col">
                     {years.map((year, index) => (
                       <motion.button
                         key={year}
                         onClick={() => handleYearSelect(year)}
-                        className="w-full px-4 py-2 text-left hover:bg-gray-700 transition-colors"
-                        whileHover={{ backgroundColor: "#374151" }}
+                        className="w-full px-4 py-2 text-left hover:bg-muted transition-colors text-foreground"
+                        whileHover={{ backgroundColor: "var(--muted)" }}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.03 }}
@@ -215,7 +215,7 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
         </div>
         <motion.button
           onClick={() => navigateWeek("next")}
-          className="p-2 hover:bg-gray-700 rounded-full transition-colors"
+          className="p-2 hover:bg-muted rounded-full transition-colors text-foreground"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
@@ -248,17 +248,21 @@ export const Calendar = ({ events, onDateChange }: CalendarProps) => {
               transition={{ delay: index * 0.05 }}
               whileHover={!isPast ? { scale: 1.1 } : {}}
             >
-              <motion.div className="text-sm text-gray-400 mb-1">
+              <motion.div className="text-sm text-muted-foreground mb-1">
                 {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][index]}
               </motion.div>
               <motion.div
                 className={`
-                w-8 h-8 flex items-center justify-center rounded-lg
-                ${isPast ? "text-gray-600" : ""}
-                ${isSelected ? "bg-purple-600" : ""}
-                ${(isWeekendDay || isHolidayDate) ? "bg-red-500/20" : ""}
-                ${isToday ? "text-purple-400" : ""}
-                hover:bg-gray-700
+                w-8 h-8 flex items-center justify-center rounded-lg 
+                ${isPast ? "text-muted-foreground/50 " : "text-foreground"}
+                ${isSelected 
+                  ? "bg-primary text-primary-foreground font-medium" 
+                  : (isWeekendDay || isHolidayDate) 
+                    ? "bg-destructive/20" 
+                    : ""
+                }
+                ${isToday && !isSelected ? "text-primary font-bold" : ""}
+                hover:bg-muted
                 `}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}

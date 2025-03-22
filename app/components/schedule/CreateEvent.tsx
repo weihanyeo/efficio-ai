@@ -268,14 +268,14 @@ export const CreateEvent = ({
 
   // Helper component for displaying warnings
   const WarningMessage = ({ message }: { message: string }) => (
-    <div className="flex items-center gap-2 text-amber-400 text-sm mt-1 animate-fadeIn">
+    <div className="flex items-center gap-2 text-warning text-sm mt-1 animate-fadeIn">
       <AlertTriangle size={14} />
       <span>{message}</span>
     </div>
   );
 
   const ErrorMessage = ({ message }: { message: string }) => (
-    <div className="flex items-center gap-2 text-red-400 text-sm mt-1 animate-fadeIn">
+    <div className="flex items-center gap-2 text-destructive text-sm mt-1 animate-fadeIn">
       <AlertTriangle size={14} />
       <span>{message}</span>
     </div>
@@ -355,17 +355,17 @@ export const CreateEvent = ({
         className="fixed inset-0 z-50 bg-black/50 overflow-y-auto py-6"
       >
         <div className="min-h-screen flex items-center justify-center">
-          <div className="bg-[#161616] rounded-lg shadow-xl w-full max-w-2xl mx-4">
+          <div className="bg-card rounded-lg shadow-xl w-full max-w-2xl mx-4">
             <form onSubmit={handleSubmit}>
               {/* Header - Fixed */}
-              <div className="sticky top-0 z-10 bg-[#161616] flex items-center justify-between p-6 border-b border-[#262626]">
-                <h2 className="text-xl font-semibold text-white">
+              <div className="sticky top-0 z-10 bg-card flex items-center justify-between p-6 border-b border-border">
+                <h2 className="text-xl font-semibold text-foreground">
                   Create Event
                 </h2>
                 <button
                   type="button"
                   onClick={onClose}
-                  className="p-2 hover:bg-[#262626] rounded-lg transition-colors"
+                  className="p-2 hover:bg-muted rounded-lg transition-colors"
                 >
                   <X size={20} />
                 </button>
@@ -376,7 +376,7 @@ export const CreateEvent = ({
                 <div className="space-y-6">
                   {/* Title */}
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-300">
+                    <label className="block text-sm font-medium mb-1 text-muted-foreground">
                       Title
                     </label>
                     <input
@@ -388,11 +388,11 @@ export const CreateEvent = ({
                           title: e.target.value,
                         })
                       }
-                      className={`w-full bg-[#1E1E1E] rounded-lg p-3 border ${
+                      className={`w-full bg-muted rounded-lg p-3 border ${
                         formSubmitted && warnings.title
-                          ? "border-amber-400"
-                          : "border-[#363636]"
-                      } text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors`}
+                          ? "border-warning"
+                          : "border-border"
+                      } text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors`}
                       required
                     />
                   </div>
@@ -400,7 +400,7 @@ export const CreateEvent = ({
                   {/* Date and Time */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <label className="block text-sm font-medium mb-1 text-gray-300">
+                      <label className="block text-sm font-medium mb-1 text-muted-foreground">
                         Date
                       </label>
                       <div className="relative">
@@ -414,23 +414,23 @@ export const CreateEvent = ({
                                 date: e.target.value,
                               })
                             }
-                            className={`w-full bg-[#1E1E1E] rounded-lg p-3 pl-10 border ${
+                            className={`w-full bg-muted rounded-lg p-3 pl-10 border ${
                               formSubmitted && warnings.date
-                                ? "border-amber-400"
-                                : "border-[#363636]"
-                            } text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors`}
+                                ? "border-warning"
+                                : "border-border"
+                            } text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors`}
                             required
                           />
                           <Calendar
                             size={16}
-                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
                           />
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-1 text-gray-300">
+                      <label className="block text-sm font-medium mb-1 text-muted-foreground">
                         Start Time
                       </label>
                       <div className="relative">
@@ -443,22 +443,22 @@ export const CreateEvent = ({
                               startTime: e.target.value,
                             })
                           }
-                          className={`w-full bg-[#1E1E1E] rounded-lg p-3 pl-10 border ${
+                          className={`w-full bg-muted rounded-lg p-3 pl-10 border ${
                             formSubmitted && (warnings.time || warnings.businessHours)
-                              ? "border-amber-400"
-                              : "border-[#363636]"
-                          } text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors`}
+                              ? "border-warning"
+                              : "border-border"
+                          } text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors`}
                           required
                         />
                         <Clock
                           size={16}
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-1 text-gray-300">
+                      <label className="block text-sm font-medium mb-1 text-muted-foreground">
                         End Time
                       </label>
                       <div className="relative">
@@ -471,16 +471,16 @@ export const CreateEvent = ({
                               endTime: e.target.value,
                             })
                           }
-                          className={`w-full bg-[#1E1E1E] rounded-lg p-3 pl-10 border ${
+                          className={`w-full bg-muted rounded-lg p-3 pl-10 border ${
                             formSubmitted && (warnings.time || warnings.businessHours)
-                              ? "border-amber-400"
-                              : "border-[#363636]"
-                          } text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors`}
+                              ? "border-warning"
+                              : "border-border"
+                          } text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors`}
                           required
                         />
                         <Clock
                           size={16}
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
                         />
                       </div>
                     </div>
@@ -497,7 +497,7 @@ export const CreateEvent = ({
 
                   {/* Location */}
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-300">
+                    <label className="block text-sm font-medium mb-1 text-muted-foreground">
                       Location
                     </label>
                     <div className="relative">
@@ -510,18 +510,18 @@ export const CreateEvent = ({
                             location: e.target.value,
                           })
                         }
-                        className="w-full bg-[#1E1E1E] rounded-lg p-3 pl-10 border border-[#363636] text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                        className="w-full bg-muted rounded-lg p-3 pl-10 border border-border text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                       />
                       <MapPin
                         size={16}
-                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                        className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
                       />
                     </div>
                   </div>
 
                   {/* Description */}
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-300">
+                    <label className="block text-sm font-medium mb-1 text-muted-foreground">
                       Description
                     </label>
                     <textarea
@@ -533,13 +533,13 @@ export const CreateEvent = ({
                         })
                       }
                       rows={3}
-                      className="w-full bg-[#1E1E1E] rounded-lg p-3 border border-[#363636] text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                      className="w-full bg-muted rounded-lg p-3 border border-border text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                     />
                   </div>
 
                   {/* Event Type */}
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-300">
+                    <label className="block text-sm font-medium mb-1 text-muted-foreground">
                       Event Type
                     </label>
                     <select
@@ -550,7 +550,7 @@ export const CreateEvent = ({
                           type: e.target.value as EventDetail["type"],
                         })
                       }
-                      className="w-full bg-[#1E1E1E] rounded-lg p-3 border border-[#363636] text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                      className="w-full bg-muted rounded-lg p-3 border border-border text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                     >
                       <option value="meeting">Meeting</option>
                       <option value="course">Course</option>
@@ -561,7 +561,7 @@ export const CreateEvent = ({
 
                   {/* Color */}
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-300">
+                    <label className="block text-sm font-medium mb-1 text-muted-foreground">
                       Color
                     </label>
                     <div className="flex gap-2">
@@ -582,7 +582,7 @@ export const CreateEvent = ({
                           }
                           className={`w-8 h-8 rounded-full ${color} ${
                             eventDetail.color === color
-                              ? "ring-2 ring-offset-2 ring-offset-[#161616] ring-white"
+                              ? "ring-2 ring-offset-2 ring-offset-card ring-foreground"
                               : ""
                           }`}
                         />
@@ -592,7 +592,7 @@ export const CreateEvent = ({
 
                   {/* Attendees */}
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-300">
+                    <label className="block text-sm font-medium mb-1 text-muted-foreground">
                       Attendees
                     </label>
                     <div className="relative">
@@ -600,7 +600,7 @@ export const CreateEvent = ({
                         {eventDetail.attendees.map((attendee) => (
                           <div
                             key={attendee.id}
-                            className="flex items-center gap-2 bg-[#262626] rounded-full pl-2 pr-3 py-1"
+                            className="flex items-center gap-2 bg-muted rounded-full pl-2 pr-3 py-1"
                           >
                             <img
                               src={attendee.avatar}
@@ -613,7 +613,7 @@ export const CreateEvent = ({
                               <button
                                 type="button"
                                 onClick={() => handleRemoveUser(attendee.id)}
-                                className="text-gray-400 hover:text-white"
+                                className="text-muted-foreground hover:text-foreground"
                               >
                                 <X size={14} />
                               </button>
@@ -630,7 +630,7 @@ export const CreateEvent = ({
                             if (user) handleUserSelect(user);
                           }}
                           value=""
-                          className="w-full bg-[#1E1E1E] rounded-lg p-3 pl-10 border border-[#363636] text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                          className="w-full bg-muted rounded-lg p-3 pl-10 border border-border text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                         >
                           <option value="">Add attendee</option>
                           {users
@@ -651,7 +651,7 @@ export const CreateEvent = ({
                         </select>
                         <Users
                           size={16}
-                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                          className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground"
                         />
                       </div>
                     </div>
@@ -659,28 +659,28 @@ export const CreateEvent = ({
 
                   {/* Checklist */}
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-300">
+                    <label className="block text-sm font-medium mb-1 text-muted-foreground">
                       Checklist
                     </label>
                     <div className="space-y-2">
                       {eventDetail.checklist.map((item) => (
                         <div
                           key={item.id}
-                          className="flex items-center gap-2 bg-[#262626] rounded-lg p-2"
+                          className="flex items-center gap-2 bg-muted rounded-lg p-2"
                         >
                           <CheckSquare
                             size={16}
                             className={
                               item.completed
                                 ? "text-green-500"
-                                : "text-gray-400"
+                                : "text-muted-foreground"
                             }
                           />
                           <span className="flex-1">{item.task}</span>
                           <button
                             type="button"
                             onClick={() => handleRemoveTask(item.id)}
-                            className="text-gray-400 hover:text-white"
+                            className="text-muted-foreground hover:text-foreground"
                           >
                             <Trash size={14} />
                           </button>
@@ -694,13 +694,13 @@ export const CreateEvent = ({
                           onKeyPress={(e) =>
                             e.key === "Enter" && handleAddTask()
                           }
-                          className="flex-1 bg-[#1E1E1E] rounded-lg p-2 border border-[#363636] text-white focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                          className="flex-1 bg-muted rounded-lg p-2 border border-border text-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
                           placeholder="Add task"
                         />
                         <button
                           type="button"
                           onClick={handleAddTask}
-                          className="p-2 bg-[#262626] hover:bg-[#363636] rounded-lg transition-colors"
+                          className="p-2 bg-muted hover:bg-muted-foreground rounded-lg transition-colors"
                         >
                           <Plus size={20} />
                         </button>
@@ -711,17 +711,17 @@ export const CreateEvent = ({
               </div>
 
               {/* Footer - Fixed */}
-              <div className="sticky bottom-0 z-10 bg-[#161616] flex items-center justify-end gap-3 p-6 border-t border-[#262626]">
+              <div className="sticky bottom-0 z-10 bg-card flex items-center justify-end gap-3 p-6 border-t border-border">
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 text-gray-300 hover:text-white transition-colors"
+                  className="px-4 py-2 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition-colors"
+                  className="px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary-foreground transition-colors"
                 >
                   Create Event
                 </button>

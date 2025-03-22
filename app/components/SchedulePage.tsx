@@ -89,14 +89,14 @@ export const SchedulePage = () => {
   });
 
   return (
-    <div className="flex-1 flex flex-col min-h-screen bg-[#161616] text-white relative max-w-full overflow-hidden whitespace-nowrap">
+    <div className="flex-1 flex flex-col min-h-screen bg-background text-foreground relative max-w-full overflow-hidden whitespace-nowrap">
       {/* Calendar Section */}
       <Calendar events={events} onDateChange={setCurrentDate} />
       <div className="flex h-[calc(100vh-80px)]">
         {/* Main Content Area */}
         <div className="flex flex-1 overflow-hidden">
           {/* User Filter Sidebar */}
-          <div className="w-70 border-r border-gray-800 p-4">
+          <div className="w-70 border-r border-border p-4">
             <UserFilter
               users={users}
               selectedUsers={selectedUsers}
@@ -123,16 +123,16 @@ export const SchedulePage = () => {
         {/* Floating Create Event Button */}
         <button
           onClick={() => setIsCreateEventOpen(true)}
-          className="fixed bottom-6 left-6 z-20 flex items-center gap-2 px-4 py-3 bg-purple-600 rounded-full hover:bg-purple-400 transition-colors shadow-lg hover:shadow-xl"
+          className="fixed bottom-6 left-6 z-20 flex items-center gap-2 px-4 py-3 bg-primary hover:bg-primary/80 rounded-full transition-colors shadow-lg hover:shadow-xl"
         >
           <Plus size={20} />
-          <span>Create Event</span>
+          <span className="text-primary-foreground text-bold">Create Event</span>
         </button>
 
         {/* Event Details Modal */}
         {selectedEvent && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-background/50 backdrop-blur-sm flex items-center justify-center z-50"
             onClick={handleCloseEventDetails}
           >
             <div onClick={(e) => e.stopPropagation()}>

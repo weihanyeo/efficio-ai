@@ -71,13 +71,13 @@ export const EventDetails = ({
   };
 
   return (
-    <div className="bg-[#161616] rounded-lg shadow-xl w-full max-w-2xl flex flex-col max-h-[90vh]">
+    <div className="bg-card rounded-lg shadow-xl w-full max-w-2xl flex flex-col max-h-[90vh]">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-[#262626] flex-shrink-0">
-        <h2 className="text-xl font-semibold text-white">{event.title}</h2>
+      <div className="flex items-center justify-between p-6 border-b border-border flex-shrink-0">
+        <h2 className="text-xl font-semibold text-foreground">{event.title}</h2>
         <button
           onClick={onClose}
-          className="p-2 hover:bg-[#262626] rounded-lg transition-colors"
+          className="p-2 hover:bg-muted rounded-lg transition-colors"
         >
           <X size={20} />
         </button>
@@ -89,17 +89,17 @@ export const EventDetails = ({
           {/* Date and Time */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-center gap-3">
-              <Calendar size={20} className="text-gray-400" />
+              <Calendar size={20} className="text-muted-foreground" />
               <div>
-                <div className="text-sm text-gray-400">Date</div>
-                <div className="text-white">{event.date}</div>
+                <div className="text-sm text-muted-foreground">Date</div>
+                <div className="text-foreground">{event.date}</div>
               </div>
             </div>
             <div className="flex items-center gap-3">
-              <Clock size={20} className="text-gray-400" />
+              <Clock size={20} className="text-muted-foreground" />
               <div>
-                <div className="text-sm text-gray-400">Time</div>
-                <div className="text-white">
+                <div className="text-sm text-muted-foreground">Time</div>
+                <div className="text-foreground">
                   {event.startTime} - {event.endTime}
                 </div>
               </div>
@@ -109,10 +109,10 @@ export const EventDetails = ({
           {/* Location */}
           {event.location && (
             <div className="flex items-center gap-3">
-              <MapPin size={20} className="text-gray-400" />
+              <MapPin size={20} className="text-muted-foreground" />
               <div>
-                <div className="text-sm text-gray-400">Location</div>
-                <div className="text-white">{event.location}</div>
+                <div className="text-sm text-muted-foreground">Location</div>
+                <div className="text-foreground">{event.location}</div>
               </div>
             </div>
           )}
@@ -120,27 +120,27 @@ export const EventDetails = ({
           {/* Description */}
           {event.description && (
             <div>
-              <h3 className="text-sm text-gray-400 mb-2">Description</h3>
-              <p className="text-white">{event.description}</p>
+              <h3 className="text-sm text-muted-foreground mb-2">Description</h3>
+              <p className="text-foreground">{event.description}</p>
             </div>
           )}
 
           {/* Organizers */}
           <div>
-            <h3 className="text-sm text-gray-400 mb-2">Organizers</h3>
+            <h3 className="text-sm text-muted-foreground mb-2">Organizers</h3>
             <div className="flex flex-wrap gap-2">
               {event.organizers.map((organizer) => (
                 <button
                   key={organizer.id}
                   onClick={() => handleUserClick(organizer)}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-[#262626] rounded-full hover:bg-[#363636] transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-muted rounded-full hover:bg-muted/80 transition-colors"
                 >
                   <img
                     src={organizer.avatar}
                     alt={organizer.name}
                     className="w-5 h-5 rounded-full"
                   />
-                  <span className="text-sm text-white">{organizer.name}</span>
+                  <span className="text-sm text-foreground">{organizer.name}</span>
                 </button>
               ))}
             </div>
@@ -148,30 +148,30 @@ export const EventDetails = ({
 
           {/* Attendees */}
           <div>
-            <h3 className="text-sm text-gray-400 mb-2">Attendees</h3>
+            <h3 className="text-sm text-muted-foreground mb-2">Attendees</h3>
             <div className="flex flex-wrap gap-2">
               {event.attendees.map((attendee) => (
                 <button
                   key={attendee.id}
                   onClick={() => handleUserClick(attendee)}
-                  className="flex items-center gap-2 px-3 py-1.5 bg-[#262626] rounded-full hover:bg-[#363636] transition-colors"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-muted rounded-full hover:bg-muted/80 transition-colors"
                 >
                   <img
                     src={attendee.avatar}
                     alt={attendee.name}
                     className="w-5 h-5 rounded-full"
                   />
-                  <span className="text-sm text-white">{attendee.name}</span>
+                  <span className="text-sm text-foreground">{attendee.name}</span>
                   {attendee.status && (
                     <span
                       className={`text-xs ${
                         attendee.status === "accepted"
-                          ? "text-green-400"
+                          ? "text-success"
                           : attendee.status === "pending"
-                          ? "text-yellow-400"
+                          ? "text-warning"
                           : attendee.status === "declined"
-                          ? "text-red-400"
-                          : "text-gray-400"
+                          ? "text-destructive"
+                          : "text-muted-foreground"
                       }`}
                     >
                       {attendee.status}
@@ -185,24 +185,24 @@ export const EventDetails = ({
           {/* Agenda */}
           {event.agenda.length > 0 && (
             <div>
-              <h3 className="text-sm text-gray-400 mb-2">Agenda</h3>
+              <h3 className="text-sm text-muted-foreground mb-2">Agenda</h3>
               <div className="space-y-2">
                 {event.agenda.map((item) => (
                   <div
                     key={item.id}
-                    className="p-3 bg-[#262626] rounded-lg space-y-1"
+                    className="p-3 bg-muted rounded-lg space-y-1"
                   >
                     <div className="flex items-center justify-between">
-                      <div className="font-medium text-white">{item.title}</div>
-                      <div className="text-sm text-gray-400">{item.time}</div>
+                      <div className="font-medium text-foreground">{item.title}</div>
+                      <div className="text-sm text-muted-foreground">{item.time}</div>
                     </div>
                     {item.description && (
-                      <p className="text-sm text-gray-400">
+                      <p className="text-sm text-muted-foreground">
                         {item.description}
                       </p>
                     )}
                     {item.speaker && (
-                      <div className="text-sm text-gray-400">
+                      <div className="text-sm text-muted-foreground">
                         Speaker: {item.speaker}
                       </div>
                     )}
@@ -214,19 +214,19 @@ export const EventDetails = ({
 
           {/* Checklist */}
           <div>
-            <h3 className="text-sm text-gray-400 mb-2">Checklist</h3>
+            <h3 className="text-sm text-muted-foreground mb-2">Checklist</h3>
             <div className="space-y-2">
               {event.checklist.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center gap-3 p-3 bg-[#262626] rounded-lg"
+                  className="flex items-center gap-3 p-3 bg-muted rounded-lg"
                 >
                   <button
                     onClick={() => handleToggleTask(item.id)}
                     className={`p-1 rounded-md transition-colors ${
                       item.completed
-                        ? "bg-indigo-500 text-white"
-                        : "bg-[#363636] text-gray-400 hover:bg-[#464646]"
+                        ? "bg-indigo-500 text-foreground"
+                        : "bg-muted hover:bg-muted/80 text-muted-foreground"
                     }`}
                   >
                     <CheckSquare size={16} />
@@ -234,8 +234,8 @@ export const EventDetails = ({
                   <span
                     className={`flex-1 ${
                       item.completed
-                        ? "line-through text-gray-400"
-                        : "text-white"
+                        ? "line-through text-muted-foreground"
+                        : "text-foreground"
                     }`}
                   >
                     {item.task}
@@ -253,7 +253,7 @@ export const EventDetails = ({
                         }
                         className="w-5 h-5 rounded-full"
                       />
-                      <span className="text-sm text-gray-400">
+                      <span className="text-sm text-muted-foreground">
                         {users.find((u) => u.id === item.assignedTo)?.name}
                       </span>
                     </div>
@@ -266,7 +266,7 @@ export const EventDetails = ({
                   value={newTask}
                   onChange={(e) => setNewTask(e.target.value)}
                   placeholder="Add a task..."
-                  className="flex-1 bg-[#262626] rounded-lg p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-1 bg-muted rounded-lg p-3 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   onKeyPress={(e) => {
                     if (e.key === "Enter") {
                       e.preventDefault();
@@ -276,7 +276,7 @@ export const EventDetails = ({
                 />
                 <button
                   onClick={handleAddTask}
-                  className="p-3 bg-[#262626] hover:bg-[#363636] rounded-lg transition-colors"
+                  className="p-3 bg-muted hover:bg-muted/80 rounded-lg transition-colors"
                 >
                   <Plus size={20} />
                 </button>
@@ -287,10 +287,10 @@ export const EventDetails = ({
       </div>
 
       {/* Footer - Keep this fixed at the bottom */}
-      <div className="flex justify-end gap-4 p-6 border-t border-[#262626] flex-shrink-0 bg-[#161616] sticky bottom-0">
+      <div className="flex justify-end gap-4 p-6 border-t border-border flex-shrink-0 bg-card sticky bottom-0">
         <button
           onClick={handleDeleteClick}
-          className="px-4 py-2 text-red-400 hover:bg-red-500/10 rounded-lg transition-colors"
+          className="px-4 py-2 text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
         >
           Delete Event
         </button>
@@ -299,24 +299,24 @@ export const EventDetails = ({
       {/* Delete Confirmation Modal */}
       {isDeleting && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-[#161616] rounded-lg p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold mb-4 text-white">
+          <div className="bg-card rounded-lg p-6 max-w-md w-full mx-4">
+            <h3 className="text-lg font-semibold mb-4 text-foreground">
               Delete Event
             </h3>
-            <p className="text-gray-400 mb-6 text-wrap">
+            <p className="text-muted-foreground mb-6 text-wrap">
               Are you sure you want to delete this event? This action cannot be
               undone.
             </p>
             <div className="flex justify-end gap-4">
               <button
                 onClick={handleCancelDelete}
-                className="px-4 py-2 hover:bg-[#262626] rounded-lg transition-colors text-white"
+                className="px-4 py-2 hover:bg-muted rounded-lg transition-colors text-foreground"
               >
                 Cancel
               </button>
               <button
                 onClick={handleConfirmDelete}
-                className="px-4 py-2 bg-red-500 hover:bg-red-600 rounded-lg transition-colors text-white"
+                className="px-4 py-2 bg-destructive hover:bg-destructive/80 rounded-lg transition-colors text-foreground"
               >
                 Delete
               </button>
@@ -333,12 +333,12 @@ export const EventDetails = ({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
-            className="fixed inset-y-0 right-0 w-80 bg-[#161616] border-l border-[#262626] shadow-xl z-50"
+            className="fixed inset-y-0 right-0 w-80 bg-card border-l border-border shadow-xl z-50"
           >
             <div className="p-6">
               <button
                 onClick={handleCloseUserDetails}
-                className="absolute top-4 right-4 p-2 hover:bg-[#262626] rounded-lg transition-colors"
+                className="absolute top-4 right-4 p-2 hover:bg-muted rounded-lg transition-colors"
               >
                 <X size={20} />
               </button>
@@ -348,10 +348,10 @@ export const EventDetails = ({
                   alt={selectedUserDetails.name}
                   className="w-20 h-20 rounded-full mb-4"
                 />
-                <h3 className="text-lg font-semibold mb-1 text-white">
+                <h3 className="text-lg font-semibold mb-1 text-foreground">
                   {selectedUserDetails.name}
                 </h3>
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-muted-foreground">
                   {selectedUserDetails.eventCount || 0} events
                 </div>
               </div>

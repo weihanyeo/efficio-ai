@@ -83,7 +83,7 @@ const AvailabilityIndicator = ({
       {combinedSlots.map((slot, index) => (
         <div
           key={index}
-          className="absolute left-0 right-0 bg-green-500/10"
+          className="absolute left-0 right-0 bg-primary/10"
           style={{
             top: `${slot.start}px`,
             height: `${slot.height}px`,
@@ -170,15 +170,15 @@ export const EventList = ({
       <div className="overflow-auto h-full">
         <div className="min-w-max">
           {/* Header */}
-          <div className="sticky top-0 z-20 bg-[#161616]">
+          <div className="sticky top-0 z-20 bg-card">
             <div className="flex">
-              <div className="w-20 flex-shrink-0 h-14 border-b border-[#262626]" />
+              <div className="w-20 flex-shrink-0 h-14 border-b border-border" />
               <div className="flex-1">
-                <div className="flex border-b border-[#262626]">
+                <div className="flex border-b border-border">
                   {displayUsers.map((user) => (
                     <div
                       key={user.id}
-                      className="flex-1 min-w-[200px] border-l border-[#262626]"
+                      className="flex-1 min-w-[200px] border-l border-border"
                     >
                       <div className="flex items-center gap-2 p-4">
                         <img
@@ -186,7 +186,7 @@ export const EventList = ({
                           alt={user.name}
                           className="w-6 h-6 rounded-full"
                         />
-                        <span className="font-medium text-white">
+                        <span className="font-medium text-foreground">
                           {user.name}
                         </span>
                       </div>
@@ -200,12 +200,12 @@ export const EventList = ({
           {/* Calendar Grid */}
           <div className="flex relative">
             {/* Time Column */}
-            <div className="w-20 flex-shrink-0 sticky left-0 bg-[#161616] z-20">
+            <div className="w-20 flex-shrink-0 sticky left-0 bg-card z-20">
               <AvailabilityIndicator events={events} users={displayUsers} />
               {HOURS.map((hour) => (
                 <div
                   key={hour}
-                  className="h-[100px] relative border-b border-[#262626]/50"
+                  className="h-[100px] relative border-b border-border/50"
                 >
                   <div className="absolute left-4 top-0 -translate-y-2 text-gray-400 text-sm">
                     {hour % 12 || 12}
@@ -224,13 +224,13 @@ export const EventList = ({
                 {displayUsers.map((user) => (
                   <div
                     key={user.id}
-                    className="flex-1 min-w-[200px] border-l border-[#262626] relative"
+                    className="flex-1 min-w-[200px] border-l border-border relative"
                   >
                     {/* Hour Grid Lines */}
                     {HOURS.map((hour, index) => (
                       <div
                         key={hour}
-                        className="absolute left-0 right-0 border-b border-[#262626]/50"
+                        className="absolute left-0 right-0 border-b border-border/50"
                         style={{
                           top: `${index * HOUR_HEIGHT}px`,
                           height: `${HOUR_HEIGHT}px`,
@@ -252,18 +252,18 @@ export const EventList = ({
                             cursor-pointer ${
                               event.color || "bg-indigo-600"
                             } hover:brightness-110 
-                            transition-all shadow-md hover:shadow-lg border border-[#363636]`}
+                            transition-all shadow-md hover:shadow-lg border border-border`}
                           style={{
                             top: `${top}px`,
                             height: `${height}px`,
                             minHeight: "25px",
                           }}
                         >
-                          <div className="font-medium text-sm mb-1 truncate text-white">
+                          <div className="font-medium text-sm mb-1 truncate text-foreground">
                             {event.title}
                           </div>
                           {event.location && (
-                            <div className="flex items-center text-xs text-white/80">
+                            <div className="flex items-center text-xs text-foreground/80">
                               <MapPin size={12} className="mr-1" />
                               <span className="truncate">{event.location}</span>
                             </div>

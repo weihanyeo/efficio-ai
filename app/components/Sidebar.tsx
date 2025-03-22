@@ -41,7 +41,7 @@ const CreateWorkspaceModal = ({
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="w-full max-w-md bg-[#161616] rounded-lg p-6">
+      <div className="w-full max-w-md bg-card rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Create New Workspace</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -52,7 +52,7 @@ const CreateWorkspaceModal = ({
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full px-4 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:border-primary"
               placeholder="e.g., Engineering Team"
               required
             />
@@ -65,7 +65,7 @@ const CreateWorkspaceModal = ({
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
-              className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full px-4 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:border-primary"
               placeholder="What's this workspace for?"
             />
           </div>
@@ -73,13 +73,13 @@ const CreateWorkspaceModal = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+              className="px-4 py-2 bg-secondary text-muted-foreground rounded-md hover:bg-secondary/80"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80"
             >
               Create Workspace
             </button>
@@ -121,7 +121,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="w-full max-w-md bg-[#161616] rounded-lg p-6">
+      <div className="w-full max-w-md bg-card rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Invite Team Members</h2>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
@@ -132,7 +132,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
               value={emails}
               onChange={(e) => setEmails(e.target.value)}
               rows={3}
-              className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full px-4 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:border-primary"
               placeholder="Enter email addresses separated by commas"
             />
           </div>
@@ -146,12 +146,12 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                 type="text"
                 value={inviteLink}
                 readOnly
-                className="flex-1 px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none"
+                className="flex-1 px-4 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none"
               />
               <button
                 type="button"
                 onClick={handleCopy}
-                className="p-2 bg-[#262626] hover:bg-[#363636] rounded-md"
+                className="p-2 bg-secondary hover:bg-secondary/80 rounded-md"
               >
                 {copied ? (
                   <Check className="w-4 h-4 text-green-400" />
@@ -162,9 +162,9 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
             </div>
           </div>
 
-          <div className="p-3 bg-[#1E1E1E] rounded-lg flex items-start gap-2">
-            <Bot className="w-4 h-4 text-indigo-400 mt-1" />
-            <p className="text-xs text-gray-400">
+          <div className="p-3 bg-muted rounded-lg flex items-start gap-2">
+            <Bot className="w-4 h-4 text-primary mt-1" />
+            <p className="text-xs text-muted-foreground">
               Team members will receive an email invitation to join your
               workspace. They can also use the invite link which expires in 7
               days.
@@ -175,13 +175,13 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+              className="px-4 py-2 bg-secondary text-muted-foreground rounded-md hover:bg-secondary/80"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80"
             >
               Send Invites
             </button>
@@ -221,35 +221,35 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className = "" }) =>
 
   if (loading) {
     return (
-      <div className={`w-60 bg-[#161616] border-r border-[#262626] flex flex-col items-center justify-center ${className}`}>
-        <div className="text-gray-400">Loading...</div>
+      <div className={`w-60 bg-card border-r border-border flex flex-col items-center justify-center ${className}`}>
+        <div className="text-muted-foreground">Loading...</div>
       </div>
     );
   }
 
   return (
-    <div className={`w-60 bg-[#161616] border-r border-[#262626] flex flex-col ${className}`}>
-      <div className="p-4 border-b border-[#262626]">
+    <div className={`w-60 bg-card border-r border-border flex flex-col ${className}`}>
+      <div className="p-4 border-b border-border">
         <div className="relative">
           <button
             onClick={() => setIsWorkspaceOpen(!isWorkspaceOpen)}
-            className="w-full p-2 flex items-center justify-between hover:bg-[#262626] rounded-md group transition-colors"
+            className="w-full p-2 flex items-center justify-between hover:bg-secondary rounded-md group transition-colors"
           >
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 bg-indigo-500/20 rounded flex items-center justify-center text-indigo-400 text-sm font-medium">
+              <div className="w-6 h-6 bg-primary/20 rounded flex items-center justify-center text-primary text-sm font-medium">
                 {currentWorkspace?.name.charAt(0)}
               </div>
               <span className="font-medium">{currentWorkspace?.name}</span>
             </div>
             <ChevronDown
-              className={`w-4 h-4 text-gray-400 transition-transform ${
+              className={`w-4 h-4 text-muted-foreground transition-transform ${
                 isWorkspaceOpen ? "rotate-180" : ""
               }`}
             />
           </button>
 
           {isWorkspaceOpen && (
-            <div className="absolute top-full left-0 right-0 mt-1 bg-[#1E1E1E] border border-[#363636] rounded-md shadow-lg z-50">
+            <div className="absolute top-full left-0 right-0 mt-1 bg-muted border border-border rounded-md shadow-lg z-50">
               <div className="p-1">
                 {workspaces.map((workspace) => (
                   <button
@@ -258,9 +258,9 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className = "" }) =>
                       setCurrentWorkspace(workspace);
                       setIsWorkspaceOpen(false);
                     }}
-                    className="w-full p-2 flex items-center gap-2 rounded hover:bg-[#262626] transition-colors"
+                    className="w-full p-2 flex items-center gap-2 rounded hover:bg-secondary transition-colors"
                   >
-                    <div className="w-6 h-6 bg-indigo-500/20 rounded flex items-center justify-center text-indigo-400 text-sm font-medium">
+                    <div className="w-6 h-6 bg-primary/20 rounded flex items-center justify-center text-primary text-sm font-medium">
                       {workspace.name.charAt(0)}
                     </div>
                     <span className="text-sm">{workspace.name}</span>
@@ -271,7 +271,7 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className = "" }) =>
                     setIsWorkspaceOpen(false);
                     setShowCreateWorkspace(true);
                   }}
-                  className="w-full mt-1 p-2 flex items-center gap-2 rounded hover:bg-[#262626] transition-colors border-t border-[#363636] text-gray-400"
+                  className="w-full mt-1 p-2 flex items-center gap-2 rounded hover:bg-secondary transition-colors border-t border-border text-muted-foreground"
                 >
                   <Plus className="w-4 h-4" />
                   <span className="text-sm">Create Workspace</span>
@@ -282,8 +282,8 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className = "" }) =>
         </div>
       </div>
 
-      <nav className="flex-1 px-2 py-4">
-        <div className="space-y-1">
+      <nav className="flex-1 px-3 py-6">
+        <div className="space-y-2">
           <NavLink to="/dashboard" icon={<LayoutDashboard />} label="Dashboard" />
           <NavLink to="/calendar" icon={<CalendarDays />} label="Calendar" />
           <NavLink to="/issues" icon={<Inbox />} label="Issues" />
@@ -312,7 +312,7 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className = "" }) =>
 
 const NavLink: React.FC<{
   to: string;
-  icon: React.ReactNode;
+  icon: React.ReactElement;
   label: string;
 }> = ({ to, icon, label }) => {
   const pathname = usePathname();
@@ -321,13 +321,13 @@ const NavLink: React.FC<{
   return (
     <Link
       href={to}
-      className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors ${
+      className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-md transition-colors ${
         isActive
-          ? "bg-[#262626] text-white"
-          : "text-gray-400 hover:bg-[#1E1E1E] hover:text-white"
+          ? "bg-primary text-primary-foreground"
+          : "text-foreground hover:bg-muted hover:text-foreground"
       }`}
     >
-      {React.cloneElement(icon as React.ReactElement, { className: "w-4 h-4" })}
+      <span className="w-5 h-5">{icon}</span>
       {label}
     </Link>
   );
