@@ -1,27 +1,29 @@
 "use client"
 import React, { useEffect, useState } from "react";
 import { Moon, Sun, Monitor } from "lucide-react";
+import { showSuccess, showError } from "../utils/toast";
+import { ToastContainer } from "../ToastContainer";
 
 export const AppearanceSettings = () => {
-  const [theme, setTheme] = useState<"light" | "dark" | "system">("system");
-  const [fontSize, setFontSize] = useState<number>(16);
-
-  // Initialize theme and font size from localStorage on component mount
-  useEffect(() => {
-    // Get theme preference from localStorage or default to system
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" | null;
-    if (savedTheme) {
-      setTheme(savedTheme);
+  // Initialize state with a function to get the value from localStorage on initial render
+  const [theme, setTheme] = useState<"light" | "dark" | "system">(() => {
+    // Only run in browser environment
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem("theme") as "light" | "dark" | "system" | null;
+      return savedTheme || "system";
     }
-
-    // Get font size preference from localStorage or default to 16
-    const savedFontSize = localStorage.getItem("fontSize");
-    if (savedFontSize) {
-      setFontSize(parseInt(savedFontSize));
+    return "system";
+  });
+  
+  const [fontSize, setFontSize] = useState<number>(() => {
+    // Only run in browser environment
+    if (typeof window !== 'undefined') {
+      const savedFontSize = localStorage.getItem("fontSize");
+      return savedFontSize ? parseInt(savedFontSize) : 16;
     }
-  }, []);
+    return 16;
+  });
 
-  // Apply theme changes
   useEffect(() => {
     // Save theme preference to localStorage
     localStorage.setItem("theme", theme);
@@ -65,13 +67,6 @@ export const AppearanceSettings = () => {
     setFontSize(parseInt(e.target.value));
   };
 
-  // Handle save preferences
-  const handleSavePreferences = () => {
-    // Preferences are already saved in localStorage via useEffect hooks
-    // This is just for UX feedback
-    alert("Preferences saved successfully!");
-  };
-
   return (
     <div className="p-6">
       <h2 className="text-xl font-semibold mb-6">Appearance</h2>
@@ -112,23 +107,35 @@ export const AppearanceSettings = () => {
         </div>
 
         {/* Font Size */}
-        <div className="space-y-2">
-          <label className="block text-sm font-medium">Font Size</label>
-          <div className="flex items-center gap-4">
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <label className="text-sm font-medium text-foreground">Font Size</label>
+            <span className="text-sm font-semibold text-muted-foreground">
+              {fontSize}px
+            </span>
+          </div>
+          <div className="relative w-full">
             <input
               type="range"
               min="12"
               max="20"
               value={fontSize}
               onChange={handleFontSizeChange}
-              className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+              className="w-full h-2 bg-muted rounded-full appearance-none cursor-pointer 
+                [&::-webkit-slider-thumb]:appearance-none 
+                [&::-webkit-slider-thumb]:w-4 
+                [&::-webkit-slider-thumb]:h-4 
+                [&::-webkit-slider-thumb]:bg-primary 
+                [&::-webkit-slider-thumb]:rounded-full 
+                [&::-webkit-slider-thumb]:shadow-md
+                hover:[&::-webkit-slider-thumb]:scale-110
+                transition-transform"
             />
-            <span className="text-sm font-medium min-w-[40px]">{fontSize}px</span>
-          </div>
-          <div className="flex justify-between text-sm text-gray-400">
-            <span>Small</span>
-            <span>Medium</span>
-            <span>Large</span>
+            <div className="flex justify-between text-xs text-muted-foreground mt-2">
+              <span>Small</span>
+              <span>Medium</span>
+              <span>Large</span>
+            </div>
           </div>
         </div>
 
@@ -147,14 +154,6 @@ export const AppearanceSettings = () => {
           </div>
         </div>
 
-        <div className="pt-4">
-          <button 
-            className="px-4 py-2 bg-indigo-600 text-primary-foreground rounded-md hover:bg-indigo-700"
-            onClick={handleSavePreferences}
-          >
-            Save Preferences
-          </button>
-        </div>
       </div>
     </div>
   );
