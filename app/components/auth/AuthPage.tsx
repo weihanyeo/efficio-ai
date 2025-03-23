@@ -75,18 +75,18 @@ export const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-foreground flex">
+    <div className="min-h-screen bg-[#0D0D0D] text-white flex">
       {/* Left Panel - Features */}
       <div className="flex-1 p-8 hidden lg:flex flex-col">
         <div className="flex items-center gap-3 mb-12">
-          <Bot className="w-10 h-10 text-primary" />
+          <Bot className="w-10 h-10 text-indigo-400" />
           <h1 className="text-3xl font-bold">Efficio.AI</h1>
         </div>
 
         <div className="flex-1 flex items-center">
           <div className="max-w-xl">
             <div className="relative">
-              <div className="absolute -left-6 -top-6 w-24 h-24 bg-primary-500/20 rounded-full blur-2xl" />
+              <div className="absolute -left-6 -top-6 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl" />
               <div className="absolute right-12 bottom-12 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl" />
               <h2 className="text-4xl font-bold mb-4 leading-tight">
                 Smart Issue Tracking<br />Made Simple
@@ -99,7 +99,7 @@ export const AuthPage = () => {
             <div className="grid grid-cols-2 gap-6">
               {[
                 {
-                  icon: <Brain className="w-6 h-6 text-primary" />,
+                  icon: <Brain className="w-6 h-6 text-indigo-400" />,
                   title: 'Smart Tracking',
                   description: 'AI automatically categorizes and prioritizes issues.'
                 },
@@ -119,8 +119,8 @@ export const AuthPage = () => {
                   description: 'AI-powered analytics and team performance tracking.'
                 }
               ].map((feature, index) => (
-                <div key={index} className="p-4 bg-gradient-to-br from-secondary to-muted rounded-xl border border-border hover:border-[#464646] transition-colors">
-                  <div className="p-2 bg-muted rounded-lg w-fit mb-3">
+                <div key={index} className="p-4 bg-gradient-to-br from-[#1E1E1E] to-[#262626] rounded-xl border border-[#363636] hover:border-[#464646] transition-colors">
+                  <div className="p-2 bg-[#161616] rounded-lg w-fit mb-3">
                     {feature.icon}
                   </div>
                   <h3 className="font-medium mb-2">{feature.title}</h3>
@@ -142,7 +142,7 @@ export const AuthPage = () => {
       </div>
 
       {/* Right Panel - Auth Form */}
-      <div className="w-full max-w-md bg-muted p-12 flex flex-col justify-center relative overflow-hidden">
+      <div className="w-full max-w-md bg-[#161616] p-12 flex flex-col justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/10 to-transparent" />
         
         <div className="relative">
@@ -163,7 +163,7 @@ export const AuthPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+                  className="w-full px-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="Enter your name"
                   required
                 />
@@ -177,7 +177,7 @@ export const AuthPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+                  className="w-full pl-11 pr-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="name@company.com"
                   required
                 />
@@ -192,7 +192,7 @@ export const AuthPage = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-12 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
+                  className="w-full pl-11 pr-12 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="Enter your password"
                   required
                 />
@@ -200,7 +200,7 @@ export const AuthPage = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-muted rounded-md transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-[#262626] rounded-md transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4 text-gray-400" />
@@ -213,7 +213,7 @@ export const AuthPage = () => {
 
             <button
               type="submit"
-              className="w-full py-2.5 bg-primary text-foreground rounded-lg hover:bg-primary/80 flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center justify-center gap-2 transition-colors"
               disabled={loading}
             >
               {loading ? (
@@ -234,24 +234,24 @@ export const AuthPage = () => {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-border" />
+                <div className="w-full border-t border-[#363636]" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-muted text-gray-400">Or continue with</span>
+                <span className="px-2 bg-[#161616] text-gray-400">Or continue with</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-secondary border border-border rounded-lg hover:bg-muted transition-colors"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg hover:bg-[#262626] transition-colors"
               >
                 <Github className="w-5 h-5" />
                 <span className="text-sm">GitHub</span>
               </button>
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-secondary border border-border rounded-lg hover:bg-muted transition-colors"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg hover:bg-[#262626] transition-colors"
               >
                 <Chrome className="w-5 h-5" />
                 <span className="text-sm">Google</span>
@@ -263,7 +263,7 @@ export const AuthPage = () => {
             {isLogin ? "Don't have an account? " : "Already have an account? "}
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="text-primary hover:text-indigo-300 transition-colors"
+              className="text-indigo-400 hover:text-indigo-300 transition-colors"
             >
               {isLogin ? 'Create one' : 'Sign in'}
             </button>
