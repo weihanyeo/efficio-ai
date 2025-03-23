@@ -27,7 +27,7 @@ interface TeamMemberWithProfile extends WorkspaceMember {
 
 interface InviteMemberModalProps {
   onClose: () => void;
-  onInvite: (emails: string[]) => void;
+  onInvite: (emails: string[], role: TeamRole, teamFunction: TeamFunction) => void;
 }
 
 const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
@@ -81,7 +81,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const emailList = emails.split(',').map(email => email.trim()).filter(Boolean);
-    onInvite(emailList);
+    onInvite(emailList, selectedRole, selectedFunction);
     onClose();
   };
 
@@ -687,7 +687,7 @@ export const TeamPage = () => {
     }
   };
 
-  const handleInviteMembers = async (emails: string[]) => {
+  const handleInviteMembers = async (emails: string[], role: TeamRole = 'Member', teamFunction: TeamFunction = 'Engineering') => {
     try {
       if (!currentWorkspace) {
         toast.error('No workspace selected');
@@ -717,8 +717,8 @@ export const TeamPage = () => {
             body: JSON.stringify({
               workspace_id: currentWorkspace.id,
               email,
-              role: 'Member',
-              function: 'Engineering',
+              role: role,
+              function: teamFunction,
             }),
           });
 
@@ -753,9 +753,9 @@ export const TeamPage = () => {
               workspace_name: currentWorkspace.name,
               invite_link: inviteUrl,
               invite_code: inviteData.code || '',
-              role: 'Member',
-              function: 'Engineering',
-              message: `You've been invited to join the ${currentWorkspace.name} workspace on Efficio.AI.`
+              role: role,
+              function: teamFunction,
+              message: `You've been invited to join the ${currentWorkspace.name} workspace on Efficio.AI as a ${role} in the ${teamFunction} function.`
             };
             
             // Send email using EmailJS with proper service and template IDs
