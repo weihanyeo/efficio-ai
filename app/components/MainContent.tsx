@@ -657,7 +657,7 @@ export const MainContent = () => {
       </div>
 
       <main className="flex-1 overflow-auto p-6">
-        <div className="grid grid-cols-1 gap-8 min-h-[200px]">
+        <div className="grid grid-cols-1 gap-8 min-h-[calc(100vh-240px)] y-overflow-auto">
           {/* Backlog Section */}
           {groupedIssues.Backlog && groupedIssues.Backlog.length > 0 && (
             <IssueSection
@@ -824,12 +824,12 @@ export const MainContent = () => {
       )}
       
       {/* Quick Create Issue Bar */}
-      <div className="fixed bottom-0 w-[calc(82%-320px)] p-4 bg-secondary border-t border-muted">
+      <div className="bottom-0 w-full p-4 bg-muted border-t border-muted">
         <div className="flex gap-3">
           <select
             value={quickCreateStatus}
             onChange={(e) => setQuickCreateStatus(e.target.value as Database['public']['Enums']['issue_status'])}
-            className="px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+            className="px-3 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
           >
             <option value="Backlog">Backlog</option>
             <option value="Todo">To Do</option>
@@ -842,7 +842,7 @@ export const MainContent = () => {
             <input
               type="text"
               placeholder="Describe your task... AI will analyze the context and suggest related items"
-              className="w-full pl-4 pr-10 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full pl-4 pr-10 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
               onKeyDown={async (e) => {
                 if (e.key === 'Enter' && e.currentTarget.value.trim()) {
                   const title = e.currentTarget.value.trim();
