@@ -197,13 +197,13 @@ export const ProjectsPage = () => {
             e.stopPropagation();
             setEditingField(isOpen ? null : { projectId: project.id, field: 'status' });
           }}
-          className="flex items-center gap-2 hover:bg-[#404040] rounded px-2 py-1"
+          className="flex items-center gap-2 hover:bg-secondary rounded-md rounded px-2 py-1"
         >
           <StatusIcon status={project.status} />
         </button>
         {isOpen && (
           <div 
-            className="absolute z-10 mt-1 w-48 rounded-md bg-[#262626] shadow-lg ring-1 ring-black ring-opacity-5"
+            className="absolute z-10 mt-1 w-48 rounded-md bg-muted shadow-lg ring-1 ring-black ring-opacity-5"
             style={{ right: 0 }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -214,8 +214,8 @@ export const ProjectsPage = () => {
                   onClick={() => handleFieldEdit(project.id, 'status', status)}
                   className={`flex items-center w-full px-4 py-2 text-sm ${
                     project.status === status 
-                      ? 'bg-[#404040] text-white' 
-                      : 'text-gray-300 hover:bg-[#404040]'
+                      ? 'bg-secondary rounded-md text-foreground' 
+                      : 'text-gray-300 hover:bg-secondary rounded-md'
                   }`}
                   role="menuitem"
                 >
@@ -246,13 +246,13 @@ export const ProjectsPage = () => {
             e.stopPropagation();
             setEditingField(isOpen ? null : { projectId: project.id, field: 'priority' });
           }}
-          className="flex items-center gap-2 hover:bg-[#404040] rounded px-2 py-1"
+          className="flex items-center gap-2 hover:bg-secondary rounded-md rounded px-2 py-1"
         >
           <PriorityBars priority={project.priority} />
         </button>
         {isOpen && (
           <div 
-            className="absolute z-10 mt-1 w-48 rounded-md bg-[#262626] shadow-lg ring-1 ring-black ring-opacity-5"
+            className="absolute z-10 mt-1 w-48 rounded-md bg-muted shadow-lg ring-1 ring-black ring-opacity-5"
             style={{ right: 0 }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -263,8 +263,8 @@ export const ProjectsPage = () => {
                   onClick={() => handleFieldEdit(project.id, 'priority', priority)}
                   className={`flex items-center w-full px-4 py-2 text-sm ${
                     project.priority === priority 
-                      ? 'bg-[#404040] text-white' 
-                      : 'text-gray-300 hover:bg-[#404040]'
+                      ? 'bg-secondary rounded-md text-foreground' 
+                      : 'text-gray-300 hover:bg-secondary rounded-md'
                   }`}
                   role="menuitem"
                 >
@@ -351,12 +351,12 @@ export const ProjectsPage = () => {
 
   // Custom styles for the DatePicker
   const datePickerCustomStyles = {
-    className: "w-full rounded-lg bg-[#262626] border border-gray-600 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
-    calendarClassName: "bg-[#262626] border border-gray-600 rounded-lg shadow-xl !font-sans !z-[100] mx-auto",
+    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500",
+    calendarClassName: "bg-muted border border-gray-600 rounded-lg shadow-xl !font-sans !z-[100] mx-auto",
     dayClassName: (date: Date) => 
-      `hover:!bg-blue-500 hover:!text-white
-      ${date.getMonth() === (endDate?.getMonth() ?? new Date().getMonth()) ? 'text-white' : 'text-gray-500'}`,
-    monthClassName: () => "!text-white",
+      `hover:!bg-blue-500 hover:!text-foreground
+      ${date.getMonth() === (endDate?.getMonth() ?? new Date().getMonth()) ? 'text-foreground' : 'text-gray-500'}`,
+    monthClassName: () => "!text-foreground",
     weekDayClassName: () => "!text-gray-400",
     wrapperClassName: "flex justify-center",
   };
@@ -364,8 +364,8 @@ export const ProjectsPage = () => {
   // Shared DatePicker styles for modals
   const modalDatePickerStyles = {
     ...datePickerCustomStyles,
-    className: "w-full rounded-lg bg-[#262626] border border-gray-600 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
-    calendarClassName: "bg-[#262626] border border-gray-600 rounded-lg shadow-xl !font-sans !z-[100] mx-auto",
+    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500",
+    calendarClassName: "bg-muted border border-gray-600 rounded-lg shadow-xl !font-sans !z-[100] mx-auto",
     wrapperClassName: "flex justify-center w-full",
   };
 
@@ -384,7 +384,7 @@ export const ProjectsPage = () => {
             setDateEditingProject(project);
             setEditingField(null);  // Clear any open dropdowns
           }}
-          className="bg-[#262626] hover:bg-[#404040] border border-[#404040] rounded px-2 py-1 text-sm text-gray-300 w-full text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-muted hover:bg-secondary rounded-md border border-[bg-secondary rounded-md] rounded px-2 py-1 text-sm text-gray-300 w-full text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           {project.end_date ? new Date(project.end_date).toLocaleDateString() : '—'}
         </button>
@@ -418,16 +418,16 @@ export const ProjectsPage = () => {
         />
         <div className="fixed inset-0 flex items-center justify-center p-4 z-50">
           <div 
-            className="w-full max-w-sm transform overflow-visible rounded-2xl bg-[#1A1A1A] p-6 text-left align-middle shadow-xl"
+            className="w-full max-w-sm transform overflow-visible rounded-2xl bg-card p-6 text-left align-middle shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-lg font-medium leading-6 text-white">
+              <h3 className="text-lg font-medium leading-6 text-foreground">
                 Target date
               </h3>
               <button
                 onClick={() => setDateEditingProject(null)}
-                className="text-gray-400 hover:text-white focus:outline-none"
+                className="text-gray-400 hover:text-foreground focus:outline-none"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -436,7 +436,7 @@ export const ProjectsPage = () => {
             <div className="space-y-4">
               <div className="flex justify-center">
                 <div className="w-full">
-                  <div className="bg-[#262626] rounded-lg p-2 mb-4">
+                  <div className="bg-muted rounded-lg p-2 mb-4">
                     <div className="flex items-center justify-between">
                       <span className="text-gray-300">
                         {dateEditingProject.end_date ? new Date(dateEditingProject.end_date).toLocaleDateString() : '—'}
@@ -444,7 +444,7 @@ export const ProjectsPage = () => {
                       {dateEditingProject.end_date && (
                         <button
                           onClick={() => handleDateChange(null)}
-                          className="text-gray-400 hover:text-white"
+                          className="text-gray-400 hover:text-foreground"
                         >
                           <X className="w-4 h-4" />
                         </button>
@@ -568,7 +568,7 @@ export const ProjectsPage = () => {
   return (
     <>
       <div className="flex flex-col h-full w-full">
-        <header className="h-14 border-b border-[#262626] flex items-center justify-between px-6">
+        <header className="h-14 border-b border-muted flex items-center justify-between px-6">
           <h2 className="text-lg font-semibold">Projects</h2>
           <div className="flex items-center gap-4">
             <button
@@ -576,7 +576,7 @@ export const ProjectsPage = () => {
                 setIsModalOpen(true);
                 setEditingField(null);  // Clear any open dropdowns
               }}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2"
+              className="bg-indigo-600 hover:bg-indigo-700 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2"
             >
               <Plus className="w-4 h-4" />
               New Project
@@ -605,10 +605,10 @@ export const ProjectsPage = () => {
                       setEditingField(null);  // Clear any open dropdowns
                     }}
                     onContextMenu={(e) => handleContextMenu(e, project.id)}
-                    className="hover:bg-[#404040] cursor-pointer"
+                    className="hover:bg-secondary rounded-md cursor-pointer"
                   >
                     <td className="py-3 px-4">
-                      <div className="font-medium text-white">{project.title}</div>
+                      <div className="font-medium text-foreground">{project.title}</div>
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex justify-center">
@@ -619,7 +619,7 @@ export const ProjectsPage = () => {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center justify-center">
-                        <div className="h-8 w-8 rounded-full bg-[#363636] text-gray-400 flex items-center justify-center">
+                        <div className="h-8 w-8 rounded-full bg-border text-gray-400 flex items-center justify-center">
                           <User className="w-4 h-4" />
                         </div>
                       </div>
@@ -652,12 +652,12 @@ export const ProjectsPage = () => {
 
           {contextMenu && (
             <div
-              className="fixed bg-[#262626] rounded-md shadow-lg py-1 z-50"
+              className="fixed bg-muted rounded-md shadow-lg py-1 z-50"
               style={{ top: contextMenu.y, left: contextMenu.x }}
             >
               <button
                 onClick={() => handleDeleteProject(contextMenu.projectId)}
-                className="w-full px-4 py-2 text-sm text-red-500 hover:bg-[#404040] text-left"
+                className="w-full px-4 py-2 text-sm text-red-500 hover:bg-secondary rounded-md text-left"
               >
                 Delete
               </button>
@@ -679,17 +679,17 @@ export const ProjectsPage = () => {
             <div className="fixed inset-0 bg-black/30 z-40" aria-hidden="true" onClick={handleCloseModal} />
             <div className="fixed inset-0 flex items-center justify-center p-4 z-50">
               <div 
-                className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-[#1A1A1A] p-6 text-left align-middle shadow-xl"
+                className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-card p-6 text-left align-middle shadow-xl"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex justify-between items-center mb-6">
-                  <h3 className="text-2xl font-medium leading-6 text-white flex items-center gap-2">
+                  <h3 className="text-2xl font-medium leading-6 text-foreground flex items-center gap-2">
                     <Plus className="w-6 h-6" />
                     Create New Project
                   </h3>
                   <button
                     onClick={handleCloseModal}
-                    className="text-gray-400 hover:text-white focus:outline-none"
+                    className="text-gray-400 hover:text-foreground focus:outline-none"
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -708,7 +708,7 @@ export const ProjectsPage = () => {
                         setTitle(e.target.value);
                         if (e.target.value.trim()) setTitleError('');
                       }}
-                      className={`w-full rounded-lg bg-[#262626] border ${titleError ? 'border-red-500' : 'border-gray-600'} px-4 py-2 text-white focus:outline-none focus:ring-2 ${titleError ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
+                      className={`w-full rounded-lg bg-muted border ${titleError ? 'border-red-500' : 'border-gray-600'} px-4 py-2 text-foreground focus:outline-none focus:ring-2 ${titleError ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
                     />
                     {titleError && <p className="mt-1 text-sm text-red-500">{titleError}</p>}
                   </div>
@@ -722,7 +722,7 @@ export const ProjectsPage = () => {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       rows={3}
-                      className="w-full rounded-lg bg-[#262626] border border-gray-600 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -777,7 +777,7 @@ export const ProjectsPage = () => {
                         id="status"
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
-                        className="w-full rounded-lg bg-[#262626] border border-gray-600 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       >
                         <option value="Backlog">Backlog</option>
@@ -796,7 +796,7 @@ export const ProjectsPage = () => {
                         id="priority"
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className="w-full rounded-lg bg-[#262626] border border-gray-600 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
                         required
                       >
                         <option value="NoPriority">No Priority</option>
@@ -819,7 +819,7 @@ export const ProjectsPage = () => {
                     </button>
                     <button
                       type="submit"
-                      className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2"
+                      className="rounded-lg bg-indigo-600 hover:bg-indigo-700 px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2"
                     >
                       <Plus className="w-4 h-4" />
                       Create Project

@@ -22,18 +22,18 @@ export const LandingPage = () => {
   const navigate = useRouter();
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-white">
+    <div className="min-h-screen bg-[#0D0D0D] text-foreground">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0D0D0D]/80 backdrop-blur-lg border-b border-[#262626]">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0D0D0D]/80 backdrop-blur-lg border-b border-muted">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Bot className="w-8 h-8 text-indigo-400" />
             <span className="text-xl font-bold">Efficio.AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm text-gray-400 hover:text-white transition-colors">Features</a>
-            <a href="#how-it-works" className="text-sm text-gray-400 hover:text-white transition-colors">How It Works</a>
-            <a href="#pricing" className="text-sm text-gray-400 hover:text-white transition-colors">Pricing</a>
+            <a href="#features" className="text-sm text-gray-400 hover:text-foreground transition-colors">Features</a>
+            <a href="#how-it-works" className="text-sm text-gray-400 hover:text-foreground transition-colors">How It Works</a>
+            <a href="#pricing" className="text-sm text-gray-400 hover:text-foreground transition-colors">Pricing</a>
             <button
               onClick={() => navigate.push('/auth')}
               className="px-4 py-2 bg-indigo-600 text-sm rounded-lg hover:bg-indigo-700 transition-colors"
@@ -52,7 +52,7 @@ export const LandingPage = () => {
             <div className="absolute right-32 bottom-16 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
             
             <div className="relative text-center max-w-3xl mx-auto">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#161616] rounded-full border border-[#363636] mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-muted rounded-full border border-border mb-6">
                 <Sparkles className="w-4 h-4 text-yellow-400" />
                 <span className="text-sm">Issue Tracking, Reimagined</span>
               </div>
@@ -75,7 +75,7 @@ export const LandingPage = () => {
                 </button>
                 <a
                   href="#how-it-works"
-                  className="w-full sm:w-auto px-8 py-3 bg-[#161616] border border-[#363636] rounded-lg hover:bg-[#262626] transition-colors flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-3 bg-muted border border-border rounded-lg hover:bg-muted transition-colors flex items-center justify-center gap-2"
                 >
                   See How It Works
                 </a>
@@ -128,9 +128,9 @@ export const LandingPage = () => {
             ].map((feature, index) => (
               <div
                 key={index}
-                className="p-6 bg-gradient-to-br from-[#161616] to-[#1A1A1A] rounded-xl border border-[#262626] hover:border-[#363636] transition-all group"
+                className="p-6 bg-gradient-to-br from-muted to-[#1A1A1A] rounded-xl border border-muted hover:border-border transition-all group"
               >
-                <div className="p-3 bg-[#1E1E1E] rounded-lg w-fit mb-4 group-hover:scale-110 transition-transform">
+                <div className="p-3 bg-secondary rounded-lg w-fit mb-4 group-hover:scale-110 transition-transform">
                   {feature.icon}
                 </div>
                 <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
@@ -171,7 +171,7 @@ export const LandingPage = () => {
                 <div className="absolute -left-4 -top-4 text-4xl font-bold text-indigo-500/20">
                   {item.step}
                 </div>
-                <div className="p-6 bg-[#161616] rounded-xl border border-[#262626]">
+                <div className="p-6 bg-muted rounded-xl border border-muted">
                   <h3 className="text-xl font-semibold mb-3">{item.title}</h3>
                   <p className="text-gray-400">{item.description}</p>
                 </div>
@@ -210,7 +210,7 @@ export const LandingPage = () => {
                 rating: 5
               }
             ].map((testimonial, index) => (
-              <div key={index} className="p-6 bg-[#161616] rounded-xl border border-[#262626]">
+              <div key={index} className="p-6 bg-muted rounded-xl border border-muted">
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
@@ -230,7 +230,7 @@ export const LandingPage = () => {
       {/* Pricing */}
       <section id="pricing" className="py-20 px-6 bg-[#0F0F0F]">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#161616] rounded-full border border-[#363636] mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-muted rounded-full border border-border mb-6">
             <Sparkles className="w-4 h-4 text-yellow-400" />
             <span className="text-sm">Special Launch Offer</span>
           </div>
@@ -240,7 +240,7 @@ export const LandingPage = () => {
             Get full access to all features during our launch period. No credit card required.
           </p>
           
-          <div className="p-8 bg-gradient-to-b from-[#161616] to-[#1A1A1A] rounded-xl border border-[#262626]">
+          <div className="p-8 bg-gradient-to-b from-muted to-[#1A1A1A] rounded-xl border border-muted">
             <div className="flex items-baseline justify-center gap-2 mb-6">
               <span className="text-4xl font-bold">$0</span>
               <span className="text-gray-400">/month</span>
@@ -297,7 +297,7 @@ export const LandingPage = () => {
             </button>
             <a
               href="#pricing"
-              className="w-full sm:w-auto px-8 py-3 bg-[#161616] border border-[#363636] rounded-lg hover:bg-[#262626] transition-colors flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3 bg-muted border border-border rounded-lg hover:bg-muted transition-colors flex items-center justify-center gap-2"
             >
               View Pricing
             </a>
@@ -320,7 +320,7 @@ export const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 bg-[#0F0F0F] border-t border-[#262626]">
+      <footer className="py-12 px-6 bg-[#0F0F0F] border-t border-muted">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
@@ -335,36 +335,36 @@ export const LandingPage = () => {
             <div>
               <h4 className="font-semibold mb-4">Product</h4>
               <ul className="space-y-2">
-                <li><a href="#features" className="text-gray-400 hover:text-white">Features</a></li>
-                <li><a href="#pricing" className="text-gray-400 hover:text-white">Pricing</a></li>
-                <li><a href="#roadmap" className="text-gray-400 hover:text-white">Roadmap</a></li>
+                <li><a href="#features" className="text-gray-400 hover:text-foreground">Features</a></li>
+                <li><a href="#pricing" className="text-gray-400 hover:text-foreground">Pricing</a></li>
+                <li><a href="#roadmap" className="text-gray-400 hover:text-foreground">Roadmap</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
               <ul className="space-y-2">
-                <li><a href="#about" className="text-gray-400 hover:text-white">About</a></li>
-                <li><a href="#blog" className="text-gray-400 hover:text-white">Blog</a></li>
-                <li><a href="#careers" className="text-gray-400 hover:text-white">Careers</a></li>
+                <li><a href="#about" className="text-gray-400 hover:text-foreground">About</a></li>
+                <li><a href="#blog" className="text-gray-400 hover:text-foreground">Blog</a></li>
+                <li><a href="#careers" className="text-gray-400 hover:text-foreground">Careers</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Resources</h4>
               <ul className="space-y-2">
-                <li><a href="#docs" className="text-gray-400 hover:text-white">Documentation</a></li>
-                <li><a href="#help" className="text-gray-400 hover:text-white">Help Center</a></li>
-                <li><a href="#contact" className="text-gray-400 hover:text-white">Contact</a></li>
+                <li><a href="#docs" className="text-gray-400 hover:text-foreground">Documentation</a></li>
+                <li><a href="#help" className="text-gray-400 hover:text-foreground">Help Center</a></li>
+                <li><a href="#contact" className="text-gray-400 hover:text-foreground">Contact</a></li>
               </ul>
             </div>
           </div>
-          <div className="mt-12 pt-8 border-t border-[#262626] flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="mt-12 pt-8 border-t border-muted flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-400">
               © 2024 Efficio.AI. All rights reserved.
             </p>
             <div className="flex items-center gap-6">
-              <a href="#privacy" className="text-sm text-gray-400 hover:text-white">Privacy</a>
-              <a href="#terms" className="text-sm text-gray-400 hover:text-white">Terms</a>
-              <a href="#security" className="text-sm text-gray-400 hover:text-white">Security</a>
+              <a href="#privacy" className="text-sm text-gray-400 hover:text-foreground">Privacy</a>
+              <a href="#terms" className="text-sm text-gray-400 hover:text-foreground">Terms</a>
+              <a href="#security" className="text-sm text-gray-400 hover:text-foreground">Security</a>
             </div>
           </div>
         </div>

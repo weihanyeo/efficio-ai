@@ -10,7 +10,8 @@ import {
   Tag,
   GitCommit,
   Send,
-  Trash2
+  Trash2,
+  X
 } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import type { Issue, Comment, Profile, IssueLabel, DatabaseIssue, SupabaseError } from '../types';
@@ -24,9 +25,9 @@ interface RelatedIssueCardProps {
 }
 
 const RelatedIssueCard = ({ title, status, priority, description }: RelatedIssueCardProps) => (
-  <div className="p-4 bg-[#1E1E1E] rounded-lg hover:bg-[#262626] cursor-pointer transition-colors">
+  <div className="p-4 bg-card border border-border rounded-lg hover:bg-secondary cursor-pointer transition-colors">
     <div className="flex items-start justify-between mb-2">
-      <h4 className="font-medium text-sm">{title}</h4>
+      <h4 className="font-medium text-sm text-foreground">{title}</h4>
       <div className="flex items-center gap-2">
         <span className="px-2 py-0.5 text-xs bg-blue-500/20 text-blue-400 rounded-full">
           {status}
@@ -36,7 +37,7 @@ const RelatedIssueCard = ({ title, status, priority, description }: RelatedIssue
         </span>
       </div>
     </div>
-    <p className="text-sm text-gray-400 line-clamp-2">{description}</p>
+    <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
   </div>
 );
 
@@ -90,7 +91,7 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
         <h3 className="text-sm font-medium">Assignees</h3>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-1 hover:bg-[#262626] rounded-md"
+          className="p-1 hover:bg-muted rounded-md"
         >
           <Users className="w-4 h-4 text-gray-400" />
         </button>
@@ -105,7 +106,7 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
                 className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 group cursor-pointer"
               >
                 {member.full_name.charAt(0)}
-                <div className="hidden group-hover:flex absolute items-center bg-[#262626] text-white text-xs px-2 py-1 rounded -mt-8">
+                <div className="hidden group-hover:flex absolute items-center bg-muted text-foreground text-xs px-2 py-1 rounded -mt-8">
                   {member.full_name}
                 </div>
               </div>
@@ -116,7 +117,7 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
       </div>
 
       {isOpen && (
-        <div className="absolute z-50 mt-2 w-full bg-[#262626] border border-[#363636] rounded-lg shadow-lg">
+        <div className="absolute z-50 mt-2 w-full bg-muted border border-border rounded-lg shadow-lg">
           <div className="p-2 max-h-48 overflow-auto">
             {members.map(member => (
               <button
@@ -125,7 +126,7 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
                   onAssigneeChange(member.id);
                   setIsOpen(false);
                 }}
-                className="w-full flex items-center gap-3 p-2 hover:bg-[#363636] rounded-md group"
+                className="w-full flex items-center gap-3 p-2 hover:bg-border rounded-md group"
               >
                 <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-sm">
                   {member.full_name.charAt(0)}
@@ -453,7 +454,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
   if (loading) {
     return (
       <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-        <div className="text-white">Loading...</div>
+        <div className="text-foreground">Loading...</div>
       </div>
     );
   }
@@ -461,45 +462,42 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
   if (error || !fullIssue) {
     return (
       <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-        <div className="text-white">{error || 'Issue not found'}</div>
+        <div className="text-foreground">{error || 'Issue not found'}</div>
       </div>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={handleBackgroundClick}>
-      <div className="w-full max-w-4xl h-[90vh] bg-[#161616] rounded-lg flex flex-col overflow-hidden">
+    <div className="fixed inset-0 bg-overlay z-50 flex items-center justify-center bg-black/50" onClick={handleBackgroundClick}>
+      <div className="w-full max-w-4xl h-[90vh] bg-background rounded-lg flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="p-4 border-b border-[#262626] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="text-xs text-gray-400">{issue.identifier}</span>
-            <h2 className="text-lg font-semibold">{issue.title}</h2>
+        <div className="border-b border-border">
+          <div className="px-6 py-4 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-foreground">{issue.title}</h2>
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-muted rounded-full text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 hover:bg-[#262626] rounded-md text-gray-400 hover:text-white"
-          >
-            <ChevronDown className="w-5 h-5" />
-          </button>
-        </div>
-
-        {/* Tabs */}
-        <div className="border-b border-[#262626]">
-          <div className="flex px-4">
+          <div className="px-6 pb-2 flex items-center gap-4 border-b border-border">
             <button
               onClick={() => setActiveTab('overview')}
-              className={`px-4 py-2 text-sm font-medium border-b-2 ${activeTab === 'overview'
-                ? 'border-indigo-400 text-indigo-400'
-                : 'border-transparent text-gray-400 hover:text-white'
+              className={`pb-2 text-sm font-medium border-b-2 ${
+                activeTab === 'overview'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
                 }`}
             >
               Overview
             </button>
             <button
               onClick={() => setActiveTab('docs')}
-              className={`px-4 py-2 text-sm font-medium border-b-2 ${activeTab === 'docs'
-                ? 'border-indigo-400 text-indigo-400'
-                : 'border-transparent text-gray-400 hover:text-white'
+              className={`pb-2 text-sm font-medium border-b-2 ${
+                activeTab === 'docs'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-muted-foreground hover:text-foreground'
                 }`}
             >
               Documentation
@@ -525,19 +523,19 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                   </div>
 
                   {/* AI Summary */}
-                  <div className="p-4 bg-[#1E1E1E] rounded-lg border border-[#363636]">
+                  <div className="p-4 bg-secondary rounded-lg border border-border">
                     <h3 className="text-sm font-medium mb-3 flex items-center gap-2">
-                      <Bot className="w-4 h-4 text-indigo-400" />
+                      <Bot className="w-4 h-4 text-primary" />
                       Context Summary
                     </h3>
-                    <p className="text-sm text-gray-300">
+                    <p className="text-sm text-foreground">
                       {issue.ai_summary || 'AI summary not available'}
                     </p>
                   </div>
 
                   {/* Description */}
-                  <div className="prose prose-invert max-w-none">
-                    <p className="text-gray-300">{issue.description}</p>
+                  <div className="prose max-w-none">
+                    <p className="text-foreground">{issue.description}</p>
                   </div>
 
                   {/* Comments */}
@@ -549,19 +547,19 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                         .map((parentComment) => (
                           <div key={parentComment.id} className="space-y-2">
                             {/* Parent Comment */}
-                            <div className="p-4 bg-[#1E1E1E] rounded-lg relative group">
+                            <div className="p-4 bg-secondary rounded-lg relative group">
                               {/* Comment Header */}
                               <div className="flex items-center gap-2 mb-2">
-                                <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                                <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary">
                                   {parentComment.author?.full_name.charAt(0)}
                                 </div>
-                                <span className="text-sm font-medium">
+                                <span className="text-sm font-medium text-foreground">
                                   {parentComment.author?.full_name}
                                   {parentComment.is_edited && !parentComment.is_deleted && (
-                                    <span className="text-xs text-gray-500 ml-2">(edited)</span>
+                                    <span className="text-xs text-muted-foreground ml-2">(edited)</span>
                                   )}
                                 </span>
-                                <span className="text-xs text-gray-500">
+                                <span className="text-xs text-muted-foreground">
                                   {new Date(parentComment.created_at).toLocaleString()}
                                 </span>
 
@@ -575,7 +573,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                           handleEditComment(parentComment.id, newContent);
                                         }
                                       }}
-                                      className="p-1 hover:bg-[#262626] rounded-md text-gray-400 hover:text-white"
+                                      className="p-1 hover:bg-muted rounded-md text-muted-foreground hover:text-foreground"
                                     >
                                       <Edit3 className="w-4 h-4" />
                                     </button>
@@ -585,7 +583,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                           handleDeleteComment(parentComment.id);
                                         }
                                       }}
-                                      className="p-1 hover:bg-[#262626] rounded-md text-gray-400 hover:text-red-400"
+                                      className="p-1 hover:bg-muted rounded-md text-muted-foreground hover:text-destructive"
                                     >
                                       <Trash2 className="w-4 h-4" />
                                     </button>
@@ -594,7 +592,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                               </div>
 
                               {/* Comment Content */}
-                              <p className={`text-sm ${parentComment.is_deleted ? 'text-gray-500 italic' : 'text-gray-300'
+                              <p className={`text-sm ${parentComment.is_deleted ? 'text-muted-foreground italic' : 'text-foreground'
                                 }`}>
                                 {parentComment.is_deleted ? 'This message has been deleted by sender' : parentComment.content}
                               </p>
@@ -603,7 +601,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                               <div className="flex items-center gap-2 mt-2">
                                 <button
                                   onClick={() => setActiveReplyId(activeReplyId === parentComment.id ? null : parentComment.id)}
-                                  className="text-xs text-gray-400 hover:text-white"
+                                  className="text-xs text-muted-foreground hover:text-foreground"
                                 >
                                   Reply
                                 </button>
@@ -619,7 +617,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                       [parentComment.id]: e.target.value
                                     }))}
                                     placeholder="Write a reply..."
-                                    className="flex-1 px-2 py-1 text-sm bg-[#262626] border border-[#363636] rounded-md"
+                                    className="flex-1 px-2 py-1 text-sm bg-muted border border-border rounded-md"
                                     onKeyDown={(e) => {
                                       if (e.key === 'Enter' && !e.shiftKey) {
                                         handleAddComment(replyContents[parentComment.id], parentComment.id);
@@ -632,7 +630,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                       handleAddComment(replyContents[parentComment.id], parentComment.id);
                                       setReplyContents(prev => ({ ...prev, [parentComment.id]: '' }));
                                     }}
-                                    className="px-2 py-1 bg-indigo-600 rounded-md hover:bg-indigo-700 text-sm"
+                                    className="px-2 py-1 bg-indigo-600 rounded-md hover:bg-indigo-700"
                                   >
                                     Send
                                   </button>
@@ -644,8 +642,8 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                             {comments
                               .filter(reply => reply.parent_id === parentComment.id)
                               .map((reply) => (
-                                <div key={reply.id} className="ml-6 border-l-2 border-[#363636] pl-4">
-                                  <div className="p-3 bg-[#1E1E1E] rounded-lg">
+                                <div key={reply.id} className="ml-6 border-l-2 border-border pl-4">
+                                  <div className="p-3 bg-card rounded-lg">
                                     {/* Reply Header */}
                                     <div className="flex items-center gap-2 mb-2">
                                       <div className="w-5 h-5 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-xs">
@@ -671,7 +669,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                                 handleEditComment(reply.id, newContent);
                                               }
                                             }}
-                                            className="p-1 hover:bg-[#262626] rounded-md text-gray-400 hover:text-white"
+                                            className="p-1 hover:bg-muted rounded-md text-gray-400 hover:text-foreground"
                                           >
                                             <Edit3 className="w-4 h-4" />
                                           </button>
@@ -681,7 +679,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                                 handleDeleteComment(reply.id);
                                               }
                                             }}
-                                            className="p-1 hover:bg-[#262626] rounded-md text-gray-400 hover:text-red-400"
+                                            className="p-1 hover:bg-muted rounded-md text-gray-400 hover:text-red-400"
                                           >
                                             <Trash2 className="w-4 h-4" />
                                           </button>
@@ -706,7 +704,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Add a comment..."
-                        className="flex-1 px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                        className="flex-1 px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' && !e.shiftKey) {
                             e.preventDefault();
@@ -716,7 +714,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                       />
                       <button
                         onClick={() => handleAddComment(newComment)}
-                        className="p-2 bg-indigo-600 rounded-md hover:bg-indigo-700"
+                        className="p-2 bg-indigo-600 rounded-md hover:bg-indigo-700 text-primary-foreground"
                       >
                         <Send className="w-4 h-4" />
                       </button>
@@ -730,13 +728,13 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                       <h3 className="text-sm font-medium">Documentation</h3>
                       <p className="text-xs text-gray-400 mt-1">Auto-generated from commits and discussions</p>
                     </div>
-                    <button className="p-2 hover:bg-[#262626] rounded-md">
+                    <button className="p-2 hover:bg-muted rounded-md">
                       <Edit3 className="w-4 h-4 text-gray-400" />
                     </button>
                   </div>
 
                   {/* GitHub Integration Notice */}
-                  <div className="p-3 bg-[#1E1E1E] rounded-lg border border-[#363636] flex items-start gap-3">
+                  <div className="p-3 bg-cardrounded-lg border border-border flex items-start gap-3">
                     <GitBranch className="w-5 h-5 text-indigo-400 mt-0.5" />
                     <div>
                       <h4 className="text-sm font-medium mb-1">Connect to GitHub</h4>
@@ -745,7 +743,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                         commits, and code changes. Documentation will be enriched with implementation
                         details and technical context.
                       </p>
-                      <button className="mt-3 px-3 py-1.5 bg-[#262626] text-sm text-indigo-400 rounded-md hover:bg-[#363636] transition-colors">
+                      <button className="mt-3 px-3 py-1.5 bg-muted text-sm text-indigo-400 rounded-md hover:bg-border transition-colors">
                         Connect Repository
                       </button>
                     </div>
@@ -755,7 +753,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                     <h1>{issue.title} Documentation</h1>
                     <div className="text-sm text-gray-400 flex items-center gap-2 not-prose mb-6">
                       <GitCommit className="w-4 h-4" />
-                      Last updated from commit <code className="px-1.5 py-0.5 bg-[#262626] rounded">feat/auth-flow</code>
+                      Last updated from commit <code className="px-1.5 py-0.5 bg-muted rounded">feat/auth-flow</code>
                     </div>
 
                     <h2>Overview</h2>
@@ -772,7 +770,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                       <li>References to other tasks</li>
                     </ul>
 
-                    <div className="not-prose mt-8 p-3 bg-[#1E1E1E] rounded-lg border border-[#363636]">
+                    <div className="not-prose mt-8 p-3 bg-secondary rounded-lg border border-border">
                       <p className="text-xs text-gray-400">
                         <Bot className="w-4 h-4 text-indigo-400 inline-block mr-2" />
                         Documentation is automatically kept up to date with your codebase. You can also
@@ -799,7 +797,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                   <h3 className="text-sm font-medium">Labels</h3>
                   <button
                     onClick={() => setIsLabelSelectorOpen(!isLabelSelectorOpen)}
-                    className="p-1 hover:bg-[#262626] rounded-md"
+                    className="p-1 hover:bg-muted rounded-md"
                   >
                     <Tag className="w-4 h-4 text-gray-400" />
                   </button>
@@ -811,7 +809,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                       onClick={() => handleLabelToggle(label.id)}
                       className={`px-2 py-1 text-xs rounded-md transition-colors ${selectedLabels.includes(label.id)
                         ? 'bg-indigo-500/20 text-indigo-400'
-                        : 'bg-[#262626] text-gray-300'
+                        : 'bg-muted text-gray-300'
                         }`}
                     >
                       {label.name}
@@ -824,7 +822,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <h3 className="text-sm font-medium">Related Issues</h3>
-                  <button className="p-1 hover:bg-[#262626] rounded-md">
+                  <button className="p-1 hover:bg-muted rounded-md">
                     <Link2 className="w-4 h-4 text-gray-400" />
                   </button>
                 </div>

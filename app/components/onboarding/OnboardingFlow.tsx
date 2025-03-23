@@ -74,7 +74,7 @@ export const OnboardingFlow = () => {
             <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Rocket className="w-8 h-8 text-indigo-400" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">Welcome to Efficio.AI!</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">Welcome to Efficio.AI!</h2>
             <p className="text-gray-300 mb-8">
               We're excited to help you and your team work more efficiently.
               Let's get your workspace set up in just a few steps.
@@ -89,32 +89,32 @@ export const OnboardingFlow = () => {
               <Briefcase className="w-8 h-8 text-indigo-400" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Workspace Name</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Workspace Name</label>
               <input
                 type="text"
                 value={workspaceName}
                 onChange={(e) => setWorkspaceName(e.target.value)}
-                className="w-full px-4 py-2 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-indigo-500"
                 placeholder="e.g., Engineering Team"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Workspace Type</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Workspace Type</label>
               <div className="grid grid-cols-2 gap-4">
                 <button
                   onClick={() => setWorkspaceType('personal')}
                   className={`p-4 rounded-lg border ${
                     workspaceType === 'personal'
                       ? 'border-indigo-500 bg-indigo-500/10'
-                      : 'border-[#363636] hover:border-indigo-500/50'
+                      : 'border-border hover:border-indigo-500/50'
                   }`}
                 >
                   <div className="text-center">
                     <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
                       <User className="w-5 h-5 text-indigo-400" />
                     </div>
-                    <h3 className="font-medium text-white mb-1">Personal</h3>
+                    <h3 className="font-medium text-foreground mb-1">Personal</h3>
                     <p className="text-sm text-gray-400">Just for yourself</p>
                   </div>
                 </button>
@@ -123,14 +123,14 @@ export const OnboardingFlow = () => {
                   className={`p-4 rounded-lg border ${
                     workspaceType === 'team'
                       ? 'border-indigo-500 bg-indigo-500/10'
-                      : 'border-[#363636] hover:border-indigo-500/50'
+                      : 'border-border hover:border-indigo-500/50'
                   }`}
                 >
                   <div className="text-center">
                     <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
                       <Users className="w-5 h-5 text-indigo-400" />
                     </div>
-                    <h3 className="font-medium text-white mb-1">Team</h3>
+                    <h3 className="font-medium text-foreground mb-1">Team</h3>
                     <p className="text-sm text-gray-400">Collaborate with others</p>
                   </div>
                 </button>
@@ -138,11 +138,11 @@ export const OnboardingFlow = () => {
             </div>
             {workspaceType === 'team' && (
               <div>
-                <label className="block text-sm font-medium text-white mb-2">Team Size</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Team Size</label>
                 <select
                   value={teamSize}
                   onChange={(e) => setTeamSize(e.target.value)}
-                  className="w-full px-4 py-2 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-indigo-500"
                 >
                   <option value="">Select team size</option>
                   <option value="2-5">2-5 people</option>
@@ -162,12 +162,12 @@ export const OnboardingFlow = () => {
               <Users className="w-8 h-8 text-indigo-400" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-2">Invite Team Members</label>
+              <label className="block text-sm font-medium text-foreground mb-2">Invite Team Members</label>
               <textarea
                 value={teamEmails}
                 onChange={(e) => setTeamEmails(e.target.value)}
                 rows={4}
-                className="w-full px-4 py-2 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-indigo-500"
                 placeholder="Enter email addresses separated by commas"
               />
               <p className="mt-2 text-sm text-gray-400">
@@ -183,7 +183,7 @@ export const OnboardingFlow = () => {
             <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Check className="w-8 h-8 text-green-400" />
             </div>
-            <h2 className="text-2xl font-bold text-white mb-4">You're All Set!</h2>
+            <h2 className="text-2xl font-bold text-foreground mb-4">You're All Set!</h2>
             <p className="text-gray-300 mb-8">
               Your workspace is ready. Let's start working smarter together.
             </p>
@@ -198,10 +198,10 @@ export const OnboardingFlow = () => {
   return (
     <div className="min-h-screen bg-[#0D0D0D] flex">
       {/* Left Panel - Progress */}
-      <div className="w-80 border-r border-[#262626] p-8">
+      <div className="w-80 border-r border-muted p-8">
         <div className="flex items-center gap-3 mb-12">
           <Bot className="w-10 h-10 text-indigo-400" />
-          <h1 className="text-2xl font-bold text-white">Efficio.AI</h1>
+          <h1 className="text-2xl font-bold text-foreground">Efficio.AI</h1>
         </div>
 
         <div className="space-y-6">
@@ -209,7 +209,7 @@ export const OnboardingFlow = () => {
             <div
               key={index}
               className={`flex items-start gap-3 ${
-                index <= currentStep ? 'text-white' : 'text-gray-500'
+                index <= currentStep ? 'text-foreground' : 'text-gray-500'
               }`}
             >
               <div
@@ -218,17 +218,17 @@ export const OnboardingFlow = () => {
                     ? 'bg-green-500'
                     : index === currentStep
                     ? 'bg-indigo-500'
-                    : 'bg-[#262626]'
+                    : 'bg-muted'
                 }`}
               >
                 {index < currentStep ? (
-                  <Check className="w-4 h-4 text-white" />
+                  <Check className="w-4 h-4 text-foreground" />
                 ) : (
                   <span className="text-sm">{index + 1}</span>
                 )}
               </div>
               <div>
-                <h3 className="font-medium text-white">{step.title}</h3>
+                <h3 className="font-medium text-foreground">{step.title}</h3>
                 <p className="text-sm text-gray-400 mt-1">{step.description}</p>
               </div>
             </div>
@@ -244,7 +244,7 @@ export const OnboardingFlow = () => {
           <div className="mt-8 flex justify-end">
             <button
               onClick={handleSubmit}
-              className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+              className="px-6 py-2 bg-indigo-600 text-foreground rounded-lg hover:bg-indigo-700 flex items-center gap-2"
             >
               {currentStep === steps.length - 1 ? (
                 'Go to Dashboard'

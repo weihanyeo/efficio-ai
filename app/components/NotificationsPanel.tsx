@@ -161,23 +161,23 @@ export const NotificationsPanel = () => {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 hover:bg-[#262626] rounded-md group"
+        className="relative p-2 hover:bg-muted rounded-md group"
       >
-        <Bell className="w-4 h-4 text-gray-400 group-hover:text-white" />
+        <Bell className="w-4 h-4 text-gray-400 group-hover:text-foreground" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-indigo-500 text-white text-xs rounded-full flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-indigo-500 text-foreground text-xs rounded-full flex items-center justify-center">
             {unreadCount}
           </span>
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 bg-[#161616] border border-[#262626] rounded-lg shadow-lg z-50">
-          <div className="p-3 border-b border-[#262626] flex items-center justify-between">
+        <div className="absolute right-0 mt-2 w-96 bg-muted border border-muted rounded-lg shadow-lg z-50">
+          <div className="p-3 border-b border-muted flex items-center justify-between">
             <h3 className="font-medium">Notifications</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1 hover:bg-[#262626] rounded-md"
+              className="p-1 hover:bg-muted rounded-md"
             >
               <X className="w-4 h-4" />
             </button>
@@ -196,8 +196,8 @@ export const NotificationsPanel = () => {
               notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className={`p-3 hover:bg-[#1E1E1E] cursor-pointer ${
-                    !notification.is_read ? 'bg-[#1E1E1E]' : ''
+                  className={`p-3 hover:bg-secondary cursor-pointer ${
+                    !notification.is_read ? 'bg-secondary' : ''
                   }`}
                   onClick={() => {
                     if (!notification.is_read) {
@@ -212,7 +212,7 @@ export const NotificationsPanel = () => {
                   <div className="flex items-start gap-3">
                     {getNotificationIcon(notification.type)}
                     <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-medium ${!notification.is_read ? 'text-white' : 'text-gray-300'}`}>
+                      <p className={`text-sm font-medium ${!notification.is_read ? 'text-foreground' : 'text-gray-300'}`}>
                         {notification.title}
                       </p>
                       <p className="text-xs text-gray-400 mt-1">
@@ -231,7 +231,7 @@ export const NotificationsPanel = () => {
             )}
           </div>
 
-          <div className="p-3 border-t border-[#262626] flex justify-between">
+          <div className="p-3 border-t border-muted flex justify-between">
             <button
               onClick={handleMarkAllAsRead}
               className="text-sm text-indigo-400 hover:text-indigo-300"

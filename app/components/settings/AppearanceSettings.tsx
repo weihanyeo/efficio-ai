@@ -98,7 +98,7 @@ export const AppearanceSettings = () => {
                 className={`p-4 rounded-lg border-2 transition-colors ${
                   theme === themeOption.value
                     ? "border-indigo-500 bg-indigo-500/10"
-                    : "border-transparent bg-[#1E1E1E] hover:border-indigo-500"
+                    : "border-transparent bg-secondary hover:border-indigo-500"
                 }`}
                 onClick={() => handleThemeChange(themeOption.value as "light" | "dark" | "system")}
               >
@@ -121,7 +121,7 @@ export const AppearanceSettings = () => {
               max="20"
               value={fontSize}
               onChange={handleFontSizeChange}
-              className="w-full h-2 bg-[#262626] rounded-lg appearance-none cursor-pointer"
+              className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
             />
             <span className="text-sm font-medium min-w-[40px]">{fontSize}px</span>
           </div>
@@ -139,7 +139,7 @@ export const AppearanceSettings = () => {
             {["Comfortable", "Compact", "Custom"].map((density) => (
               <button
                 key={density}
-                className="px-4 py-2 bg-[#262626] rounded-md text-sm hover:bg-[#363636] transition-colors"
+                className="px-4 py-2 bg-muted rounded-md text-sm hover:bg-border transition-colors"
               >
                 {density}
               </button>
@@ -149,7 +149,7 @@ export const AppearanceSettings = () => {
 
         <div className="pt-4">
           <button 
-            className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+            className="px-4 py-2 bg-indigo-600 text-primary-foreground rounded-md hover:bg-indigo-700"
             onClick={handleSavePreferences}
           >
             Save Preferences

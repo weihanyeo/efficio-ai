@@ -321,13 +321,15 @@ const NavLink: React.FC<{
   return (
     <Link
       href={to}
-      className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-md transition-colors ${
+      className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors w-full ${
         isActive
           ? "bg-primary text-primary-foreground"
-          : "text-foreground hover:bg-muted hover:text-foreground"
+          : "text-muted-foreground hover:bg-muted hover:text-foreground"
       }`}
     >
-      <span className="w-5 h-5">{icon}</span>
+      <span className="w-4 h-4 flex items-center justify-center">
+        {icon}
+      </span>
       {label}
     </Link>
   );

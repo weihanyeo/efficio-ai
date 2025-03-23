@@ -41,7 +41,7 @@ export const ProfileSettings = () => {
             <div className="w-20 h-20 bg-indigo-500/20 rounded-full flex items-center justify-center">
               <span className="text-2xl font-semibold text-indigo-400">AJ</span>
             </div>
-            <button className="px-4 py-2 bg-[#262626] text-sm text-gray-400 rounded-md hover:bg-[#363636]">
+            <button className="px-4 py-2 bg-muted text-sm text-gray-400 rounded-md hover:bg-border">
               Change Avatar
             </button>
           </div>
@@ -55,7 +55,7 @@ export const ProfileSettings = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
               />
             </div>
             <div>
@@ -64,7 +64,7 @@ export const ProfileSettings = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
               />
             </div>
             <div>
@@ -73,7 +73,7 @@ export const ProfileSettings = () => {
                 rows={4}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
@@ -81,7 +81,7 @@ export const ProfileSettings = () => {
           <div className="pt-4">
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 bg-indigo-600 text-primary-foreground rounded-md hover:bg-indigo-700"
               disabled={loading}
             >
               {loading ? "Saving..." : "Save Changes"}

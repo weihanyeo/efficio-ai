@@ -97,10 +97,10 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="w-full max-w-md bg-[#161616] rounded-lg p-6">
+      <div className="w-full max-w-md bg-muted rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Invite Team Members</h2>
         
-        <div className="flex border-b border-[#363636] mb-6">
+        <div className="flex border-b border-border mb-6">
           <button
             onClick={() => setActiveTab('email')}
             className={`px-4 py-2 text-sm font-medium ${
@@ -137,7 +137,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                 value={emails}
                 onChange={(e) => setEmails(e.target.value)}
                 rows={3}
-                className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
                 placeholder="Enter email addresses separated by commas"
               />
             </div>
@@ -146,13 +146,13 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+                className="px-4 py-2 bg-muted text-gray-400 rounded-md hover:bg-border"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-indigo-600 text-foreground rounded-md hover:bg-indigo-700"
               >
                 Send Invites
               </button>
@@ -167,7 +167,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <div className="text-xs text-gray-400">Expires in 7 days</div>
                   <button
                     onClick={handleRefreshCode}
-                    className="p-1 hover:bg-[#262626] rounded-md"
+                    className="p-1 hover:bg-muted rounded-md"
                     disabled={isGeneratingCode}
                   >
                     <RefreshCw className={`w-4 h-4 text-gray-400 ${isGeneratingCode ? 'animate-spin' : ''}`} />
@@ -175,7 +175,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                 </div>
               </div>
               
-              <div className="bg-[#262626] border border-[#363636] rounded-md p-4 text-center text-xl font-mono">
+              <div className="bg-muted border border-border rounded-md p-4 text-center text-xl font-mono">
                 {isGeneratingCode ? (
                   <div className="animate-pulse">Generating...</div>
                 ) : (
@@ -188,21 +188,21 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   type="text"
                   value={inviteLink}
                   readOnly
-                  className="flex-1 px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none"
+                  className="flex-1 px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none"
                   placeholder={isGeneratingCode ? "Generating link..." : "No invite link generated"}
                 />
                 <button
                   type="button"
                   onClick={handleCopy}
                   disabled={!inviteLink || isGeneratingCode}
-                  className="p-2 bg-[#262626] hover:bg-[#363636] rounded-md disabled:opacity-50"
+                  className="p-2 bg-muted hover:bg-border rounded-md disabled:opacity-50"
                 >
                   {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
             </div>
 
-            <div className="p-4 bg-[#1E1E1E] rounded-lg border border-[#363636]">
+            <div className="p-4 bg-secondary rounded-lg border border-border">
               <div className="flex items-center gap-2 mb-4">
                 <Users className="w-4 h-4 text-indigo-400" />
                 <span className="text-sm font-medium">Invite Settings</span>
@@ -214,7 +214,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <select
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value as TeamRole)}
-                    className="w-full px-3 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
                   >
                     <option value="Member">Member</option>
                     <option value="Admin">Admin</option>
@@ -226,7 +226,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <select
                     value={selectedFunction}
                     onChange={(e) => setSelectedFunction(e.target.value as TeamFunction)}
-                    className="w-full px-3 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
                   >
                     <option value="Engineering">Engineering</option>
                     <option value="Design">Design</option>
@@ -242,7 +242,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+                className="px-4 py-2 bg-muted text-gray-400 rounded-md hover:bg-border"
               >
                 Close
               </button>
@@ -299,7 +299,7 @@ const MemberDetail = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="w-full max-w-2xl bg-[#161616] rounded-lg p-6">
+      <div className="w-full max-w-2xl bg-muted rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center">
@@ -322,19 +322,19 @@ const MemberDetail = ({
                         e.stopPropagation();
                         setShowRoleActions(!showRoleActions);
                       }}
-                      className="p-1 hover:bg-[#262626] rounded-md"
+                      className="p-1 hover:bg-muted rounded-md"
                     >
                       <Settings className="w-4 h-4 text-gray-400" />
                     </button>
                     {showRoleActions && (
-                      <div className="absolute right-0 mt-1 w-48 bg-[#262626] border border-[#363636] rounded-md shadow-lg z-50">
+                      <div className="absolute right-0 mt-1 w-48 bg-muted border border-border rounded-md shadow-lg z-50">
                         {member.role === 'Member' ? (
                           <button
                             onClick={() => {
                               onPromote(member.member_id);
                               setShowRoleActions(false);
                             }}
-                            className="w-full px-4 py-2 text-sm text-left hover:bg-[#363636] flex items-center gap-2"
+                            className="w-full px-4 py-2 text-sm text-left hover:bg-border flex items-center gap-2"
                           >
                             <Shield className="w-4 h-4 text-red-400" />
                             Promote to Owner
@@ -345,7 +345,7 @@ const MemberDetail = ({
                               onDemote(member.member_id);
                               setShowRoleActions(false);
                             }}
-                            className="w-full px-4 py-2 text-sm text-left hover:bg-[#363636] flex items-center gap-2"
+                            className="w-full px-4 py-2 text-sm text-left hover:bg-border flex items-center gap-2"
                           >
                             <UserX className="w-4 h-4 text-yellow-400" />
                             Demote to Member
@@ -359,7 +359,7 @@ const MemberDetail = ({
                               onClose();
                             }
                           }}
-                          className="w-full px-4 py-2 text-sm text-left hover:bg-[#363636] border-t border-[#363636] flex items-center gap-2 text-red-400"
+                          className="w-full px-4 py-2 text-sm text-left hover:bg-border border-t border-border flex items-center gap-2 text-red-400"
                         >
                           <UserX className="w-4 h-4" />
                           Remove from Team
@@ -387,7 +387,7 @@ const MemberDetail = ({
             )}
             <button
               onClick={onClose}
-              className="p-2 hover:bg-[#262626] rounded-md text-gray-400"
+              className="p-2 hover:bg-muted rounded-md text-gray-400"
             >
               ×
             </button>
@@ -424,7 +424,7 @@ const MemberDetail = ({
                 <select
                   value={selectedRole}
                   onChange={(e) => handleRoleChange(e.target.value as TeamRole)}
-                  className="bg-[#262626] border border-[#363636] rounded-md px-3 py-1 text-sm focus:outline-none focus:border-indigo-500"
+                  className="bg-muted border border-border rounded-md px-3 py-1 text-sm focus:outline-none focus:border-indigo-500"
                 >
                   <option value="Member">Member</option>
                   <option value="owner">Owner</option>
@@ -742,7 +742,7 @@ export const TeamPage = () => {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col">
-      <header className="h-14 border-b border-[#262626] flex items-center justify-between px-6">
+      <header className="h-14 border-b border-muted flex items-center justify-between px-6">
         <h2 className="text-lg font-semibold">Team Members</h2>
         <div className="flex items-center gap-4">
           <div className="relative">
@@ -750,12 +750,12 @@ export const TeamPage = () => {
             <input
               type="text"
               placeholder="Search team members..."
-              className="w-64 pl-10 pr-4 py-1.5 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-64 pl-10 pr-4 py-1.5 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
             />
           </div>
           <button
             onClick={() => setShowInviteMembers(true)}
-            className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 rounded-md hover:bg-indigo-700"
+            className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 rounded-md hover:bg-indigo-700 text-primary-foreground"
           >
             <Plus className="w-4 h-4" />
             Invite Member
@@ -764,10 +764,10 @@ export const TeamPage = () => {
       </header>
 
       <main className="flex-1 overflow-auto p-6">
-        <div className="bg-[#161616] border border-[#262626] rounded-lg overflow-hidden">
+        <div className="bg-muted border border-muted rounded-lg overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#262626]">
+              <tr className="border-b border-muted">
                 <th className="text-left py-3 px-4 font-medium text-gray-400">Name</th>
                 <th className="text-left py-3 px-4 font-medium text-gray-400">Role</th>
                 <th className="text-left py-3 px-4 font-medium text-gray-400">Email</th>
@@ -779,7 +779,7 @@ export const TeamPage = () => {
               {members.map((member) => (
                 <tr
                   key={member.member_id}
-                  className="border-b border-[#262626] last:border-0 hover:bg-[#1E1E1E] cursor-pointer"
+                  className="border-b border-muted last:border-0 hover:bg-secondary cursor-pointer"
                 >
                   <td 
                     className="py-3 px-4"
@@ -828,7 +828,7 @@ export const TeamPage = () => {
                   <td className="py-3 px-4 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <button 
-                        className="p-1 hover:bg-[#262626] rounded-md" 
+                        className="p-1 hover:bg-muted rounded-md" 
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedMember(member);
@@ -838,7 +838,7 @@ export const TeamPage = () => {
                       </button>
                       {currentUserRole === 'owner' && member.member_id !== currentUserId && (
                         <button 
-                          className="p-1 hover:bg-[#262626] rounded-md text-red-400" 
+                          className="p-1 hover:bg-muted rounded-md text-red-400" 
                           onClick={(e) => {
                             e.stopPropagation();
                             if (confirm(`Are you sure you want to remove ${member.profile?.full_name || 'this user'} from the team?`)) {

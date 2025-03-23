@@ -75,7 +75,7 @@ export const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0D0D0D] text-white flex">
+    <div className="min-h-screen bg-[#0D0D0D] text-foreground flex">
       {/* Left Panel - Features */}
       <div className="flex-1 p-8 hidden lg:flex flex-col">
         <div className="flex items-center gap-3 mb-12">
@@ -119,8 +119,8 @@ export const AuthPage = () => {
                   description: 'AI-powered analytics and team performance tracking.'
                 }
               ].map((feature, index) => (
-                <div key={index} className="p-4 bg-gradient-to-br from-[#1E1E1E] to-[#262626] rounded-xl border border-[#363636] hover:border-[#464646] transition-colors">
-                  <div className="p-2 bg-[#161616] rounded-lg w-fit mb-3">
+                <div key={index} className="p-4 bg-gradient-to-br from-secondary to-muted rounded-xl border border-border hover:border-[#464646] transition-colors">
+                  <div className="p-2 bg-muted rounded-lg w-fit mb-3">
                     {feature.icon}
                   </div>
                   <h3 className="font-medium mb-2">{feature.title}</h3>
@@ -142,7 +142,7 @@ export const AuthPage = () => {
       </div>
 
       {/* Right Panel - Auth Form */}
-      <div className="w-full max-w-md bg-[#161616] p-12 flex flex-col justify-center relative overflow-hidden">
+      <div className="w-full max-w-md bg-muted p-12 flex flex-col justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-indigo-500/10 to-transparent" />
         
         <div className="relative">
@@ -163,7 +163,7 @@ export const AuthPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full px-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="Enter your name"
                   required
                 />
@@ -177,7 +177,7 @@ export const AuthPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full pl-11 pr-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="name@company.com"
                   required
                 />
@@ -192,7 +192,7 @@ export const AuthPage = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-12 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full pl-11 pr-12 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
                   placeholder="Enter your password"
                   required
                 />
@@ -200,7 +200,7 @@ export const AuthPage = () => {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-[#262626] rounded-md transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-muted rounded-md transition-colors"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4 text-gray-400" />
@@ -213,7 +213,7 @@ export const AuthPage = () => {
 
             <button
               type="submit"
-              className="w-full py-2.5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-2.5 bg-indigo-600 text-foreground rounded-lg hover:bg-indigo-700 flex items-center justify-center gap-2 transition-colors"
               disabled={loading}
             >
               {loading ? (
@@ -234,24 +234,24 @@ export const AuthPage = () => {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#363636]" />
+                <div className="w-full border-t border-border" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-[#161616] text-gray-400">Or continue with</span>
+                <span className="px-2 bg-muted text-gray-400">Or continue with</span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg hover:bg-[#262626] transition-colors"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-secondary border border-border rounded-lg hover:bg-muted transition-colors"
               >
                 <Github className="w-5 h-5" />
                 <span className="text-sm">GitHub</span>
               </button>
               <button
                 type="button"
-                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-[#1E1E1E] border border-[#363636] rounded-lg hover:bg-[#262626] transition-colors"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 bg-secondary border border-border rounded-lg hover:bg-muted transition-colors"
               >
                 <Chrome className="w-5 h-5" />
                 <span className="text-sm">Google</span>
