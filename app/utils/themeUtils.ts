@@ -29,6 +29,26 @@ export const initializeTheme = () => {
   if (savedFontSize) {
     document.documentElement.style.setProperty('--base-font-size', `${savedFontSize}px`);
   }
+  
+  // Initialize color theme
+  const savedColorTheme = localStorage.getItem('colorTheme');
+  if (savedColorTheme) {
+    // Remove all theme classes first
+    document.documentElement.classList.remove(
+      'theme-indigo', 
+      'theme-purple', 
+      'theme-pink', 
+      'theme-red', 
+      'theme-orange', 
+      'theme-green', 
+      'theme-yellow'
+    );
+    // Add the saved color theme class
+    document.documentElement.classList.add(`theme-${savedColorTheme}`);
+  } else {
+    // Default to indigo if no theme is saved
+    document.documentElement.classList.add('theme-indigo');
+  }
 };
 
 // Toggle between light and dark themes
@@ -49,8 +69,10 @@ export const setTheme = (theme: 'light' | 'dark' | 'system') => {
   if (theme === 'system') {
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     document.documentElement.classList.toggle('dark', systemPrefersDark);
+  } else if (theme === 'dark') {
+    document.documentElement.classList.add('dark');
   } else {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
+    document.documentElement.classList.remove('dark');
   }
 };
 
@@ -58,6 +80,6 @@ export const setTheme = (theme: 'light' | 'dark' | 'system') => {
 export const setFontSize = (size: number) => {
   if (typeof window === 'undefined') return;
   
-  localStorage.setItem('fontSize', size.toString());
   document.documentElement.style.setProperty('--base-font-size', `${size}px`);
+  localStorage.setItem('fontSize', size.toString());
 };

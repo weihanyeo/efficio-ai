@@ -824,7 +824,7 @@ export const MainContent = () => {
       )}
       
       {/* Quick Create Issue Bar */}
-      <div className="fixed bottom-0 left-60 right-80 p-4 bg-muted border-t border-muted">
+      <div className="fixed bottom-0 w-[calc(82%-320px)] p-4 bg-secondary border-t border-muted">
         <div className="flex gap-3">
           <select
             value={quickCreateStatus}
