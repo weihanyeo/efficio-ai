@@ -103,7 +103,7 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
             return (
               <div
                 key={member.id}
-                className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 group cursor-pointer"
+                className="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center text-indigo-400 group cursor-pointer"
               >
                 {member.full_name.charAt(0)}
                 <div className="hidden group-hover:flex absolute items-center bg-muted text-foreground text-xs px-2 py-1 rounded -mt-8">
@@ -128,13 +128,13 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
                 }}
                 className="w-full flex items-center gap-3 p-2 hover:bg-border rounded-md group"
               >
-                <div className="w-6 h-6 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-sm">
+                <div className="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center text-indigo-400 text-sm">
                   {member.full_name.charAt(0)}
                 </div>
                 <span className="text-sm text-gray-200">{member.full_name}</span>
                 {currentAssigneeId === member.id && (
-                  <div className="ml-auto w-4 h-4 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-indigo-400" />
+                  <div className="ml-auto w-4 h-4 rounded-full bg-primary-500/20 flex items-center justify-center">
+                    <div className="w-2 h-2 rounded-full bg-primary-400" />
                   </div>
                 )}
               </button>
@@ -630,7 +630,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                       handleAddComment(replyContents[parentComment.id], parentComment.id);
                                       setReplyContents(prev => ({ ...prev, [parentComment.id]: '' }));
                                     }}
-                                    className="px-2 py-1 bg-indigo-600 rounded-md hover:bg-indigo-700"
+                                    className="px-2 py-1 bg-primary rounded-md hover:bg-primary/80"
                                   >
                                     Send
                                   </button>
@@ -646,7 +646,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                   <div className="p-3 bg-card rounded-lg">
                                     {/* Reply Header */}
                                     <div className="flex items-center gap-2 mb-2">
-                                      <div className="w-5 h-5 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-xs">
+                                      <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center text-indigo-400 text-xs">
                                         {reply.author?.full_name.charAt(0)}
                                       </div>
                                       <span className="text-sm font-medium">
@@ -714,7 +714,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                       />
                       <button
                         onClick={() => handleAddComment(newComment)}
-                        className="p-2 bg-indigo-600 rounded-md hover:bg-indigo-700 text-primary-foreground"
+                        className="p-2 bg-primary rounded-md hover:bg-primary/80 text-primary-foreground"
                       >
                         <Send className="w-4 h-4" />
                       </button>
@@ -808,7 +808,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                       key={label.id}
                       onClick={() => handleLabelToggle(label.id)}
                       className={`px-2 py-1 text-xs rounded-md transition-colors ${selectedLabels.includes(label.id)
-                        ? 'bg-indigo-500/20 text-indigo-400'
+                        ? 'bg-primary-500/20 text-indigo-400'
                         : 'bg-muted text-gray-300'
                         }`}
                     >

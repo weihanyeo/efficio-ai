@@ -576,7 +576,7 @@ export const ProjectsPage = () => {
                 setIsModalOpen(true);
                 setEditingField(null);  // Clear any open dropdowns
               }}
-              className="bg-indigo-600 hover:bg-indigo-700 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2"
+              className="bg-primary hover:bg-primary/80 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2"
             >
               <Plus className="w-4 h-4" />
               New Project
@@ -819,7 +819,7 @@ export const ProjectsPage = () => {
                     </button>
                     <button
                       type="submit"
-                      className="rounded-lg bg-indigo-600 hover:bg-indigo-700 px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2"
+                      className="rounded-lg bg-primary hover:bg-primary/80 px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2"
                     >
                       <Plus className="w-4 h-4" />
                       Create Project

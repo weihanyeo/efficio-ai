@@ -86,7 +86,7 @@ export const AuthPage = () => {
         <div className="flex-1 flex items-center">
           <div className="max-w-xl">
             <div className="relative">
-              <div className="absolute -left-6 -top-6 w-24 h-24 bg-indigo-500/20 rounded-full blur-2xl" />
+              <div className="absolute -left-6 -top-6 w-24 h-24 bg-primary-500/20 rounded-full blur-2xl" />
               <div className="absolute right-12 bottom-12 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl" />
               <h2 className="text-4xl font-bold mb-4 leading-tight">
                 Smart Issue Tracking<br />Made Simple
@@ -213,7 +213,7 @@ export const AuthPage = () => {
 
             <button
               type="submit"
-              className="w-full py-2.5 bg-indigo-600 text-foreground rounded-lg hover:bg-indigo-700 flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-2.5 bg-primary text-foreground rounded-lg hover:bg-primary/80 flex items-center justify-center gap-2 transition-colors"
               disabled={loading}
             >
               {loading ? (

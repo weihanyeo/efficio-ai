@@ -165,7 +165,7 @@ export const NotificationsPanel = () => {
       >
         <Bell className="w-4 h-4 text-gray-400 group-hover:text-foreground" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-indigo-500 text-foreground text-xs rounded-full flex items-center justify-center">
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-primary-500 text-foreground text-xs rounded-full flex items-center justify-center">
             {unreadCount}
           </span>
         )}
@@ -223,7 +223,7 @@ export const NotificationsPanel = () => {
                       </p>
                     </div>
                     {!notification.is_read && (
-                      <div className="w-2 h-2 rounded-full bg-indigo-500 mt-1" />
+                      <div className="w-2 h-2 rounded-full bg-primary-500 mt-1" />
                     )}
                   </div>
                 </div>

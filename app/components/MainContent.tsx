@@ -132,7 +132,7 @@ const IssueRow: React.FC<IssueRowProps> = ({ issue, onSelect, onDragStart }) => 
               <div className="flex gap-2">
                 <button
                   onClick={handleEditSave}
-                  className="px-2 py-1 bg-indigo-600 text-foreground rounded text-sm"
+                  className="px-2 py-1 bg-primary text-foreground rounded text-sm"
                 >
                   Save
                 </button>

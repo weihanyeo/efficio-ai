@@ -116,7 +116,7 @@ export const SecuritySettings = () => {
               </div>
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 text-primary-foreground rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80"
                 disabled={passwordLoading}
               >
                 {passwordLoading ? "Updating..." : "Update Password"}

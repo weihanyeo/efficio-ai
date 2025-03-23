@@ -152,7 +152,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 text-foreground rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-primary text-foreground rounded-md hover:bg-primary/80"
               >
                 Send Invites
               </button>
@@ -302,7 +302,7 @@ const MemberDetail = ({
       <div className="w-full max-w-2xl bg-muted rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center">
               <span className="text-lg font-semibold text-indigo-400">
                 {member.profile?.full_name?.charAt(0) || '?'}
               </span>
@@ -755,7 +755,7 @@ export const TeamPage = () => {
           </div>
           <button
             onClick={() => setShowInviteMembers(true)}
-            className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 rounded-md hover:bg-indigo-700 text-primary-foreground"
+            className="flex items-center gap-2 px-3 py-1.5 bg-primary rounded-md hover:bg-primary/80 text-primary-foreground"
           >
             <Plus className="w-4 h-4" />
             Invite Member
@@ -786,7 +786,7 @@ export const TeamPage = () => {
                     onClick={() => setSelectedMember(member)}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center">
                         <span className="text-sm font-semibold text-indigo-400">
                           {member.profile?.full_name?.charAt(0)?.toUpperCase() || member.member_id.charAt(0)?.toUpperCase() || '?'}
                         </span>
@@ -794,7 +794,7 @@ export const TeamPage = () => {
                       <div>
                         <span className="font-medium">{member.profile?.full_name || `User ${member.member_id.substring(0, 6)}`}</span>
                         <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
-                          member.role === 'owner' ? 'bg-red-500/20 text-red-400' : 'bg-indigo-500/20 text-indigo-400'
+                          member.role === 'owner' ? 'bg-red-500/20 text-red-400' : 'bg-primary-500/20 text-indigo-400'
                         }`}>
                           {member.role}
                         </span>

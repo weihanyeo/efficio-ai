@@ -1,6 +1,6 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import { Moon, Sun, Monitor } from "lucide-react";
+import { Moon, Sun, Monitor, Palette } from "lucide-react";
 import { showSuccess, showError } from "../utils/toast";
 import { ToastContainer } from "../ToastContainer";
 
@@ -22,6 +22,16 @@ export const AppearanceSettings = () => {
       return savedFontSize ? parseInt(savedFontSize) : 16;
     }
     return 16;
+  });
+
+  // Initialize color theme state
+  const [colorTheme, setColorTheme] = useState<string>(() => {
+    // Only run in browser environment
+    if (typeof window !== 'undefined') {
+      const savedColorTheme = localStorage.getItem("colorTheme");
+      return savedColorTheme || "indigo";
+    }
+    return "indigo";
   });
 
   useEffect(() => {
@@ -57,6 +67,26 @@ export const AppearanceSettings = () => {
     document.documentElement.style.setProperty("--base-font-size", `${fontSize}px`);
   }, [fontSize]);
 
+  // Apply color theme changes
+  useEffect(() => {
+    // Save color theme preference to localStorage
+    localStorage.setItem("colorTheme", colorTheme);
+    
+    // Remove all existing theme classes
+    document.documentElement.classList.remove(
+      "theme-indigo", 
+      "theme-purple", 
+      "theme-pink", 
+      "theme-red", 
+      "theme-orange", 
+      "theme-green", 
+      "theme-yellow"
+    );
+    
+    // Apply the selected color theme
+    document.documentElement.classList.add(`theme-${colorTheme}`);
+  }, [colorTheme]);
+
   // Handle theme selection
   const handleThemeChange = (newTheme: "light" | "dark" | "system") => {
     setTheme(newTheme);
@@ -65,6 +95,12 @@ export const AppearanceSettings = () => {
   // Handle font size change
   const handleFontSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFontSize(parseInt(e.target.value));
+  };
+
+  // Handle color theme change
+  const handleColorThemeChange = (newColorTheme: string) => {
+    setColorTheme(newColorTheme);
+    showSuccess(`Color theme updated to ${newColorTheme}`);
   };
 
   return (
@@ -92,8 +128,8 @@ export const AppearanceSettings = () => {
                 key={themeOption.value}
                 className={`p-4 rounded-lg border-2 transition-colors ${
                   theme === themeOption.value
-                    ? "border-indigo-500 bg-indigo-500/10"
-                    : "border-transparent bg-secondary hover:border-indigo-500"
+                    ? "border-primary bg-primary/10"
+                    : "border-transparent bg-secondary hover:border-primary"
                 }`}
                 onClick={() => handleThemeChange(themeOption.value as "light" | "dark" | "system")}
               >
@@ -102,6 +138,39 @@ export const AppearanceSettings = () => {
                   <span className="text-sm font-medium">{themeOption.name}</span>
                 </div>
               </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Color Theme Selection */}
+        <div className="space-y-3">
+          <div className="flex justify-between items-center">
+            <label className="text-sm font-medium text-foreground">Color Theme</label>
+            <span className="text-sm font-semibold text-muted-foreground capitalize">
+              {colorTheme}
+            </span>
+          </div>
+          <div className="grid grid-cols-7 gap-2">
+            {[
+              { color: "bg-indigo-600", value: "indigo" },
+              { color: "bg-purple-600", value: "purple" },
+              { color: "bg-pink-600", value: "pink" },
+              { color: "bg-red-600", value: "red" },
+              { color: "bg-orange-600", value: "orange" },
+              { color: "bg-green-600", value: "green" },
+              { color: "bg-yellow-600", value: "yellow" },
+            ].map((colorOption) => (
+              <button
+                key={colorOption.value}
+                type="button"
+                onClick={() => handleColorThemeChange(colorOption.value)}
+                className={`w-10 h-10 rounded-full ${colorOption.color} ${
+                  colorTheme === colorOption.value
+                    ? "ring-2 ring-offset-2 ring-offset-card ring-foreground"
+                    : ""
+                }`}
+                aria-label={`Set ${colorOption.value} theme`}
+              />
             ))}
           </div>
         </div>

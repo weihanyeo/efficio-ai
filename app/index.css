@@ -130,6 +130,153 @@ html {
     --scrollbar-thumb: #4b5563;
     --scrollbar-thumb-hover: #6b7280;
   }
+
+  /* Indigo theme - only applies in light mode */
+  .theme-indigo:not(.dark) {
+    --primary: 252 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 252 59% 96%;
+    --secondary-foreground: 252 59% 28%;
+    --accent: 252 59% 94%;
+    --accent-foreground: 252 59% 48%;
+    --ring: 252 59% 48%;
+    --border: 252 30% 90%;
+  }
+
+  /* Purple theme - only applies in light mode */
+  .theme-purple:not(.dark) {
+    --primary: 270 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 270 59% 96%;
+    --secondary-foreground: 270 59% 28%;
+    --accent: 270 59% 94%;
+    --accent-foreground: 270 59% 48%;
+    --ring: 270 59% 48%;
+    --border: 270 30% 90%;
+  }
+
+  /* Pink theme - only applies in light mode */
+  .theme-pink:not(.dark) {
+    --primary: 330 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 330 59% 96%;
+    --secondary-foreground: 330 59% 28%;
+    --accent: 330 59% 94%;
+    --accent-foreground: 330 59% 48%;
+    --ring: 330 59% 48%;
+    --border: 330 30% 90%;
+  }
+
+  /* Red theme - only applies in light mode */
+  .theme-red:not(.dark) {
+    --primary: 0 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 0 59% 96%;
+    --secondary-foreground: 0 59% 28%;
+    --accent: 0 59% 94%;
+    --accent-foreground: 0 59% 48%;
+    --ring: 0 59% 48%;
+    --border: 0 30% 90%;
+  }
+
+  /* Orange theme - only applies in light mode */
+  .theme-orange:not(.dark) {
+    --primary: 30 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 30 59% 96%;
+    --secondary-foreground: 30 59% 28%;
+    --accent: 30 59% 94%;
+    --accent-foreground: 30 59% 48%;
+    --ring: 30 59% 48%;
+    --border: 30 30% 90%;
+  }
+
+  /* Green theme - only applies in light mode */
+  .theme-green:not(.dark) {
+    --primary: 140 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 140 59% 96%;
+    --secondary-foreground: 140 59% 28%;
+    --accent: 140 59% 94%;
+    --accent-foreground: 140 59% 48%;
+    --ring: 140 59% 48%;
+    --border: 140 30% 90%;
+  }
+
+  /* Yellow theme - only applies in light mode */
+  .theme-yellow:not(.dark) {
+    --primary: 50 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 50 59% 96%;
+    --secondary-foreground: 50 59% 28%;
+    --accent: 50 59% 94%;
+    --accent-foreground: 50 59% 48%;
+    --ring: 50 59% 48%;
+    --border: 50 30% 90%;
+  }
+
+  /* For all themes in dark mode - only change primary, accent and ring */
+  .dark.theme-indigo, 
+  .dark.theme-purple, 
+  .dark.theme-pink, 
+  .dark.theme-red, 
+  .dark.theme-orange, 
+  .dark.theme-green, 
+  .dark.theme-yellow {
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+  }
+
+  /* Specific primary colors for dark mode themes */
+  .dark.theme-indigo {
+    --primary: 252 59% 54%;
+    --accent: 252 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 252 59% 54%;
+  }
+
+  .dark.theme-purple {
+    --primary: 270 59% 54%;
+    --accent: 270 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 270 59% 54%;
+  }
+
+  .dark.theme-pink {
+    --primary: 330 59% 54%;
+    --accent: 330 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 330 59% 54%;
+  }
+
+  .dark.theme-red {
+    --primary: 0 59% 54%;
+    --accent: 0 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 0 59% 54%;
+  }
+
+  .dark.theme-orange {
+    --primary: 30 59% 54%;
+    --accent: 30 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 30 59% 54%;
+  }
+
+  .dark.theme-green {
+    --primary: 140 59% 54%;
+    --accent: 140 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 140 59% 54%;
+  }
+
+  .dark.theme-yellow {
+    --primary: 50 59% 54%;
+    --accent: 50 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 50 59% 54%;
+  }
 }
 
 /* Font size utility classes */

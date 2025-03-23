@@ -287,7 +287,7 @@ export const InvitePage = () => {
           <p className="text-gray-400 mb-8">{error || 'Invite not found'}</p>
           <button
             onClick={() => navigate('/')}
-            className="px-6 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-700"
+            className="px-6 py-3 bg-primary rounded-lg hover:bg-primary/80"
           >
             Return Home
           </button>
@@ -310,7 +310,7 @@ export const InvitePage = () => {
             <div className="flex-1">
               <h2 className="text-xl font-semibold mb-2">{inviteDetails.workspace.name}</h2>
             </div>
-            <span className="px-3 py-1 text-xs bg-indigo-500/20 text-indigo-400 rounded-full">
+            <span className="px-3 py-1 text-xs bg-primary-500/20 text-indigo-400 rounded-full">
               {inviteDetails.role}
             </span>
           </div>
@@ -342,7 +342,7 @@ export const InvitePage = () => {
             <div className="flex items-center gap-3">
               {inviteDetails.inviter ? (
                 <>
-                  <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center">
+                  <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center">
                     <span className="text-lg font-semibold text-indigo-400">
                       {inviteDetails.inviter.full_name.charAt(0)}
                     </span>
@@ -373,7 +373,7 @@ export const InvitePage = () => {
             </button>
             <button
               onClick={handleAcceptInvite}
-              className="flex-1 px-4 py-2 bg-indigo-600 text-foreground rounded-md hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-4 py-2 bg-primary text-foreground rounded-md hover:bg-primary/80 transition-colors flex items-center justify-center gap-2"
               disabled={processingInvite}
             >
               {processingInvite ? (
@@ -405,7 +405,7 @@ export const InvitePage = () => {
                 </button>
                 <button
                   onClick={handleSignUp}
-                  className="flex-1 px-4 py-2 bg-indigo-600 text-foreground rounded-md hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+                  className="flex-1 px-4 py-2 bg-primary text-foreground rounded-md hover:bg-primary/80 transition-colors flex items-center justify-center gap-2"
                 >
                   <UserPlus className="w-4 h-4" />
                   Create Account

@@ -36,7 +36,7 @@ export const LandingPage = () => {
             <a href="#pricing" className="text-sm text-gray-400 hover:text-foreground transition-colors">Pricing</a>
             <button
               onClick={() => navigate.push('/auth')}
-              className="px-4 py-2 bg-indigo-600 text-sm rounded-lg hover:bg-indigo-700 transition-colors"
+              className="px-4 py-2 bg-primary text-sm rounded-lg hover:bg-primary/80 transition-colors"
             >
               Get Started
             </button>
@@ -48,7 +48,7 @@ export const LandingPage = () => {
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="relative">
-            <div className="absolute -left-32 -top-32 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl" />
+            <div className="absolute -left-32 -top-32 w-64 h-64 bg-primary-500/20 rounded-full blur-3xl" />
             <div className="absolute right-32 bottom-16 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
             
             <div className="relative text-center max-w-3xl mx-auto">
@@ -68,7 +68,7 @@ export const LandingPage = () => {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
                   onClick={() => navigate.push('/auth')}
-                  className="w-full sm:w-auto px-8 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-8 py-3 bg-primary rounded-lg hover:bg-primary/80 transition-colors flex items-center justify-center gap-2"
                 >
                   Get Started Free
                   <ArrowRight className="w-4 h-4" />
@@ -267,7 +267,7 @@ export const LandingPage = () => {
             
             <button
               onClick={() => navigate.push('/auth')}
-              className="w-full px-8 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+              className="w-full px-8 py-3 bg-primary rounded-lg hover:bg-primary/80 transition-colors flex items-center justify-center gap-2"
             >
               Get Started Now
               <ArrowRight className="w-4 h-4" />
@@ -290,7 +290,7 @@ export const LandingPage = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
               onClick={() => navigate.push('/auth')}
-              className="w-full sm:w-auto px-8 py-3 bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3 bg-primary rounded-lg hover:bg-primary/80 transition-colors flex items-center justify-center gap-2"
             >
               Start Free Trial
               <ArrowRight className="w-4 h-4" />

@@ -225,7 +225,7 @@ export const EventDetails = ({
                     onClick={() => handleToggleTask(item.id)}
                     className={`p-1 rounded-md transition-colors ${
                       item.completed
-                        ? "bg-indigo-500 text-foreground"
+                        ? "bg-primary-500 text-foreground"
                         : "bg-muted hover:bg-muted/80 text-muted-foreground"
                     }`}
                   >

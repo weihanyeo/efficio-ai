@@ -101,7 +101,7 @@ export const useEventQueries = () => {
         location: event.location || '',
         description: event.description || '',
         type: event.type as EventDetail['type'],
-        color: event.color || 'bg-indigo-600',
+        color: event.color || 'bg-primary',
         organizers: event.event_organizers?.map((org: SupabaseEventOrganizerRow) => ({
           id: org.user_id || '',
           name: userMap.get(org.user_id || '')?.full_name || '',

@@ -67,7 +67,7 @@ export const ShortcutSettings = () => {
         </div>
 
         <div className="pt-4">
-          <button className="px-4 py-2 bg-indigo-600 text-primary-foreground rounded-md hover:bg-indigo-700">
+          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80">
             Reset to Defaults
           </button>
         </div>

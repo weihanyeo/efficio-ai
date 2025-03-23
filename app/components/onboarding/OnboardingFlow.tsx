@@ -71,7 +71,7 @@ export const OnboardingFlow = () => {
       case 0:
         return (
           <div className="text-center">
-            <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
               <Rocket className="w-8 h-8 text-indigo-400" />
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-4">Welcome to Efficio.AI!</h2>
@@ -85,7 +85,7 @@ export const OnboardingFlow = () => {
       case 1:
         return (
           <div className="space-y-6">
-            <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mb-6">
               <Briefcase className="w-8 h-8 text-indigo-400" />
             </div>
             <div>
@@ -106,12 +106,12 @@ export const OnboardingFlow = () => {
                   onClick={() => setWorkspaceType('personal')}
                   className={`p-4 rounded-lg border ${
                     workspaceType === 'personal'
-                      ? 'border-indigo-500 bg-indigo-500/10'
+                      ? 'border-indigo-500 bg-primary-500/10'
                       : 'border-border hover:border-indigo-500/50'
                   }`}
                 >
                   <div className="text-center">
-                    <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
                       <User className="w-5 h-5 text-indigo-400" />
                     </div>
                     <h3 className="font-medium text-foreground mb-1">Personal</h3>
@@ -122,12 +122,12 @@ export const OnboardingFlow = () => {
                   onClick={() => setWorkspaceType('team')}
                   className={`p-4 rounded-lg border ${
                     workspaceType === 'team'
-                      ? 'border-indigo-500 bg-indigo-500/10'
+                      ? 'border-indigo-500 bg-primary-500/10'
                       : 'border-border hover:border-indigo-500/50'
                   }`}
                 >
                   <div className="text-center">
-                    <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                    <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
                       <Users className="w-5 h-5 text-indigo-400" />
                     </div>
                     <h3 className="font-medium text-foreground mb-1">Team</h3>
@@ -158,7 +158,7 @@ export const OnboardingFlow = () => {
       case 2:
         return (
           <div className="space-y-6">
-            <div className="w-16 h-16 bg-indigo-500/20 rounded-full flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mb-6">
               <Users className="w-8 h-8 text-indigo-400" />
             </div>
             <div>
@@ -217,7 +217,7 @@ export const OnboardingFlow = () => {
                   index < currentStep
                     ? 'bg-green-500'
                     : index === currentStep
-                    ? 'bg-indigo-500'
+                    ? 'bg-primary-500'
                     : 'bg-muted'
                 }`}
               >
@@ -244,7 +244,7 @@ export const OnboardingFlow = () => {
           <div className="mt-8 flex justify-end">
             <button
               onClick={handleSubmit}
-              className="px-6 py-2 bg-indigo-600 text-foreground rounded-lg hover:bg-indigo-700 flex items-center gap-2"
+              className="px-6 py-2 bg-primary text-foreground rounded-lg hover:bg-primary/80 flex items-center gap-2"
             >
               {currentStep === steps.length - 1 ? (
                 'Go to Dashboard'

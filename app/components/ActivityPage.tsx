@@ -126,7 +126,7 @@ export const ActivityPage = () => {
       case 'comment':
         return 'bg-blue-500/20 text-blue-400';
       case 'status_change':
-        return 'bg-indigo-500/20 text-indigo-400';
+        return 'bg-primary-500/20 text-indigo-400';
       default:
         return 'bg-gray-500/20 text-gray-400';
     }

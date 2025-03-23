@@ -178,7 +178,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                   ))}
                 </select>
               ) : (
-                <span className="px-2 py-1 text-sm bg-indigo-500/20 text-indigo-400 rounded-full">
+                <span className="px-2 py-1 text-sm bg-primary-500/20 text-indigo-400 rounded-full">
                   {project.status}
                 </span>
               )}
@@ -199,7 +199,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                   ))}
                 </select>
               ) : (
-                <span className="px-2 py-1 text-sm bg-indigo-500/20 text-indigo-400 rounded-full">
+                <span className="px-2 py-1 text-sm bg-primary-500/20 text-indigo-400 rounded-full">
                   {project.priority}
                 </span>
               )}

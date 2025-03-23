@@ -38,7 +38,7 @@ export const ProfileSettings = () => {
         <h2 className="text-xl font-semibold mb-6">Profile Settings</h2>
         <div className="space-y-6 max-w-2xl">
           <div className="flex items-center gap-4">
-            <div className="w-20 h-20 bg-indigo-500/20 rounded-full flex items-center justify-center">
+            <div className="w-20 h-20 bg-primary-500/20 rounded-full flex items-center justify-center">
               <span className="text-2xl font-semibold text-indigo-400">AJ</span>
             </div>
             <button className="px-4 py-2 bg-muted text-sm text-gray-400 rounded-md hover:bg-border">
@@ -81,7 +81,7 @@ export const ProfileSettings = () => {
           <div className="pt-4">
             <button
               type="submit"
-              className="px-4 py-2 bg-indigo-600 text-primary-foreground rounded-md hover:bg-indigo-700"
+              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80"
               disabled={loading}
             >
               {loading ? "Saving..." : "Save Changes"}

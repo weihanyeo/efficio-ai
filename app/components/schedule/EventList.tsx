@@ -250,7 +250,7 @@ export const EventList = ({
                           onClick={() => onEventClick(event)}
                           className={`absolute left-0 right-0 mx-1 rounded-lg p-2 z-10 
                             cursor-pointer ${
-                              event.color || "bg-indigo-600"
+                              event.color || "bg-primary"
                             } hover:brightness-110 
                             transition-all shadow-md hover:shadow-lg border border-border`}
                           style={{

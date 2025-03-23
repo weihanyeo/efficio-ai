@@ -54,8 +54,8 @@ const SettingsNav = ({ activeTab, setActiveTab }: { activeTab: string; setActive
               onClick={() => setActiveTab(item.id)}
               className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors w-full text-left ${
                 isActive
-                  ? 'bg-muted text-foreground'
-                  : 'text-gray-400 hover:bg-secondary hover:text-foreground'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-gray-400 hover:bg-secondary hover:text-secondary-foreground'
               }`}
             >
               {item.icon}

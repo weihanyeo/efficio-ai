@@ -39,7 +39,7 @@ export const CreateEvent = ({
     location: "Singapore", // Prefill location with Singapore
     description: "",
     type: "meeting",
-    color: "bg-indigo-600", // Default color set to blue
+    color: "bg-primary", // Default color set to blue
     organizers: currentUser ? [
       {
         id: currentUser.id,
@@ -566,7 +566,7 @@ export const CreateEvent = ({
                     </label>
                     <div className="flex gap-2">
                       {[
-                        "bg-indigo-600",
+                        "bg-indigo-600ssssssss",
                         "bg-purple-600",
                         "bg-pink-600",
                         "bg-red-600",
