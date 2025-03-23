@@ -79,7 +79,7 @@ export const AuthPage = () => {
       {/* Left Panel - Features */}
       <div className="flex-1 p-8 hidden lg:flex flex-col">
         <div className="flex items-center gap-3 mb-12">
-          <Bot className="w-10 h-10 text-indigo-400" />
+          <Bot className="w-10 h-10 text-primary" />
           <h1 className="text-3xl font-bold">Efficio.AI</h1>
         </div>
 
@@ -99,7 +99,7 @@ export const AuthPage = () => {
             <div className="grid grid-cols-2 gap-6">
               {[
                 {
-                  icon: <Brain className="w-6 h-6 text-indigo-400" />,
+                  icon: <Brain className="w-6 h-6 text-primary" />,
                   title: 'Smart Tracking',
                   description: 'AI automatically categorizes and prioritizes issues.'
                 },
@@ -163,7 +163,7 @@ export const AuthPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full px-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
                   placeholder="Enter your name"
                   required
                 />
@@ -177,7 +177,7 @@ export const AuthPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full pl-11 pr-4 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
                   placeholder="name@company.com"
                   required
                 />
@@ -192,7 +192,7 @@ export const AuthPage = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-12 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:border-indigo-500 transition-colors"
+                  className="w-full pl-11 pr-12 py-2.5 bg-secondary border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-colors"
                   placeholder="Enter your password"
                   required
                 />
@@ -263,7 +263,7 @@ export const AuthPage = () => {
             {isLogin ? "Don't have an account? " : "Already have an account? "}
             <button
               onClick={() => setIsLogin(!isLogin)}
-              className="text-indigo-400 hover:text-indigo-300 transition-colors"
+              className="text-primary hover:text-indigo-300 transition-colors"
             >
               {isLogin ? 'Create one' : 'Sign in'}
             </button>

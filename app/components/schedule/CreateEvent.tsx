@@ -566,7 +566,7 @@ export const CreateEvent = ({
                     </label>
                     <div className="flex gap-2">
                       {[
-                        "bg-indigo-600ssssssss",
+                        "bg-indigo-600",
                         "bg-purple-600",
                         "bg-pink-600",
                         "bg-red-600",

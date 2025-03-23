@@ -36,7 +36,7 @@ export const ShortcutSettings = () => {
       <div className="space-y-6 max-w-2xl">
         <div className="p-4 bg-secondary rounded-lg">
           <div className="flex items-center gap-3 mb-4">
-            <Command className="w-5 h-5 text-indigo-400" />
+            <Command className="w-5 h-5 text-primary" />
             <h3 className="font-medium">Available Shortcuts</h3>
           </div>
           

@@ -766,7 +766,7 @@ export const MainContent = () => {
           {/* Virtual Drop Zone */}
           {dragState.isDragging && (
             <div
-              className="border-2 border-dashed border-indigo-500/50 rounded-lg p-4 flex items-center justify-center"
+              className="border-2 border-dashed border-primary-500/50 rounded-lg p-4 flex items-center justify-center"
               onDragOver={(e) => {
                 e.preventDefault();
                 setDragState(prev => ({ ...prev, dropTarget: 'virtual' }));
@@ -776,7 +776,7 @@ export const MainContent = () => {
                 setShowStatusModal(true);
               }}
             >
-              <div className="flex flex-col items-center gap-2 text-indigo-400">
+              <div className="flex flex-col items-center gap-2 text-primary">
                 <Plus className="w-6 h-6" />
                 <span className="text-sm">Drop to move to another status</span>
               </div>
@@ -829,7 +829,7 @@ export const MainContent = () => {
           <select
             value={quickCreateStatus}
             onChange={(e) => setQuickCreateStatus(e.target.value as Database['public']['Enums']['issue_status'])}
-            className="px-3 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+            className="px-3 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="Backlog">Backlog</option>
             <option value="Todo">To Do</option>
@@ -842,7 +842,7 @@ export const MainContent = () => {
             <input
               type="text"
               placeholder="Describe your task... AI will analyze the context and suggest related items"
-              className="w-full pl-4 pr-10 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full pl-4 pr-10 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
               onKeyDown={async (e) => {
                 if (e.key === 'Enter' && e.currentTarget.value.trim()) {
                   const title = e.currentTarget.value.trim();

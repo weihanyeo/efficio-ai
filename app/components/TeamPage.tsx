@@ -105,7 +105,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
             onClick={() => setActiveTab('email')}
             className={`px-4 py-2 text-sm font-medium ${
               activeTab === 'email'
-                ? 'text-indigo-400 border-b-2 border-indigo-400'
+                ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-400 hover:text-gray-300'
             }`}
           >
@@ -118,7 +118,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
             onClick={() => setActiveTab('link')}
             className={`px-4 py-2 text-sm font-medium ${
               activeTab === 'link'
-                ? 'text-indigo-400 border-b-2 border-indigo-400'
+                ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-400 hover:text-gray-300'
             }`}
           >
@@ -137,7 +137,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                 value={emails}
                 onChange={(e) => setEmails(e.target.value)}
                 rows={3}
-                className="w-full px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 placeholder="Enter email addresses separated by commas"
               />
             </div>
@@ -204,7 +204,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
 
             <div className="p-4 bg-secondary rounded-lg border border-border">
               <div className="flex items-center gap-2 mb-4">
-                <Users className="w-4 h-4 text-indigo-400" />
+                <Users className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium">Invite Settings</span>
               </div>
               
@@ -214,7 +214,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <select
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value as TeamRole)}
-                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                   >
                     <option value="Member">Member</option>
                     <option value="Admin">Admin</option>
@@ -226,7 +226,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <select
                     value={selectedFunction}
                     onChange={(e) => setSelectedFunction(e.target.value as TeamFunction)}
-                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                   >
                     <option value="Engineering">Engineering</option>
                     <option value="Design">Design</option>
@@ -303,7 +303,7 @@ const MemberDetail = ({
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center">
-              <span className="text-lg font-semibold text-indigo-400">
+              <span className="text-lg font-semibold text-primary">
                 {member.profile?.full_name?.charAt(0) || '?'}
               </span>
             </div>
@@ -412,7 +412,7 @@ const MemberDetail = ({
               {canManageRoles && (
                 <button 
                   onClick={() => setEditingRole(!editingRole)}
-                  className="text-xs text-indigo-400 hover:text-indigo-300"
+                  className="text-xs text-primary hover:text-indigo-300"
                 >
                   {editingRole ? 'Cancel' : 'Edit'}
                 </button>
@@ -424,7 +424,7 @@ const MemberDetail = ({
                 <select
                   value={selectedRole}
                   onChange={(e) => handleRoleChange(e.target.value as TeamRole)}
-                  className="bg-muted border border-border rounded-md px-3 py-1 text-sm focus:outline-none focus:border-indigo-500"
+                  className="bg-muted border border-border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="Member">Member</option>
                   <option value="owner">Owner</option>
@@ -750,7 +750,7 @@ export const TeamPage = () => {
             <input
               type="text"
               placeholder="Search team members..."
-              className="w-64 pl-10 pr-4 py-1.5 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-64 pl-10 pr-4 py-1.5 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
           <button
@@ -787,14 +787,14 @@ export const TeamPage = () => {
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center">
-                        <span className="text-sm font-semibold text-indigo-400">
+                        <span className="text-sm font-semibold text-primary">
                           {member.profile?.full_name?.charAt(0)?.toUpperCase() || member.member_id.charAt(0)?.toUpperCase() || '?'}
                         </span>
                       </div>
                       <div>
                         <span className="font-medium">{member.profile?.full_name || `User ${member.member_id.substring(0, 6)}`}</span>
                         <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
-                          member.role === 'owner' ? 'bg-red-500/20 text-red-400' : 'bg-primary-500/20 text-indigo-400'
+                          member.role === 'owner' ? 'bg-red-500/20 text-red-400' : 'bg-primary-500/20 text-primary'
                         }`}>
                           {member.role}
                         </span>

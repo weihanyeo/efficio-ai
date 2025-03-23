@@ -79,7 +79,7 @@ export const IntegrationSettings = () => {
         {/* Webhook Information */}
         <div className="p-4 bg-secondary rounded-lg border border-border">
           <div className="flex items-start gap-3 mb-4">
-            <Bot className="w-5 h-5 text-indigo-400 mt-1" />
+            <Bot className="w-5 h-5 text-primary mt-1" />
             <div>
               <h3 className="font-medium">Smart Webhook Processing</h3>
               <p className="text-sm text-gray-400 mt-1">
@@ -210,7 +210,7 @@ export const IntegrationSettings = () => {
                     onChange={(e) =>
                       setNewWebhook({ ...newWebhook, name: e.target.value })
                     }
-                    className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                    className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     placeholder="e.g., GitHub Integration"
                   />
                 </div>
@@ -224,7 +224,7 @@ export const IntegrationSettings = () => {
                     onChange={(e) =>
                       setNewWebhook({ ...newWebhook, url: e.target.value })
                     }
-                    className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                    className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     placeholder="https://"
                   />
                 </div>

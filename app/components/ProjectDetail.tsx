@@ -84,7 +84,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
   };
 
   const datePickerCustomStyles = {
-    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500",
+    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring",
     calendarClassName: "bg-muted border border-gray-600 rounded-lg shadow-xl !font-sans",
     dayClassName: (date: Date) => 
       `hover:!bg-blue-500 hover:!text-foreground
@@ -102,7 +102,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="text-xl font-semibold bg-muted rounded px-2 py-1 w-96 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-xl font-semibold bg-muted rounded px-2 py-1 w-96 text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           ) : (
             <h2 className="text-xl font-semibold">{project.title}</h2>
@@ -155,7 +155,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full h-32 bg-muted rounded p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full h-32 bg-muted rounded p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                   placeholder="Add a description..."
                 />
               ) : (
@@ -169,7 +169,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="bg-muted rounded px-3 py-1.5 text-foreground border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="bg-muted rounded px-3 py-1.5 text-foreground border border-gray-600 focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {statusOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -178,7 +178,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                   ))}
                 </select>
               ) : (
-                <span className="px-2 py-1 text-sm bg-primary-500/20 text-indigo-400 rounded-full">
+                <span className="px-2 py-1 text-sm bg-primary-500/20 text-primary rounded-full">
                   {project.status}
                 </span>
               )}
@@ -190,7 +190,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
-                  className="bg-muted rounded px-3 py-1.5 text-foreground border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="bg-muted rounded px-3 py-1.5 text-foreground border border-gray-600 focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {priorityOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -199,7 +199,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                   ))}
                 </select>
               ) : (
-                <span className="px-2 py-1 text-sm bg-primary-500/20 text-indigo-400 rounded-full">
+                <span className="px-2 py-1 text-sm bg-primary-500/20 text-primary rounded-full">
                   {project.priority}
                 </span>
               )}

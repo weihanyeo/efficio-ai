@@ -39,7 +39,7 @@ export const ProfileSettings = () => {
         <div className="space-y-6 max-w-2xl">
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 bg-primary-500/20 rounded-full flex items-center justify-center">
-              <span className="text-2xl font-semibold text-indigo-400">AJ</span>
+              <span className="text-2xl font-semibold text-primary">AJ</span>
             </div>
             <button className="px-4 py-2 bg-muted text-sm text-gray-400 rounded-md hover:bg-border">
               Change Avatar
@@ -55,7 +55,7 @@ export const ProfileSettings = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
             <div>
@@ -64,7 +64,7 @@ export const ProfileSettings = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
             <div>
@@ -73,7 +73,7 @@ export const ProfileSettings = () => {
                 rows={4}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
           </div>

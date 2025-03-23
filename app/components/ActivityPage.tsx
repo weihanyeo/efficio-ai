@@ -111,7 +111,7 @@ export const ActivityPage = () => {
       case 'comment':
         return <MessageSquare className="w-4 h-4 text-blue-400" />;
       case 'status_change':
-        return <Activity className="w-4 h-4 text-indigo-400" />;
+        return <Activity className="w-4 h-4 text-primary" />;
       default:
         return <Activity className="w-4 h-4 text-gray-400" />;
     }
@@ -126,7 +126,7 @@ export const ActivityPage = () => {
       case 'comment':
         return 'bg-blue-500/20 text-blue-400';
       case 'status_change':
-        return 'bg-primary-500/20 text-indigo-400';
+        return 'bg-primary-500/20 text-primary';
       default:
         return 'bg-gray-500/20 text-gray-400';
     }
@@ -182,7 +182,7 @@ export const ActivityPage = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search activity..."
-              className="w-64 pl-10 pr-4 py-1.5 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-64 pl-10 pr-4 py-1.5 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
         </div>

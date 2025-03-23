@@ -72,7 +72,7 @@ export const OnboardingFlow = () => {
         return (
           <div className="text-center">
             <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Rocket className="w-8 h-8 text-indigo-400" />
+              <Rocket className="w-8 h-8 text-primary" />
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-4">Welcome to Efficio.AI!</h2>
             <p className="text-gray-300 mb-8">
@@ -86,7 +86,7 @@ export const OnboardingFlow = () => {
         return (
           <div className="space-y-6">
             <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mb-6">
-              <Briefcase className="w-8 h-8 text-indigo-400" />
+              <Briefcase className="w-8 h-8 text-primary" />
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">Workspace Name</label>
@@ -94,7 +94,7 @@ export const OnboardingFlow = () => {
                 type="text"
                 value={workspaceName}
                 onChange={(e) => setWorkspaceName(e.target.value)}
-                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 placeholder="e.g., Engineering Team"
                 required
               />
@@ -106,13 +106,13 @@ export const OnboardingFlow = () => {
                   onClick={() => setWorkspaceType('personal')}
                   className={`p-4 rounded-lg border ${
                     workspaceType === 'personal'
-                      ? 'border-indigo-500 bg-primary-500/10'
-                      : 'border-border hover:border-indigo-500/50'
+                      ? 'border-primary-500 bg-primary-500/10'
+                      : 'border-border hover:border-primary-500/50'
                   }`}
                 >
                   <div className="text-center">
                     <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                      <User className="w-5 h-5 text-indigo-400" />
+                      <User className="w-5 h-5 text-primary" />
                     </div>
                     <h3 className="font-medium text-foreground mb-1">Personal</h3>
                     <p className="text-sm text-gray-400">Just for yourself</p>
@@ -122,13 +122,13 @@ export const OnboardingFlow = () => {
                   onClick={() => setWorkspaceType('team')}
                   className={`p-4 rounded-lg border ${
                     workspaceType === 'team'
-                      ? 'border-indigo-500 bg-primary-500/10'
-                      : 'border-border hover:border-indigo-500/50'
+                      ? 'border-primary-500 bg-primary-500/10'
+                      : 'border-border hover:border-primary-500/50'
                   }`}
                 >
                   <div className="text-center">
                     <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                      <Users className="w-5 h-5 text-indigo-400" />
+                      <Users className="w-5 h-5 text-primary" />
                     </div>
                     <h3 className="font-medium text-foreground mb-1">Team</h3>
                     <p className="text-sm text-gray-400">Collaborate with others</p>
@@ -142,7 +142,7 @@ export const OnboardingFlow = () => {
                 <select
                   value={teamSize}
                   onChange={(e) => setTeamSize(e.target.value)}
-                  className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-indigo-500"
+                  className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="">Select team size</option>
                   <option value="2-5">2-5 people</option>
@@ -159,7 +159,7 @@ export const OnboardingFlow = () => {
         return (
           <div className="space-y-6">
             <div className="w-16 h-16 bg-primary-500/20 rounded-full flex items-center justify-center mb-6">
-              <Users className="w-8 h-8 text-indigo-400" />
+              <Users className="w-8 h-8 text-primary" />
             </div>
             <div>
               <label className="block text-sm font-medium text-foreground mb-2">Invite Team Members</label>
@@ -167,7 +167,7 @@ export const OnboardingFlow = () => {
                 value={teamEmails}
                 onChange={(e) => setTeamEmails(e.target.value)}
                 rows={4}
-                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-secondary border border-border rounded-lg text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                 placeholder="Enter email addresses separated by commas"
               />
               <p className="mt-2 text-sm text-gray-400">
@@ -200,7 +200,7 @@ export const OnboardingFlow = () => {
       {/* Left Panel - Progress */}
       <div className="w-80 border-r border-muted p-8">
         <div className="flex items-center gap-3 mb-12">
-          <Bot className="w-10 h-10 text-indigo-400" />
+          <Bot className="w-10 h-10 text-primary" />
           <h1 className="text-2xl font-bold text-foreground">Efficio.AI</h1>
         </div>
 

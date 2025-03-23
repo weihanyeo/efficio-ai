@@ -10,7 +10,7 @@ export const AISettings = () => {
         {/* AI Capabilities */}
         <div className="p-4 bg-secondary rounded-lg">
           <div className="flex items-center gap-3 mb-4">
-            <Brain className="w-5 h-5 text-indigo-400" />
+            <Brain className="w-5 h-5 text-primary" />
             <h3 className="font-medium">AI Capabilities</h3>
           </div>
           <div className="space-y-3">
@@ -37,7 +37,7 @@ export const AISettings = () => {
         {/* Privacy Settings */}
         <div className="p-4 bg-secondary rounded-lg">
           <div className="flex items-center gap-3 mb-4">
-            <Lock className="w-5 h-5 text-indigo-400" />
+            <Lock className="w-5 h-5 text-primary" />
             <h3 className="font-medium">Privacy Settings</h3>
           </div>
           <div className="space-y-3">
@@ -57,13 +57,13 @@ export const AISettings = () => {
         {/* Model Settings */}
         <div className="p-4 bg-secondary rounded-lg">
           <div className="flex items-center gap-3 mb-4">
-            <Settings className="w-5 h-5 text-indigo-400" />
+            <Settings className="w-5 h-5 text-primary" />
             <h3 className="font-medium">Model Settings</h3>
           </div>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">Response Length</label>
-              <select className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500">
+              <select className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring">
                 <option>Concise</option>
                 <option>Balanced</option>
                 <option>Detailed</option>

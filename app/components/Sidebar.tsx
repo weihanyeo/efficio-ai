@@ -324,7 +324,7 @@ const NavLink: React.FC<{
       className={`flex items-center gap-2 px-3 py-2 text-sm rounded-md transition-colors w-full ${
         isActive
           ? "bg-primary text-primary-foreground"
-          : "text-muted-foreground hover:bg-secondary hover:text-secondary-foreground"
+          : "text-muted-foreground hover:bg-secondary hover:text-c-foreground"
       }`}
     >
       <span className="w-4 h-4 flex items-center justify-center">

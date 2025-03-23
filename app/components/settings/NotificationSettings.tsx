@@ -34,7 +34,7 @@ export const NotificationSettings = () => {
               key={index}
               className="flex items-start gap-4 p-4 bg-secondary rounded-lg"
             >
-              <div className="p-2 bg-muted rounded-md text-indigo-400">
+              <div className="p-2 bg-muted rounded-md text-primary">
                 {item.icon}
               </div>
               <div className="flex-1">

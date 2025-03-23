@@ -103,7 +103,7 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
             return (
               <div
                 key={member.id}
-                className="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center text-indigo-400 group cursor-pointer"
+                className="w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center text-primary group cursor-pointer"
               >
                 {member.full_name.charAt(0)}
                 <div className="hidden group-hover:flex absolute items-center bg-muted text-foreground text-xs px-2 py-1 rounded -mt-8">
@@ -128,7 +128,7 @@ const AssigneeSelector = ({ currentAssigneeId, onAssigneeChange, workspaceId }: 
                 }}
                 className="w-full flex items-center gap-3 p-2 hover:bg-border rounded-md group"
               >
-                <div className="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center text-indigo-400 text-sm">
+                <div className="w-6 h-6 rounded-full bg-primary-500/20 flex items-center justify-center text-primary text-sm">
                   {member.full_name.charAt(0)}
                 </div>
                 <span className="text-sm text-gray-200">{member.full_name}</span>
@@ -646,7 +646,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                                   <div className="p-3 bg-card rounded-lg">
                                     {/* Reply Header */}
                                     <div className="flex items-center gap-2 mb-2">
-                                      <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center text-indigo-400 text-xs">
+                                      <div className="w-5 h-5 rounded-full bg-primary-500/20 flex items-center justify-center text-primary text-xs">
                                         {reply.author?.full_name.charAt(0)}
                                       </div>
                                       <span className="text-sm font-medium">
@@ -704,7 +704,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                         value={newComment}
                         onChange={(e) => setNewComment(e.target.value)}
                         placeholder="Add a comment..."
-                        className="flex-1 px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                        className="flex-1 px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                         onKeyDown={(e) => {
                           if (e.key === 'Enter' && !e.shiftKey) {
                             e.preventDefault();
@@ -735,7 +735,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
 
                   {/* GitHub Integration Notice */}
                   <div className="p-3 bg-cardrounded-lg border border-border flex items-start gap-3">
-                    <GitBranch className="w-5 h-5 text-indigo-400 mt-0.5" />
+                    <GitBranch className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <h4 className="text-sm font-medium mb-1">Connect to GitHub</h4>
                       <p className="text-xs text-gray-400">
@@ -743,7 +743,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                         commits, and code changes. Documentation will be enriched with implementation
                         details and technical context.
                       </p>
-                      <button className="mt-3 px-3 py-1.5 bg-muted text-sm text-indigo-400 rounded-md hover:bg-border transition-colors">
+                      <button className="mt-3 px-3 py-1.5 bg-muted text-sm text-primary rounded-md hover:bg-border transition-colors">
                         Connect Repository
                       </button>
                     </div>
@@ -772,7 +772,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
 
                     <div className="not-prose mt-8 p-3 bg-secondary rounded-lg border border-border">
                       <p className="text-xs text-gray-400">
-                        <Bot className="w-4 h-4 text-indigo-400 inline-block mr-2" />
+                        <Bot className="w-4 h-4 text-primary inline-block mr-2" />
                         Documentation is automatically kept up to date with your codebase. You can also
                         manually edit it to add additional context, examples, or clarifications.
                       </p>
@@ -808,7 +808,7 @@ export const IssueDetail = ({ issue, onClose }: IssueDetailProps) => {
                       key={label.id}
                       onClick={() => handleLabelToggle(label.id)}
                       className={`px-2 py-1 text-xs rounded-md transition-colors ${selectedLabels.includes(label.id)
-                        ? 'bg-primary-500/20 text-indigo-400'
+                        ? 'bg-primary-500/20 text-primary'
                         : 'bg-muted text-gray-300'
                         }`}
                     >

@@ -135,7 +135,7 @@ export const NotificationsPanel = () => {
       case 'mention':
         return <MessageSquare className="w-4 h-4 text-blue-400" />;
       case 'ai':
-        return <Bot className="w-4 h-4 text-indigo-400" />;
+        return <Bot className="w-4 h-4 text-primary" />;
       default:
         return <GitBranch className="w-4 h-4 text-gray-400" />;
     }
@@ -234,7 +234,7 @@ export const NotificationsPanel = () => {
           <div className="p-3 border-t border-muted flex justify-between">
             <button
               onClick={handleMarkAllAsRead}
-              className="text-sm text-indigo-400 hover:text-indigo-300"
+              className="text-sm text-primary hover:text-indigo-300"
             >
               Mark all as read
             </button>

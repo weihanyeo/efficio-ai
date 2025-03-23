@@ -27,7 +27,7 @@ export const LandingPage = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0D0D0D]/80 backdrop-blur-lg border-b border-muted">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Bot className="w-8 h-8 text-indigo-400" />
+            <Bot className="w-8 h-8 text-primary" />
             <span className="text-xl font-bold">Efficio.AI</span>
           </div>
           <div className="hidden md:flex items-center gap-8">
@@ -96,7 +96,7 @@ export const LandingPage = () => {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: <Table2 className="w-6 h-6 text-indigo-400" />,
+                icon: <Table2 className="w-6 h-6 text-primary" />,
                 title: "Familiar Interface",
                 description: "Work with an intuitive, spreadsheet-style grid that feels just like Excel."
               },
@@ -106,7 +106,7 @@ export const LandingPage = () => {
                 description: "Switch seamlessly between grid and Kanban views to manage your way."
               },
               {
-                icon: <Brain className="w-6 h-6 text-indigo-400" />,
+                icon: <Brain className="w-6 h-6 text-primary" />,
                 title: "AI Assistant",
                 description: "Smart issue categorization and automated task breakdown."
               },
@@ -325,7 +325,7 @@ export const LandingPage = () => {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <Bot className="w-8 h-8 text-indigo-400" />
+                <Bot className="w-8 h-8 text-primary" />
                 <span className="text-xl font-bold">Efficio.AI</span>
               </div>
               <p className="text-gray-400">

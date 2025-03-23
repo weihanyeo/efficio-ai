@@ -264,7 +264,7 @@ export const CopilotPanel: React.FC<{ className?: string }> = ({ className = "" 
             onFocus={handleInputFocus}
             onBlur={handleInputBlur}
             onKeyDown={handleKeyDown}
-            className="w-full pl-4 pr-10 py-2 bg-secondary border border-muted focus:outline-none focus:border-primary"
+            className="w-full pl-4 pr-10 py-2 rounded-md bg-secondary border border-muted focus:outline-none focus:border-primary"
           />
           <Bot className="w-4 h-4 text-muted-foreground absolute right-3 top-1/2 transform -translate-y-1/2" />
           

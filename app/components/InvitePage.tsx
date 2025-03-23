@@ -272,7 +272,7 @@ export const InvitePage = () => {
     return (
       <div className="min-h-screen bg-[#0D0D0D] text-foreground flex items-center justify-center">
         <div className="flex items-center gap-2">
-          <div className="w-5 h-5 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-5 h-5 ring-2 border-t-transparent rounded-full animate-spin"></div> 
           <span>Loading invite...</span>
         </div>
       </div>
@@ -300,7 +300,7 @@ export const InvitePage = () => {
     <div className="min-h-screen bg-[#0D0D0D] text-foreground flex items-center justify-center p-4">
       <div className="w-full max-w-2xl">
         <div className="mb-8 text-center">
-          <Bot className="w-12 h-12 text-indigo-400 mx-auto mb-4" />
+          <Bot className="w-12 h-12 text-primary mx-auto mb-4" />
           <h1 className="text-2xl font-bold mb-2">Join Efficio.AI</h1>
           <p className="text-gray-400">You've been invited to collaborate on a project</p>
         </div>
@@ -310,7 +310,7 @@ export const InvitePage = () => {
             <div className="flex-1">
               <h2 className="text-xl font-semibold mb-2">{inviteDetails.workspace.name}</h2>
             </div>
-            <span className="px-3 py-1 text-xs bg-primary-500/20 text-indigo-400 rounded-full">
+            <span className="px-3 py-1 text-xs bg-primary-500/20 text-primary rounded-full">
               {inviteDetails.role}
             </span>
           </div>
@@ -318,7 +318,7 @@ export const InvitePage = () => {
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="p-4 bg-secondary rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <Users className="w-4 h-4 text-indigo-400" />
+                <Users className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium">Team Size</span>
               </div>
               <p className="text-2xl font-bold">
@@ -331,7 +331,7 @@ export const InvitePage = () => {
             </div>
             <div className="p-4 bg-secondary rounded-lg">
               <div className="flex items-center gap-2 mb-2">
-                <Shield className="w-4 h-4 text-indigo-400" />
+                <Shield className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium">Your Role</span>
               </div>
               <p className="text-2xl font-bold">{inviteDetails.function}</p>
@@ -343,7 +343,7 @@ export const InvitePage = () => {
               {inviteDetails.inviter ? (
                 <>
                   <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center">
-                    <span className="text-lg font-semibold text-indigo-400">
+                    <span className="text-lg font-semibold text-primary">
                       {inviteDetails.inviter.full_name.charAt(0)}
                     </span>
                   </div>

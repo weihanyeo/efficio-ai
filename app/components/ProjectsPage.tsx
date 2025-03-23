@@ -351,7 +351,7 @@ export const ProjectsPage = () => {
 
   // Custom styles for the DatePicker
   const datePickerCustomStyles = {
-    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500",
+    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring",
     calendarClassName: "bg-muted border border-gray-600 rounded-lg shadow-xl !font-sans !z-[100] mx-auto",
     dayClassName: (date: Date) => 
       `hover:!bg-blue-500 hover:!text-foreground
@@ -364,7 +364,7 @@ export const ProjectsPage = () => {
   // Shared DatePicker styles for modals
   const modalDatePickerStyles = {
     ...datePickerCustomStyles,
-    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500",
+    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring",
     calendarClassName: "bg-muted border border-gray-600 rounded-lg shadow-xl !font-sans !z-[100] mx-auto",
     wrapperClassName: "flex justify-center w-full",
   };
@@ -384,7 +384,7 @@ export const ProjectsPage = () => {
             setDateEditingProject(project);
             setEditingField(null);  // Clear any open dropdowns
           }}
-          className="bg-muted hover:bg-secondary rounded-md border border-[bg-secondary rounded-md] rounded px-2 py-1 text-sm text-gray-300 w-full text-center focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="bg-muted hover:bg-secondary rounded-md border border-[bg-secondary rounded-md] rounded px-2 py-1 text-sm text-gray-300 w-full text-center focus:outline-none focus:ring-2 focus:ring-ring"
         >
           {project.end_date ? new Date(project.end_date).toLocaleDateString() : '—'}
         </button>
@@ -708,7 +708,7 @@ export const ProjectsPage = () => {
                         setTitle(e.target.value);
                         if (e.target.value.trim()) setTitleError('');
                       }}
-                      className={`w-full rounded-lg bg-muted border ${titleError ? 'border-red-500' : 'border-gray-600'} px-4 py-2 text-foreground focus:outline-none focus:ring-2 ${titleError ? 'focus:ring-red-500' : 'focus:ring-blue-500'}`}
+                      className={`w-full rounded-lg bg-muted border ${titleError ? 'border-red-500' : 'border-gray-600'} px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring ${titleError ? 'focus:ring-red-500' : 'focus:ring-2'}`}
                     />
                     {titleError && <p className="mt-1 text-sm text-red-500">{titleError}</p>}
                   </div>
@@ -722,7 +722,7 @@ export const ProjectsPage = () => {
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
                       rows={3}
-                      className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                     />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
@@ -777,7 +777,7 @@ export const ProjectsPage = () => {
                         id="status"
                         value={status}
                         onChange={(e) => setStatus(e.target.value)}
-                        className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                         required
                       >
                         <option value="Backlog">Backlog</option>
@@ -796,7 +796,7 @@ export const ProjectsPage = () => {
                         id="priority"
                         value={priority}
                         onChange={(e) => setPriority(e.target.value)}
-                        className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                         required
                       >
                         <option value="NoPriority">No Priority</option>
@@ -819,7 +819,7 @@ export const ProjectsPage = () => {
                     </button>
                     <button
                       type="submit"
-                      className="rounded-lg bg-primary hover:bg-primary/80 px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center gap-2"
+                      className="rounded-lg bg-primary hover:bg-primary/80 px-4 py-2 text-primary-foreground focus:outline-none focus:ring-2 focus:ring-ring flex items-center gap-2"
                     >
                       <Plus className="w-4 h-4" />
                       Create Project

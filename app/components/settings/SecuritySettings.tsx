@@ -71,7 +71,7 @@ export const SecuritySettings = () => {
           {/* Password Section */}
           <div className="p-4 bg-secondary rounded-lg">
             <div className="flex items-center gap-3 mb-4">
-              <Key className="w-5 h-5 text-indigo-400" />
+              <Key className="w-5 h-5 text-primary" />
               <h3 className="font-medium">Password</h3>
             </div>
 
@@ -89,7 +89,8 @@ export const SecuritySettings = () => {
                   type="password"
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
-                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                  placeholder="Please input current password"
+                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
               <div>
@@ -100,7 +101,8 @@ export const SecuritySettings = () => {
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                  placeholder="Please input new password"
+                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
               <div>
@@ -111,7 +113,8 @@ export const SecuritySettings = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-indigo-500"
+                  placeholder="Please input confirm new password"
+                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
               <button
@@ -128,7 +131,7 @@ export const SecuritySettings = () => {
           <div className="p-4 bg-secondary rounded-lg">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Lock className="w-5 h-5 text-indigo-400" />
+                <Lock className="w-5 h-5 text-primary" />
                 <div>
                   <h3 className="font-medium">Two-Factor Authentication</h3>
                   <p className="text-sm text-gray-400 mt-1">
@@ -145,7 +148,7 @@ export const SecuritySettings = () => {
           {/* Active Sessions */}
           <div className="p-4 bg-secondary rounded-lg">
             <div className="flex items-center gap-3 mb-4">
-              <Fingerprint className="w-5 h-5 text-indigo-400" />
+              <Fingerprint className="w-5 h-5 text-primary" />
               <h3 className="font-medium">Active Sessions</h3>
             </div>
             <div className="space-y-3">
