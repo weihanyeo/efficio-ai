@@ -18,6 +18,8 @@ import { supabase } from '../lib/supabase';
 import { useWorkspace } from '../contexts/WorkspaceContext';
 import type { Profile, TeamRole, TeamFunction, WorkspaceMember, SupabaseError } from '../types';
 import { createInviteCode } from '../utils/inviteUtils';
+import { toast } from 'react-toastify';
+import emailjs from '@emailjs/browser';
 
 interface TeamMemberWithProfile extends WorkspaceMember {
   profile: Profile;
@@ -424,7 +426,7 @@ const MemberDetail = ({
                 <select
                   value={selectedRole}
                   onChange={(e) => handleRoleChange(e.target.value as TeamRole)}
-                  className="bg-muted border border-border rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
+                  className="bg-muted border border-border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="Member">Member</option>
                   <option value="owner">Owner</option>
@@ -448,14 +450,20 @@ const MemberDetail = ({
 };
 
 export const TeamPage = () => {
-  const { currentWorkspace } = useWorkspace();
-  const [selectedMember, setSelectedMember] = useState<TeamMemberWithProfile | null>(null);
-  const [showInviteMembers, setShowInviteMembers] = useState(false);
   const [members, setMembers] = useState<TeamMemberWithProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<TeamMemberWithProfile | null>(null);
+  const { currentWorkspace } = useWorkspace();
   const [currentUserRole, setCurrentUserRole] = useState<TeamRole>('Member');
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_API_KEY || '');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -681,8 +689,8 @@ export const TeamPage = () => {
 
   const handleInviteMembers = async (emails: string[]) => {
     try {
-      if (!currentWorkspace?.id) {
-        console.error('No current workspace');
+      if (!currentWorkspace) {
+        toast.error('No workspace selected');
         return;
       }
 
@@ -697,7 +705,10 @@ export const TeamPage = () => {
       // For each email, create an invite using the edge function
       for (const email of emails) {
         try {
-          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/invite-member`, {
+          console.log(`Sending invite to ${email} for workspace ${currentWorkspace.id}`);
+          
+          // First create the invite using the edge function
+          const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/invite-member`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -714,13 +725,73 @@ export const TeamPage = () => {
           if (!response.ok) {
             const errorData = await response.json();
             console.error(`Error sending invite to ${email}:`, errorData);
+            toast.error(`Failed to invite ${email}. Please try again.`);
+            continue;
+          }
+
+          // Get the invite data from the response
+          const inviteData = await response.json();
+          console.log(`Invite created successfully for ${email}:`, inviteData);
+          
+          // Now send an email using EmailJS
+          try {
+            console.log('Sending email notification for the invite');
+            
+            // Get the invite URL
+            const inviteUrl = inviteData.token 
+              ? `${window.location.origin}/invite/${inviteData.token}`
+              : `${window.location.origin}/invite?code=${inviteData.code}`;
+            
+            // Prepare template parameters - ensure all required fields are present
+            const templateParams = {
+              to_email: email,
+              to_name: email.split('@')[0],
+              email: email, // Add this field which might be required by the template
+              user_email: email, // Add alternative field name
+              recipient_email: email, // Add alternative field name
+              from_name: user.user_metadata?.full_name || 'Efficio.AI Team',
+              workspace_name: currentWorkspace.name,
+              invite_link: inviteUrl,
+              invite_code: inviteData.code || '',
+              role: 'Member',
+              function: 'Engineering',
+              message: `You've been invited to join the ${currentWorkspace.name} workspace on Efficio.AI.`
+            };
+            
+            // Send email using EmailJS with proper service and template IDs
+            const emailResult = await emailjs.send(
+              process.env.NEXT_PUBLIC_EMAILJS_SERVICE_LINK || '',
+              process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_LINK || '',
+              templateParams,
+              process.env.NEXT_PUBLIC_EMAILJS_API_KEY || ''
+            );
+            
+            console.log(`Email sent successfully to ${email}:`, emailResult);
+            // Enhanced toast notification for successful email sending
+            toast.success(
+              <div className="flex flex-col">
+                <span className="font-medium">Invite Email Sent!</span>
+                <span className="text-sm opacity-90">Successfully sent to {email}</span>
+              </div>,
+              {
+                icon: <Mail className="w-5 h-5 text-green-400" />,
+                className: 'border-l-4 border-green-400',
+                autoClose: 5000
+              }
+            );
+          } catch (emailError) {
+            console.error(`Error sending email notification to ${email}:`, emailError);
+            // Don't show an error toast here since the invite was created successfully
+            // Just log the error for debugging
           }
         } catch (emailError) {
           console.error(`Error processing invite for ${email}:`, emailError);
+          toast.error(`Failed to process invite for ${email}`);
         }
       }
     } catch (error) {
       console.error('Error sending invites:', error);
+      toast.error('Error sending invites. Please try again.');
     }
   };
 
@@ -754,7 +825,7 @@ export const TeamPage = () => {
             />
           </div>
           <button
-            onClick={() => setShowInviteMembers(true)}
+            onClick={() => setShowInviteModal(true)}
             className="flex items-center gap-2 px-3 py-1.5 bg-primary rounded-md hover:bg-primary/80 text-primary-foreground"
           >
             <Plus className="w-4 h-4" />
@@ -866,9 +937,9 @@ export const TeamPage = () => {
             onClose={() => setSelectedMember(null)}
           />
         )}
-        {showInviteMembers && (
+        {showInviteModal && (
           <InviteMemberModal
-            onClose={() => setShowInviteMembers(false)}
+            onClose={() => setShowInviteModal(false)}
             onInvite={handleInviteMembers}
           />
         )}
