@@ -69,9 +69,9 @@ export const SecuritySettings = () => {
         <h2 className="text-xl font-semibold mb-6">Security Settings</h2>
         <div className="space-y-6 max-w-2xl">
           {/* Password Section */}
-          <div className="p-4 bg-[#1E1E1E] rounded-lg">
+          <div className="p-4 bg-secondary rounded-lg">
             <div className="flex items-center gap-3 mb-4">
-              <Key className="w-5 h-5 text-indigo-400" />
+              <Key className="w-5 h-5 text-primary" />
               <h3 className="font-medium">Password</h3>
             </div>
 
@@ -89,7 +89,8 @@ export const SecuritySettings = () => {
                   type="password"
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
-                  className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                  placeholder="Please input current password"
+                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
               <div>
@@ -100,7 +101,8 @@ export const SecuritySettings = () => {
                   type="password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                  placeholder="Please input new password"
+                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
               <div>
@@ -111,12 +113,13 @@ export const SecuritySettings = () => {
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                  placeholder="Please input confirm new password"
+                  className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                 />
               </div>
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80"
                 disabled={passwordLoading}
               >
                 {passwordLoading ? "Updating..." : "Update Password"}
@@ -125,10 +128,10 @@ export const SecuritySettings = () => {
           </div>
 
           {/* Two-Factor Authentication */}
-          <div className="p-4 bg-[#1E1E1E] rounded-lg">
+          <div className="p-4 bg-secondary rounded-lg">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Lock className="w-5 h-5 text-indigo-400" />
+                <Lock className="w-5 h-5 text-primary" />
                 <div>
                   <h3 className="font-medium">Two-Factor Authentication</h3>
                   <p className="text-sm text-gray-400 mt-1">
@@ -136,16 +139,16 @@ export const SecuritySettings = () => {
                   </p>
                 </div>
               </div>
-              <button className="px-4 py-2 bg-[#262626] text-sm text-gray-400 rounded-md hover:bg-[#363636]">
+              <button className="px-4 py-2 bg-muted text-sm text-gray-400 rounded-md hover:bg-border">
                 Enable 2FA
               </button>
             </div>
           </div>
 
           {/* Active Sessions */}
-          <div className="p-4 bg-[#1E1E1E] rounded-lg">
+          <div className="p-4 bg-secondary rounded-lg">
             <div className="flex items-center gap-3 mb-4">
-              <Fingerprint className="w-5 h-5 text-indigo-400" />
+              <Fingerprint className="w-5 h-5 text-primary" />
               <h3 className="font-medium">Active Sessions</h3>
             </div>
             <div className="space-y-3">
@@ -163,7 +166,7 @@ export const SecuritySettings = () => {
               ].map((session, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between p-3 bg-[#262626] rounded-md"
+                  className="flex items-center justify-between p-3 bg-muted rounded-md"
                 >
                   <div>
                     <p className="font-medium">{session.device}</p>
@@ -180,7 +183,7 @@ export const SecuritySettings = () => {
           </div>
 
           {/* Delete Account Section */}
-          <div className="border border-[#363636] bg-[#262626] p-4 rounded-md">
+          <div className="border border-border bg-muted p-4 rounded-md">
             <h3 className="text-lg font-semibold text-red-500">
               Delete Account
             </h3>
@@ -200,7 +203,7 @@ export const SecuritySettings = () => {
                   placeholder="Enter your email"
                   value={confirmationInput}
                   onChange={(e) => setConfirmationInput(e.target.value)}
-                  className="w-full px-4 py-2 bg-[#1e1e1e] border border-[#363636] rounded-md text-white focus:outline-none focus:border-red-500"
+                  className="w-full px-4 py-2 bg-secondary border border-border rounded-md text-foreground focus:outline-none focus:border-red-500"
                 />
                 {deleteError && (
                   <p className="text-sm text-red-500 mt-2">{deleteError}</p>
@@ -209,14 +212,14 @@ export const SecuritySettings = () => {
                 <div className="flex gap-3 mt-4">
                   <button
                     onClick={handleAccountDeletion}
-                    className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                    className="px-4 py-2 bg-red-600 text-primary-foreground rounded-md hover:bg-red-700"
                     disabled={deleteLoading}
                   >
                     {deleteLoading ? "Deleting..." : "Confirm Delete"}
                   </button>
                   <button
                     onClick={handleCancelDelete}
-                    className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600"
+                    className="px-4 py-2 bg-gray-500 text-primary-foreground rounded-md hover:bg-gray-600"
                   >
                     Cancel
                   </button>
@@ -225,7 +228,7 @@ export const SecuritySettings = () => {
             ) : (
               <button
                 onClick={handleDeleteClick}
-                className="mt-3 px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800"
+                className="mt-3 px-4 py-2 bg-red-500/10 text-red-400 rounded-md hover:bg-red-500/20"
               >
                 Delete Account
               </button>

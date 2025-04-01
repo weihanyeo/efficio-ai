@@ -2,10 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Font size variable */
+:root {
+  --base-font-size: 16px;
+}
+
+html {
+  font-size: var(--base-font-size);
+}
+
 /* Global scrollbar styles */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #7c3aed #1f2937;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 *::-webkit-scrollbar {
@@ -14,23 +23,23 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: var(--scrollbar-track);
   border-radius: 7px;
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: var(--scrollbar-thumb);
   border-radius: 7px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* Optional: Reusable class for specific cases */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #4b5563 #1f2937;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -39,78 +48,260 @@
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #1f2937;
+  background: var(--scrollbar-track);
   border-radius: 7px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #4b5563;
+  background: var(--scrollbar-thumb);
   border-radius: 7px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #6b7280;
+  background: var(--scrollbar-thumb-hover);
 }
 
 
 
 @layer base {
   :root {
+    /* Light theme variables */
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
+    --card: 0 0% 98%;
     --card-foreground: 222.2 84% 4.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 252 59% 48%;
     --primary-foreground: 210 40% 98%;
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 252 59% 94%;
+    --accent-foreground: 252 59% 48%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 252 59% 48%;
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    
+    /* Scrollbar colors for light theme */
+    --scrollbar-track: #f1f5f9;
+    --scrollbar-thumb: #cbd5e1;
+    --scrollbar-thumb-hover: #94a3b8;
   }
+  
   .dark {
+    /* Dark theme variables */
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
+    --card: 222.2 84% 6%;
     --card-foreground: 210 40% 98%;
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 252 59% 54%;
+    --primary-foreground: 210 40% 98%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
+    --accent: 252 59% 25%;
     --accent-foreground: 210 40% 98%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 252 59% 54%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    
+    /* Scrollbar colors for dark theme */
+    --scrollbar-track: #1f2937;
+    --scrollbar-thumb: #4b5563;
+    --scrollbar-thumb-hover: #6b7280;
+  }
+
+  /* Indigo theme - only applies in light mode */
+  .theme-indigo:not(.dark) {
+    --primary: 252 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 252 59% 96%;
+    --secondary-foreground: 252 59% 28%;
+    --accent: 252 59% 94%;
+    --accent-foreground: 252 59% 48%;
+    --ring: 252 59% 48%;
+    --border: 252 30% 90%;
+  }
+
+  /* Purple theme - only applies in light mode */
+  .theme-purple:not(.dark) {
+    --primary: 270 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 270 59% 96%;
+    --secondary-foreground: 270 59% 28%;
+    --accent: 270 59% 94%;
+    --accent-foreground: 270 59% 48%;
+    --ring: 270 59% 48%;
+    --border: 270 30% 90%;
+  }
+
+  /* Pink theme - only applies in light mode */
+  .theme-pink:not(.dark) {
+    --primary: 330 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 330 59% 96%;
+    --secondary-foreground: 330 59% 28%;
+    --accent: 330 59% 94%;
+    --accent-foreground: 330 59% 48%;
+    --ring: 330 59% 48%;
+    --border: 330 30% 90%;
+  }
+
+  /* Red theme - only applies in light mode */
+  .theme-red:not(.dark) {
+    --primary: 0 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 0 59% 96%;
+    --secondary-foreground: 0 59% 28%;
+    --accent: 0 59% 94%;
+    --accent-foreground: 0 59% 48%;
+    --ring: 0 59% 48%;
+    --border: 0 30% 90%;
+  }
+
+  /* Orange theme - only applies in light mode */
+  .theme-orange:not(.dark) {
+    --primary: 30 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 30 59% 96%;
+    --secondary-foreground: 30 59% 28%;
+    --accent: 30 59% 94%;
+    --accent-foreground: 30 59% 48%;
+    --ring: 30 59% 48%;
+    --border: 30 30% 90%;
+  }
+
+  /* Green theme - only applies in light mode */
+  .theme-green:not(.dark) {
+    --primary: 140 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 140 59% 96%;
+    --secondary-foreground: 140 59% 28%;
+    --accent: 140 59% 94%;
+    --accent-foreground: 140 59% 48%;
+    --ring: 140 59% 48%;
+    --border: 140 30% 90%;
+  }
+
+  /* Yellow theme - only applies in light mode */
+  .theme-yellow:not(.dark) {
+    --primary: 50 59% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 50 59% 96%;
+    --secondary-foreground: 50 59% 28%;
+    --accent: 50 59% 94%;
+    --accent-foreground: 50 59% 48%;
+    --ring: 50 59% 48%;
+    --border: 50 30% 90%;
+  }
+
+  /* For all themes in dark mode - only change primary, accent and ring */
+  .dark.theme-indigo, 
+  .dark.theme-purple, 
+  .dark.theme-pink, 
+  .dark.theme-red, 
+  .dark.theme-orange, 
+  .dark.theme-green, 
+  .dark.theme-yellow {
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+  }
+
+  /* Specific primary colors for dark mode themes */
+  .dark.theme-indigo {
+    --primary: 252 59% 54%;
+    --accent: 252 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 252 59% 54%;
+    --border: 252 20% 20%;
+  }
+
+  .dark.theme-purple {
+    --primary: 270 59% 54%;
+    --accent: 270 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 270 59% 54%;
+    --border: 270 20% 20%;
+  }
+
+  .dark.theme-pink {
+    --primary: 330 59% 54%;
+    --accent: 330 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 330 59% 54%;
+    --border: 330 20% 20%;
+  }
+
+  .dark.theme-red {
+    --primary: 0 59% 54%;
+    --accent: 0 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 0 59% 54%;
+    --border: 0 20% 20%;
+  }
+
+  .dark.theme-orange {
+    --primary: 30 59% 54%;
+    --accent: 30 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 30 59% 54%;
+    --border: 30 20% 20%;
+  }
+
+  .dark.theme-green {
+    --primary: 140 59% 54%;
+    --accent: 140 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 140 59% 54%;
+    --border: 140 20% 20%;
+  }
+
+  .dark.theme-yellow {
+    --primary: 50 59% 54%;
+    --accent: 50 59% 25%;
+    --accent-foreground: 210 40% 98%;
+    --ring: 50 59% 54%;
+    --border: 50 20% 20%;
   }
 }
 
+/* Font size utility classes */
+.text-size-small {
+  font-size: calc(var(--base-font-size) - 2px);
+}
 
+.text-size-medium {
+  font-size: var(--base-font-size);
+}
+
+.text-size-large {
+  font-size: calc(var(--base-font-size) + 2px);
+}
+
+/* Theme transition */
+* {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
 
 @layer base {
   * {

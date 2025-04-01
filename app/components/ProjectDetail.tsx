@@ -84,25 +84,25 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
   };
 
   const datePickerCustomStyles = {
-    className: "w-full rounded-lg bg-[#262626] border border-gray-600 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-blue-500",
-    calendarClassName: "bg-[#262626] border border-gray-600 rounded-lg shadow-xl !font-sans",
+    className: "w-full rounded-lg bg-muted border border-gray-600 px-4 py-2 text-foreground focus:outline-none focus:ring-2 focus:ring-ring",
+    calendarClassName: "bg-muted border border-gray-600 rounded-lg shadow-xl !font-sans",
     dayClassName: (date: Date) => 
-      `hover:!bg-blue-500 hover:!text-white
-      ${date.getMonth() === (endDate?.getMonth() ?? new Date().getMonth()) ? 'text-white' : 'text-gray-500'}`,
-    monthClassName: () => "!text-white",
+      `hover:!bg-blue-500 hover:!text-foreground
+      ${date.getMonth() === (endDate?.getMonth() ?? new Date().getMonth()) ? 'text-foreground' : 'text-gray-500'}`,
+    monthClassName: () => "!text-foreground",
     weekDayClassName: () => "!text-gray-400",
   };
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center">
-      <div className="w-[800px] h-[600px] bg-[#161616] rounded-lg shadow-xl flex flex-col">
-        <header className="flex items-center justify-between p-6 border-b border-[#262626]">
+      <div className="w-[800px] h-[600px] bg-muted rounded-lg shadow-xl flex flex-col">
+        <header className="flex items-center justify-between p-6 border-b border-muted">
           {isEditing ? (
             <input
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="text-xl font-semibold bg-[#262626] rounded px-2 py-1 w-96 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-xl font-semibold bg-muted rounded px-2 py-1 w-96 text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           ) : (
             <h2 className="text-xl font-semibold">{project.title}</h2>
@@ -112,14 +112,14 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
               <>
                 <button
                   onClick={handleSave}
-                  className="text-blue-400 hover:text-blue-300 flex items-center gap-1 px-2 py-1 rounded hover:bg-[#262626]"
+                  className="text-blue-400 hover:text-blue-300 flex items-center gap-1 px-2 py-1 rounded hover:bg-muted"
                 >
                   <Save className="w-5 h-5" />
                   Save
                 </button>
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="text-gray-400 hover:text-white"
+                  className="text-gray-400 hover:text-foreground"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -128,12 +128,12 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
               <>
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="text-gray-400 hover:text-white flex items-center gap-1 px-2 py-1 rounded hover:bg-[#262626]"
+                  className="text-gray-400 hover:text-foreground flex items-center gap-1 px-2 py-1 rounded hover:bg-muted"
                 >
                   <Edit2 className="w-5 h-5" />
                   Edit
                 </button>
-                <button onClick={onClose} className="text-gray-400 hover:text-white">
+                <button onClick={onClose} className="text-gray-400 hover:text-foreground">
                   <X className="w-5 h-5" />
                 </button>
               </>
@@ -155,7 +155,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full h-32 bg-[#262626] rounded p-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                  className="w-full h-32 bg-muted rounded p-3 text-foreground focus:outline-none focus:ring-2 focus:ring-ring resize-none"
                   placeholder="Add a description..."
                 />
               ) : (
@@ -169,7 +169,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="bg-[#262626] rounded px-3 py-1.5 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="bg-muted rounded px-3 py-1.5 text-foreground border border-gray-600 focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {statusOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -178,7 +178,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                   ))}
                 </select>
               ) : (
-                <span className="px-2 py-1 text-sm bg-indigo-500/20 text-indigo-400 rounded-full">
+                <span className="px-2 py-1 text-sm bg-primary-500/20 text-primary rounded-full">
                   {project.status}
                 </span>
               )}
@@ -190,7 +190,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                 <select
                   value={priority}
                   onChange={(e) => setPriority(e.target.value)}
-                  className="bg-[#262626] rounded px-3 py-1.5 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="bg-muted rounded px-3 py-1.5 text-foreground border border-gray-600 focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   {priorityOptions.map(option => (
                     <option key={option.value} value={option.value}>
@@ -199,7 +199,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onClose, 
                   ))}
                 </select>
               ) : (
-                <span className="px-2 py-1 text-sm bg-indigo-500/20 text-indigo-400 rounded-full">
+                <span className="px-2 py-1 text-sm bg-primary-500/20 text-primary rounded-full">
                   {project.priority}
                 </span>
               )}

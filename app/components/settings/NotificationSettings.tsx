@@ -32,9 +32,9 @@ export const NotificationSettings = () => {
           ].map((item, index) => (
             <div
               key={index}
-              className="flex items-start gap-4 p-4 bg-[#1E1E1E] rounded-lg"
+              className="flex items-start gap-4 p-4 bg-secondary rounded-lg"
             >
-              <div className="p-2 bg-[#262626] rounded-md text-indigo-400">
+              <div className="p-2 bg-muted rounded-md text-primary">
                 {item.icon}
               </div>
               <div className="flex-1">
@@ -51,7 +51,7 @@ export const NotificationSettings = () => {
                       className="sr-only peer"
                       defaultChecked
                     />
-                    <div className="w-11 h-6 bg-[#363636] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                    <div className="w-11 h-6 bg-border peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                   </label>
                 </div>
               </div>
@@ -60,7 +60,7 @@ export const NotificationSettings = () => {
         </div>
 
         <div className="pt-4">
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
+          <button className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80">
             Save Preferences
           </button>
         </div>

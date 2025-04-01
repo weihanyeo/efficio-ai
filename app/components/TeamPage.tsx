@@ -18,6 +18,8 @@ import { supabase } from '../lib/supabase';
 import { useWorkspace } from '../contexts/WorkspaceContext';
 import type { Profile, TeamRole, TeamFunction, WorkspaceMember, SupabaseError } from '../types';
 import { createInviteCode } from '../utils/inviteUtils';
+import { toast } from 'react-toastify';
+import emailjs from '@emailjs/browser';
 
 interface TeamMemberWithProfile extends WorkspaceMember {
   profile: Profile;
@@ -25,7 +27,7 @@ interface TeamMemberWithProfile extends WorkspaceMember {
 
 interface InviteMemberModalProps {
   onClose: () => void;
-  onInvite: (emails: string[]) => void;
+  onInvite: (emails: string[], role: TeamRole, teamFunction: TeamFunction) => void;
 }
 
 const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
@@ -79,7 +81,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const emailList = emails.split(',').map(email => email.trim()).filter(Boolean);
-    onInvite(emailList);
+    onInvite(emailList, selectedRole, selectedFunction);
     onClose();
   };
 
@@ -97,15 +99,15 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="w-full max-w-md bg-[#161616] rounded-lg p-6">
+      <div className="w-full max-w-md bg-muted rounded-lg p-6">
         <h2 className="text-lg font-semibold mb-4">Invite Team Members</h2>
         
-        <div className="flex border-b border-[#363636] mb-6">
+        <div className="flex border-b border-border mb-6">
           <button
             onClick={() => setActiveTab('email')}
             className={`px-4 py-2 text-sm font-medium ${
               activeTab === 'email'
-                ? 'text-indigo-400 border-b-2 border-indigo-400'
+                ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-400 hover:text-gray-300'
             }`}
           >
@@ -118,7 +120,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
             onClick={() => setActiveTab('link')}
             className={`px-4 py-2 text-sm font-medium ${
               activeTab === 'link'
-                ? 'text-indigo-400 border-b-2 border-indigo-400'
+                ? 'text-primary border-b-2 border-primary'
                 : 'text-gray-400 hover:text-gray-300'
             }`}
           >
@@ -137,7 +139,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                 value={emails}
                 onChange={(e) => setEmails(e.target.value)}
                 rows={3}
-                className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 placeholder="Enter email addresses separated by commas"
               />
             </div>
@@ -146,13 +148,13 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+                className="px-4 py-2 bg-muted text-gray-400 rounded-md hover:bg-border"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                className="px-4 py-2 bg-primary text-foreground rounded-md hover:bg-primary/80"
               >
                 Send Invites
               </button>
@@ -167,7 +169,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <div className="text-xs text-gray-400">Expires in 7 days</div>
                   <button
                     onClick={handleRefreshCode}
-                    className="p-1 hover:bg-[#262626] rounded-md"
+                    className="p-1 hover:bg-muted rounded-md"
                     disabled={isGeneratingCode}
                   >
                     <RefreshCw className={`w-4 h-4 text-gray-400 ${isGeneratingCode ? 'animate-spin' : ''}`} />
@@ -175,7 +177,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                 </div>
               </div>
               
-              <div className="bg-[#262626] border border-[#363636] rounded-md p-4 text-center text-xl font-mono">
+              <div className="bg-muted border border-border rounded-md p-4 text-center text-xl font-mono">
                 {isGeneratingCode ? (
                   <div className="animate-pulse">Generating...</div>
                 ) : (
@@ -188,23 +190,23 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   type="text"
                   value={inviteLink}
                   readOnly
-                  className="flex-1 px-4 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none"
+                  className="flex-1 px-4 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none"
                   placeholder={isGeneratingCode ? "Generating link..." : "No invite link generated"}
                 />
                 <button
                   type="button"
                   onClick={handleCopy}
                   disabled={!inviteLink || isGeneratingCode}
-                  className="p-2 bg-[#262626] hover:bg-[#363636] rounded-md disabled:opacity-50"
+                  className="p-2 bg-muted hover:bg-border rounded-md disabled:opacity-50"
                 >
                   {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
                 </button>
               </div>
             </div>
 
-            <div className="p-4 bg-[#1E1E1E] rounded-lg border border-[#363636]">
+            <div className="p-4 bg-secondary rounded-lg border border-border">
               <div className="flex items-center gap-2 mb-4">
-                <Users className="w-4 h-4 text-indigo-400" />
+                <Users className="w-4 h-4 text-primary" />
                 <span className="text-sm font-medium">Invite Settings</span>
               </div>
               
@@ -214,7 +216,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <select
                     value={selectedRole}
                     onChange={(e) => setSelectedRole(e.target.value as TeamRole)}
-                    className="w-full px-3 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                   >
                     <option value="Member">Member</option>
                     <option value="Admin">Admin</option>
@@ -226,7 +228,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
                   <select
                     value={selectedFunction}
                     onChange={(e) => setSelectedFunction(e.target.value as TeamFunction)}
-                    className="w-full px-3 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+                    className="w-full px-3 py-2 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                   >
                     <option value="Engineering">Engineering</option>
                     <option value="Design">Design</option>
@@ -242,7 +244,7 @@ const InviteMemberModal = ({ onClose, onInvite }: InviteMemberModalProps) => {
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+                className="px-4 py-2 bg-muted text-gray-400 rounded-md hover:bg-border"
               >
                 Close
               </button>
@@ -299,11 +301,11 @@ const MemberDetail = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="w-full max-w-2xl bg-[#161616] rounded-lg p-6">
+      <div className="w-full max-w-2xl bg-muted rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-indigo-500/20 rounded-full flex items-center justify-center">
-              <span className="text-lg font-semibold text-indigo-400">
+            <div className="w-10 h-10 bg-primary-500/20 rounded-full flex items-center justify-center">
+              <span className="text-lg font-semibold text-primary">
                 {member.profile?.full_name?.charAt(0) || '?'}
               </span>
             </div>
@@ -322,19 +324,19 @@ const MemberDetail = ({
                         e.stopPropagation();
                         setShowRoleActions(!showRoleActions);
                       }}
-                      className="p-1 hover:bg-[#262626] rounded-md"
+                      className="p-1 hover:bg-muted rounded-md"
                     >
                       <Settings className="w-4 h-4 text-gray-400" />
                     </button>
                     {showRoleActions && (
-                      <div className="absolute right-0 mt-1 w-48 bg-[#262626] border border-[#363636] rounded-md shadow-lg z-50">
+                      <div className="absolute right-0 mt-1 w-48 bg-muted border border-border rounded-md shadow-lg z-50">
                         {member.role === 'Member' ? (
                           <button
                             onClick={() => {
                               onPromote(member.member_id);
                               setShowRoleActions(false);
                             }}
-                            className="w-full px-4 py-2 text-sm text-left hover:bg-[#363636] flex items-center gap-2"
+                            className="w-full px-4 py-2 text-sm text-left hover:bg-border flex items-center gap-2"
                           >
                             <Shield className="w-4 h-4 text-red-400" />
                             Promote to Owner
@@ -345,7 +347,7 @@ const MemberDetail = ({
                               onDemote(member.member_id);
                               setShowRoleActions(false);
                             }}
-                            className="w-full px-4 py-2 text-sm text-left hover:bg-[#363636] flex items-center gap-2"
+                            className="w-full px-4 py-2 text-sm text-left hover:bg-border flex items-center gap-2"
                           >
                             <UserX className="w-4 h-4 text-yellow-400" />
                             Demote to Member
@@ -359,7 +361,7 @@ const MemberDetail = ({
                               onClose();
                             }
                           }}
-                          className="w-full px-4 py-2 text-sm text-left hover:bg-[#363636] border-t border-[#363636] flex items-center gap-2 text-red-400"
+                          className="w-full px-4 py-2 text-sm text-left hover:bg-border border-t border-border flex items-center gap-2 text-red-400"
                         >
                           <UserX className="w-4 h-4" />
                           Remove from Team
@@ -387,7 +389,7 @@ const MemberDetail = ({
             )}
             <button
               onClick={onClose}
-              className="p-2 hover:bg-[#262626] rounded-md text-gray-400"
+              className="p-2 hover:bg-muted rounded-md text-gray-400"
             >
               ×
             </button>
@@ -412,7 +414,7 @@ const MemberDetail = ({
               {canManageRoles && (
                 <button 
                   onClick={() => setEditingRole(!editingRole)}
-                  className="text-xs text-indigo-400 hover:text-indigo-300"
+                  className="text-xs text-primary hover:text-indigo-300"
                 >
                   {editingRole ? 'Cancel' : 'Edit'}
                 </button>
@@ -424,7 +426,7 @@ const MemberDetail = ({
                 <select
                   value={selectedRole}
                   onChange={(e) => handleRoleChange(e.target.value as TeamRole)}
-                  className="bg-[#262626] border border-[#363636] rounded-md px-3 py-1 text-sm focus:outline-none focus:border-indigo-500"
+                  className="bg-muted border border-border rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-ring"
                 >
                   <option value="Member">Member</option>
                   <option value="owner">Owner</option>
@@ -448,14 +450,20 @@ const MemberDetail = ({
 };
 
 export const TeamPage = () => {
-  const { currentWorkspace } = useWorkspace();
-  const [selectedMember, setSelectedMember] = useState<TeamMemberWithProfile | null>(null);
-  const [showInviteMembers, setShowInviteMembers] = useState(false);
   const [members, setMembers] = useState<TeamMemberWithProfile[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [showInviteModal, setShowInviteModal] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<TeamMemberWithProfile | null>(null);
+  const { currentWorkspace } = useWorkspace();
   const [currentUserRole, setCurrentUserRole] = useState<TeamRole>('Member');
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_API_KEY || '');
+    }
+  }, []);
 
   useEffect(() => {
     const fetchCurrentUser = async () => {
@@ -679,10 +687,10 @@ export const TeamPage = () => {
     }
   };
 
-  const handleInviteMembers = async (emails: string[]) => {
+  const handleInviteMembers = async (emails: string[], role: TeamRole = 'Member', teamFunction: TeamFunction = 'Engineering') => {
     try {
-      if (!currentWorkspace?.id) {
-        console.error('No current workspace');
+      if (!currentWorkspace) {
+        toast.error('No workspace selected');
         return;
       }
 
@@ -697,7 +705,10 @@ export const TeamPage = () => {
       // For each email, create an invite using the edge function
       for (const email of emails) {
         try {
-          const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/invite-member`, {
+          console.log(`Sending invite to ${email} for workspace ${currentWorkspace.id}`);
+          
+          // First create the invite using the edge function
+          const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/invite-member`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -706,21 +717,81 @@ export const TeamPage = () => {
             body: JSON.stringify({
               workspace_id: currentWorkspace.id,
               email,
-              role: 'Member',
-              function: 'Engineering',
+              role: role,
+              function: teamFunction,
             }),
           });
 
           if (!response.ok) {
             const errorData = await response.json();
             console.error(`Error sending invite to ${email}:`, errorData);
+            toast.error(`Failed to invite ${email}. Please try again.`);
+            continue;
+          }
+
+          // Get the invite data from the response
+          const inviteData = await response.json();
+          console.log(`Invite created successfully for ${email}:`, inviteData);
+          
+          // Now send an email using EmailJS
+          try {
+            console.log('Sending email notification for the invite');
+            
+            // Get the invite URL
+            const inviteUrl = inviteData.token 
+              ? `${window.location.origin}/invite/${inviteData.token}`
+              : `${window.location.origin}/invite?code=${inviteData.code}`;
+            
+            // Prepare template parameters - ensure all required fields are present
+            const templateParams = {
+              to_email: email,
+              to_name: email.split('@')[0],
+              email: email, // Add this field which might be required by the template
+              user_email: email, // Add alternative field name
+              recipient_email: email, // Add alternative field name
+              from_name: user.user_metadata?.full_name || 'Efficio.AI Team',
+              workspace_name: currentWorkspace.name,
+              invite_link: inviteUrl,
+              invite_code: inviteData.code || '',
+              role: role,
+              function: teamFunction,
+              message: `You've been invited to join the ${currentWorkspace.name} workspace on Efficio.AI as a ${role} in the ${teamFunction} function.`
+            };
+            
+            // Send email using EmailJS with proper service and template IDs
+            const emailResult = await emailjs.send(
+              process.env.NEXT_PUBLIC_EMAILJS_SERVICE_LINK || '',
+              process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_LINK || '',
+              templateParams,
+              process.env.NEXT_PUBLIC_EMAILJS_API_KEY || ''
+            );
+            
+            console.log(`Email sent successfully to ${email}:`, emailResult);
+            // Enhanced toast notification for successful email sending
+            toast.success(
+              <div className="flex flex-col">
+                <span className="font-medium">Invite Email Sent!</span>
+                <span className="text-sm opacity-90">Successfully sent to {email}</span>
+              </div>,
+              {
+                icon: <Mail className="w-5 h-5 text-green-400" />,
+                className: 'border-l-4 border-green-400',
+                autoClose: 5000
+              }
+            );
+          } catch (emailError) {
+            console.error(`Error sending email notification to ${email}:`, emailError);
+            // Don't show an error toast here since the invite was created successfully
+            // Just log the error for debugging
           }
         } catch (emailError) {
           console.error(`Error processing invite for ${email}:`, emailError);
+          toast.error(`Failed to process invite for ${email}`);
         }
       }
     } catch (error) {
       console.error('Error sending invites:', error);
+      toast.error('Error sending invites. Please try again.');
     }
   };
 
@@ -742,7 +813,7 @@ export const TeamPage = () => {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col">
-      <header className="h-14 border-b border-[#262626] flex items-center justify-between px-6">
+      <header className="h-14 border-b border-muted flex items-center justify-between px-6">
         <h2 className="text-lg font-semibold">Team Members</h2>
         <div className="flex items-center gap-4">
           <div className="relative">
@@ -750,12 +821,12 @@ export const TeamPage = () => {
             <input
               type="text"
               placeholder="Search team members..."
-              className="w-64 pl-10 pr-4 py-1.5 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-64 pl-10 pr-4 py-1.5 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
           <button
-            onClick={() => setShowInviteMembers(true)}
-            className="flex items-center gap-2 px-3 py-1.5 bg-indigo-600 rounded-md hover:bg-indigo-700"
+            onClick={() => setShowInviteModal(true)}
+            className="flex items-center gap-2 px-3 py-1.5 bg-primary rounded-md hover:bg-primary/80 text-primary-foreground"
           >
             <Plus className="w-4 h-4" />
             Invite Member
@@ -764,10 +835,10 @@ export const TeamPage = () => {
       </header>
 
       <main className="flex-1 overflow-auto p-6">
-        <div className="bg-[#161616] border border-[#262626] rounded-lg overflow-hidden">
+        <div className="bg-muted border border-muted rounded-lg overflow-hidden">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-[#262626]">
+              <tr className="border-b border-muted">
                 <th className="text-left py-3 px-4 font-medium text-gray-400">Name</th>
                 <th className="text-left py-3 px-4 font-medium text-gray-400">Role</th>
                 <th className="text-left py-3 px-4 font-medium text-gray-400">Email</th>
@@ -779,22 +850,22 @@ export const TeamPage = () => {
               {members.map((member) => (
                 <tr
                   key={member.member_id}
-                  className="border-b border-[#262626] last:border-0 hover:bg-[#1E1E1E] cursor-pointer"
+                  className="border-b border-muted last:border-0 hover:bg-secondary cursor-pointer"
                 >
                   <td 
                     className="py-3 px-4"
                     onClick={() => setSelectedMember(member)}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center">
-                        <span className="text-sm font-semibold text-indigo-400">
+                      <div className="w-8 h-8 bg-primary-500/20 rounded-full flex items-center justify-center">
+                        <span className="text-sm font-semibold text-primary">
                           {member.profile?.full_name?.charAt(0)?.toUpperCase() || member.member_id.charAt(0)?.toUpperCase() || '?'}
                         </span>
                       </div>
                       <div>
                         <span className="font-medium">{member.profile?.full_name || `User ${member.member_id.substring(0, 6)}`}</span>
                         <span className={`ml-2 px-2 py-0.5 text-xs rounded-full ${
-                          member.role === 'owner' ? 'bg-red-500/20 text-red-400' : 'bg-indigo-500/20 text-indigo-400'
+                          member.role === 'owner' ? 'bg-red-500/20 text-red-400' : 'bg-primary-500/20 text-primary'
                         }`}>
                           {member.role}
                         </span>
@@ -828,7 +899,7 @@ export const TeamPage = () => {
                   <td className="py-3 px-4 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <button 
-                        className="p-1 hover:bg-[#262626] rounded-md" 
+                        className="p-1 hover:bg-muted rounded-md" 
                         onClick={(e) => {
                           e.stopPropagation();
                           setSelectedMember(member);
@@ -838,7 +909,7 @@ export const TeamPage = () => {
                       </button>
                       {currentUserRole === 'owner' && member.member_id !== currentUserId && (
                         <button 
-                          className="p-1 hover:bg-[#262626] rounded-md text-red-400" 
+                          className="p-1 hover:bg-muted rounded-md text-red-400" 
                           onClick={(e) => {
                             e.stopPropagation();
                             if (confirm(`Are you sure you want to remove ${member.profile?.full_name || 'this user'} from the team?`)) {
@@ -866,9 +937,9 @@ export const TeamPage = () => {
             onClose={() => setSelectedMember(null)}
           />
         )}
-        {showInviteMembers && (
+        {showInviteModal && (
           <InviteMemberModal
-            onClose={() => setShowInviteMembers(false)}
+            onClose={() => setShowInviteModal(false)}
             onInvite={handleInviteMembers}
           />
         )}

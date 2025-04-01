@@ -38,8 +38,8 @@ const SettingsNav = ({ activeTab, setActiveTab }: { activeTab: string; setActive
   ];
 
   return (
-    <nav className="w-60 border-r border-[#262626]">
-      <div className="p-4 border-b border-[#262626]">
+    <nav className="w-60 border-r border-muted">
+      <div className="p-4 border-b border-muted">
         <h2 className="text-lg font-semibold flex items-center gap-2">
           <Settings className="w-5 h-5" />
           Settings
@@ -54,8 +54,8 @@ const SettingsNav = ({ activeTab, setActiveTab }: { activeTab: string; setActive
               onClick={() => setActiveTab(item.id)}
               className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors w-full text-left ${
                 isActive
-                  ? 'bg-[#262626] text-white'
-                  : 'text-gray-400 hover:bg-[#1E1E1E] hover:text-white'
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-gray-400 hover:bg-secondary hover:text-secondary-foreground'
               }`}
             >
               {item.icon}
@@ -65,7 +65,7 @@ const SettingsNav = ({ activeTab, setActiveTab }: { activeTab: string; setActive
         })}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-red-400 hover:bg-[#1E1E1E] hover:text-red-300 mt-4 w-full text-left"
+          className="flex items-center gap-2 px-3 py-2 rounded-md text-sm text-red-400 hover:bg-secondary hover:text-red-300 mt-4 w-full text-left"
         >
           <LogOut size={16} />
           Sign Out

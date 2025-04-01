@@ -68,7 +68,7 @@ export const IntegrationSettings = () => {
         <h2 className="text-xl font-semibold">Integrations & Webhooks</h2>
         <button
           onClick={() => setShowNewWebhook(true)}
-          className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 flex items-center gap-2"
+          className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/80 flex items-center gap-2"
         >
           <Webhook className="w-4 h-4" />
           Add Webhook
@@ -77,9 +77,9 @@ export const IntegrationSettings = () => {
 
       <div className="space-y-6 max-w-4xl">
         {/* Webhook Information */}
-        <div className="p-4 bg-[#1E1E1E] rounded-lg border border-[#363636]">
+        <div className="p-4 bg-secondary rounded-lg border border-border">
           <div className="flex items-start gap-3 mb-4">
-            <Bot className="w-5 h-5 text-indigo-400 mt-1" />
+            <Bot className="w-5 h-5 text-primary mt-1" />
             <div>
               <h3 className="font-medium">Smart Webhook Processing</h3>
               <p className="text-sm text-gray-400 mt-1">
@@ -109,7 +109,7 @@ export const IntegrationSettings = () => {
                 description: "Extracts context and creates relevant tasks",
               },
             ].map((feature, index) => (
-              <div key={index} className="p-3 bg-[#262626] rounded-lg">
+              <div key={index} className="p-3 bg-muted rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   {feature.icon}
                   <h4 className="font-medium text-sm">{feature.title}</h4>
@@ -126,7 +126,7 @@ export const IntegrationSettings = () => {
           {webhooks.map((webhook) => (
             <div
               key={webhook.id}
-              className="p-4 bg-[#1E1E1E] rounded-lg border border-[#363636]"
+              className="p-4 bg-secondary rounded-lg border border-border"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
@@ -141,20 +141,20 @@ export const IntegrationSettings = () => {
                     {webhook.status}
                   </span>
                 </div>
-                <button className="p-2 hover:bg-[#262626] rounded-md text-red-400">
+                <button className="p-2 hover:bg-muted rounded-md text-red-400">
                   Delete
                 </button>
               </div>
 
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-2 bg-[#262626] rounded-md">
+                <div className="flex items-center justify-between p-2 bg-muted rounded-md">
                   <div className="flex items-center gap-2">
                     <Globe className="w-4 h-4 text-gray-400" />
                     <span className="text-sm">{webhook.url}</span>
                   </div>
                   <button
                     onClick={() => handleCopy(webhook.url, `url-${webhook.id}`)}
-                    className="p-1.5 hover:bg-[#363636] rounded-md"
+                    className="p-1.5 hover:bg-border rounded-md"
                   >
                     {copied === `url-${webhook.id}` ? (
                       <Check className="w-4 h-4 text-green-400" />
@@ -164,7 +164,7 @@ export const IntegrationSettings = () => {
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between p-2 bg-[#262626] rounded-md">
+                <div className="flex items-center justify-between p-2 bg-muted rounded-md">
                   <div className="flex items-center gap-2">
                     <Lock className="w-4 h-4 text-gray-400" />
                     <span className="text-sm font-mono">{webhook.secret}</span>
@@ -173,7 +173,7 @@ export const IntegrationSettings = () => {
                     onClick={() =>
                       handleCopy(webhook.secret, `secret-${webhook.id}`)
                     }
-                    className="p-1.5 hover:bg-[#363636] rounded-md"
+                    className="p-1.5 hover:bg-border rounded-md"
                   >
                     {copied === `secret-${webhook.id}` ? (
                       <Check className="w-4 h-4 text-green-400" />
@@ -197,7 +197,7 @@ export const IntegrationSettings = () => {
         {/* Add New Webhook Modal */}
         {showNewWebhook && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-            <div className="bg-[#161616] rounded-lg p-6 w-[500px]">
+            <div className="bg-muted rounded-lg p-6 w-[500px]">
               <h3 className="text-lg font-semibold mb-4">Add New Webhook</h3>
               <div className="space-y-4">
                 <div>
@@ -210,7 +210,7 @@ export const IntegrationSettings = () => {
                     onChange={(e) =>
                       setNewWebhook({ ...newWebhook, name: e.target.value })
                     }
-                    className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                    className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     placeholder="e.g., GitHub Integration"
                   />
                 </div>
@@ -224,20 +224,20 @@ export const IntegrationSettings = () => {
                     onChange={(e) =>
                       setNewWebhook({ ...newWebhook, url: e.target.value })
                     }
-                    className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-indigo-500"
+                    className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     placeholder="https://"
                   />
                 </div>
                 <div className="flex justify-end gap-3 mt-6">
                   <button
                     onClick={() => setShowNewWebhook(false)}
-                    className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+                    className="px-4 py-2 bg-muted text-gray-400 rounded-md hover:bg-border"
                   >
                     Cancel
                   </button>
                   <button
                     onClick={handleAddWebhook}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                    className="px-4 py-2 bg-primary text-foreground rounded-md hover:bg-primary/80"
                   >
                     Add Webhook
                   </button>

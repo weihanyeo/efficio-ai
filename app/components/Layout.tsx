@@ -15,9 +15,9 @@ export const Layout: React.FC<{
 
   return (
     <div className={`flex h-screen overflow-hidden ${className}`}>
-      {!isLandingPage && !isOnboardingPage && !isAuthPage && <Sidebar className="w-64 bg-[#1A1A1A] border-r border-gray-800" />}
+      {!isLandingPage && !isOnboardingPage && !isAuthPage && <Sidebar className="w-64 bg-card border-r border-border" />}
       {children}
-      {!isLandingPage && !isOnboardingPage && !isAuthPage && <CopilotPanel className="w-80 bg-[#1A1A1A] border-l border-gray-800" />}
+      {!isLandingPage && !isOnboardingPage && !isAuthPage && <CopilotPanel className="w-80 bg-card border-l border-border" />}
     </div>
     
   );

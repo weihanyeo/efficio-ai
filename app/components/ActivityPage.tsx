@@ -111,7 +111,7 @@ export const ActivityPage = () => {
       case 'comment':
         return <MessageSquare className="w-4 h-4 text-blue-400" />;
       case 'status_change':
-        return <Activity className="w-4 h-4 text-indigo-400" />;
+        return <Activity className="w-4 h-4 text-primary" />;
       default:
         return <Activity className="w-4 h-4 text-gray-400" />;
     }
@@ -126,7 +126,7 @@ export const ActivityPage = () => {
       case 'comment':
         return 'bg-blue-500/20 text-blue-400';
       case 'status_change':
-        return 'bg-indigo-500/20 text-indigo-400';
+        return 'bg-primary-500/20 text-primary';
       default:
         return 'bg-gray-500/20 text-gray-400';
     }
@@ -154,14 +154,14 @@ export const ActivityPage = () => {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col">
-      <header className="h-14 border-b border-[#262626] flex items-center justify-between px-6">
+      <header className="h-14 border-b border-muted flex items-center justify-between px-6">
         <h2 className="text-lg font-semibold">Activity</h2>
         <div className="flex items-center gap-4">
-          <div className="flex rounded-md overflow-hidden border border-[#363636]">
+          <div className="flex rounded-md overflow-hidden border border-border">
             <button
               onClick={() => setFilter('all')}
               className={`px-3 py-1.5 text-sm ${
-                filter === 'all' ? 'bg-[#363636] text-white' : 'text-gray-400 hover:bg-[#262626]'
+                filter === 'all' ? 'bg-border text-foreground' : 'text-gray-400 hover:bg-muted'
               }`}
             >
               All
@@ -169,7 +169,7 @@ export const ActivityPage = () => {
             <button
               onClick={() => setFilter('mentions')}
               className={`px-3 py-1.5 text-sm ${
-                filter === 'mentions' ? 'bg-[#363636] text-white' : 'text-gray-400 hover:bg-[#262626]'
+                filter === 'mentions' ? 'bg-border text-foreground' : 'text-gray-400 hover:bg-muted'
               }`}
             >
               Mentions
@@ -182,7 +182,7 @@ export const ActivityPage = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search activity..."
-              className="w-64 pl-10 pr-4 py-1.5 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-64 pl-10 pr-4 py-1.5 bg-muted border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
         </div>
@@ -194,7 +194,7 @@ export const ActivityPage = () => {
             {activities.map((activity) => (
               <div
                 key={activity.id}
-                className={`p-4 bg-[#161616] border border-[#262626] rounded-lg hover:border-[#363636] transition-colors cursor-pointer`}
+                className={`p-4 bg-muted border border-muted rounded-lg hover:border-border transition-colors cursor-pointer`}
                 onClick={() => {
                   if (activity.metadata && activity.metadata.issue_id) {
                     navigate.push(`/issues/${activity.metadata.issue_id}`);
@@ -248,7 +248,7 @@ export const ActivityPage = () => {
             {!loading && hasMore && (
               <button
                 onClick={() => loadActivities(true)}
-                className="w-full py-3 bg-[#161616] border border-[#262626] rounded-lg hover:bg-[#1E1E1E] transition-colors text-gray-400"
+                className="w-full py-3 bg-muted border border-muted rounded-lg hover:bg-secondary transition-colors text-gray-400"
               >
                 Load More
                 <ChevronDown className="w-4 h-4 inline-block ml-2" />

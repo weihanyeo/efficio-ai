@@ -40,7 +40,7 @@ const IssueSection: React.FC<IssueSectionProps> = ({
 }) => {
   return (
     <div
-      className={`${className} ${isDragTarget ? 'ring-2 ring-indigo-500' : ''}`}
+      className={`${className} ${isDragTarget ? 'ring-2 ring-primary' : ''}`}
       onDragOver={(e) => {
         e.preventDefault();
         e.currentTarget.setAttribute('data-status', status);
@@ -53,7 +53,7 @@ const IssueSection: React.FC<IssueSectionProps> = ({
       }}
       data-status={status}
     >
-      <h3 className="text-sm font-medium mb-3">{title}</h3>
+      <h3 className="text-sm font-medium text-foreground mb-3">{title}</h3>
       <div className="space-y-2">
         {issues.map(issue => (
           <IssueRow
@@ -108,7 +108,7 @@ const IssueRow: React.FC<IssueRowProps> = ({ issue, onSelect, onDragStart }) => 
 
   return (
     <div
-      className="group p-3 bg-[#161616] border border-[#262626] rounded-lg hover:border-[#363636] transition-colors cursor-pointer"
+      className="group p-3 bg-muted border border-mutedtext rounded-lg hover:border-border transition-colors cursor-pointer"
       onClick={() => !isEditing && onSelect(issue)}
       onDoubleClick={() => setIsEditing(true)}
       draggable
@@ -122,23 +122,23 @@ const IssueRow: React.FC<IssueRowProps> = ({ issue, onSelect, onDragStart }) => 
                 type="text"
                 value={editedTitle}
                 onChange={(e) => setEditedTitle(e.target.value)}
-                className="w-full bg-[#262626] text-white px-2 py-1 rounded"
+                className="w-full bg-muted text-foreground px-2 py-1 rounded"
               />
               <textarea
                 value={editedDescription}
                 onChange={(e) => setEditedDescription(e.target.value)}
-                className="w-full bg-[#262626] text-white px-2 py-1 rounded"
+                className="w-full bg-muted text-foreground px-2 py-1 rounded"
               />
               <div className="flex gap-2">
                 <button
                   onClick={handleEditSave}
-                  className="px-2 py-1 bg-indigo-600 text-white rounded text-sm"
+                  className="px-2 py-1 bg-primary text-foreground rounded text-sm"
                 >
                   Save
                 </button>
                 <button
                   onClick={() => setIsEditing(false)}
-                  className="px-2 py-1 bg-gray-600 text-white rounded text-sm"
+                  className="px-2 py-1 bg-gray-600 text-foreground rounded text-sm"
                 >
                   Cancel
                 </button>
@@ -147,13 +147,13 @@ const IssueRow: React.FC<IssueRowProps> = ({ issue, onSelect, onDragStart }) => 
           ) : (
             <div className="space-y-1">
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-medium text-white truncate">{issue.title}</h3>
+                <h3 className="text-sm font-medium text-foreground truncate">{issue.title}</h3>
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsEditing(true);
                   }}
-                  className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-white"
+                  className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-foreground"
                 >
                   <Edit className="w-3 h-3" />
                 </button>
@@ -215,7 +215,7 @@ const AssigneeSelector: React.FC<AssigneeSelectorProps> = ({
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-2 py-1 rounded hover:bg-[#262626] transition-colors"
+        className="flex items-center gap-2 px-2 py-1 rounded hover:bg-muted transition-colors"
       >
         {currentMember ? (
           <>
@@ -236,10 +236,10 @@ const AssigneeSelector: React.FC<AssigneeSelectorProps> = ({
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 mt-1 w-48 bg-[#161616] border border-[#363636] rounded-lg shadow-lg z-10">
+        <div className="absolute left-0 mt-1 w-48 bg-muted border border-border rounded-lg shadow-lg z-10">
           <div className="p-2">
             <div 
-              className="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-[#262626]"
+              className="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-muted"
               onClick={() => {
                 onAssigneeChange('');
                 setIsOpen(false);
@@ -251,7 +251,7 @@ const AssigneeSelector: React.FC<AssigneeSelectorProps> = ({
             {workspaceMembers.map((member) => (
               <div
                 key={member.member_id}
-                className="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-[#262626]"
+                className="flex items-center gap-2 px-2 py-1 rounded cursor-pointer hover:bg-muted"
                 onClick={() => {
                   onAssigneeChange(member.member_id);
                   setIsOpen(false);
@@ -615,25 +615,25 @@ export const MainContent = () => {
 
   return (
     <div className="flex-1 overflow-hidden flex flex-col">
-      <div className="flex items-center justify-between p-4 border-b">
+      <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center space-x-4">
           <div className="relative">
-            <Search className="absolute left-2 top-2.5 h-5 w-5 text-gray-400" />
+            <Search className="absolute left-2 top-2.5 h-5 w-5 text-muted-foreground" />
             <input
               type="text"
               placeholder="Search issues..."
-              className="pl-8 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="pl-8 pr-4 py-2 border border-border rounded-lg bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
               value={searchQuery}
               onChange={handleSearchChange}
             />
           </div>
           <div className="flex items-center gap-3">
-            <h2 className="text-lg font-semibold">Issues</h2>
-            <div className="flex rounded-md overflow-hidden border border-[#363636]">
+            <h2 className="text-lg font-semibold text-foreground">Issues</h2>
+            <div className="flex rounded-md overflow-hidden border border-border">
               <button
-                onClick={() => setScope('team')}
+                onClick={() => setScope('all')}
                 className={`px-3 py-1.5 text-sm flex items-center gap-2 ${
-                  scope === 'team' ? 'bg-[#363636] text-white' : 'text-gray-400 hover:bg-[#262626]'
+                  scope === 'all' ? 'bg-secondary text-foreground' : 'text-muted-foreground hover:bg-muted'
                 }`}
               >
                 <Users className="w-4 h-4" /> Team
@@ -641,7 +641,7 @@ export const MainContent = () => {
               <button
                 onClick={() => setScope('me')}
                 className={`px-3 py-1.5 text-sm flex items-center gap-2 ${
-                  scope === 'me' ? 'bg-[#363636] text-white' : 'text-gray-400 hover:bg-[#262626]'
+                  scope === 'me' ? 'bg-secondary text-foreground' : 'text-muted-foreground hover:bg-muted'
                 }`}
               >
                 <User className="w-4 h-4" /> My Tasks
@@ -649,15 +649,15 @@ export const MainContent = () => {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <button className="p-1.5 hover:bg-[#262626] rounded-md">
-              <Filter className="w-4 h-4 text-gray-400" />
+            <button className="p-1.5 hover:bg-muted rounded-md">
+              <Filter className="w-4 h-4 text-muted-foreground" />
             </button>
           </div>
         </div>
       </div>
 
       <main className="flex-1 overflow-auto p-6">
-        <div className="grid grid-cols-1 gap-8 min-h-[200px]">
+        <div className="grid grid-cols-1 gap-8 min-h-[calc(100vh-240px)] y-overflow-auto">
           {/* Backlog Section */}
           {groupedIssues.Backlog && groupedIssues.Backlog.length > 0 && (
             <IssueSection
@@ -669,7 +669,7 @@ export const MainContent = () => {
               onDragOver={handleDragOver}
               status="Backlog"
               isDragTarget={dragState.dropTarget === 'Backlog'}
-              className="bg-[#1E1E1E] p-4 rounded-lg"
+              className="bg-secondary p-4 rounded-lg"
             />
           )}
 
@@ -684,7 +684,7 @@ export const MainContent = () => {
               onDragOver={handleDragOver}
               status="Todo"
               isDragTarget={dragState.dropTarget === 'Todo'}
-              className="bg-[#1E1E1E] p-4 rounded-lg"
+              className="bg-secondary p-4 rounded-lg"
             />
           )}
 
@@ -699,7 +699,7 @@ export const MainContent = () => {
               onDragOver={handleDragOver}
               status="InProgress"
               isDragTarget={dragState.dropTarget === 'InProgress'}
-              className="bg-[#1E1E1E] p-4 rounded-lg"
+              className="bg-secondary p-4 rounded-lg"
             />
           )}
 
@@ -714,7 +714,7 @@ export const MainContent = () => {
               onDragOver={handleDragOver}
               status="InReview"
               isDragTarget={dragState.dropTarget === 'InReview'}
-              className="bg-[#1E1E1E] p-4 rounded-lg"
+              className="bg-card p-4 rounded-lg"
             />
           )}
 
@@ -729,7 +729,7 @@ export const MainContent = () => {
               onDragOver={handleDragOver}
               status="Done"
               isDragTarget={dragState.dropTarget === 'Done'}
-              className="bg-[#1E1E1E] p-4 rounded-lg"
+              className="bg-secondary p-4 rounded-lg"
             />
           )}
 
@@ -744,7 +744,7 @@ export const MainContent = () => {
               onDragOver={handleDragOver}
               status="Cancelled"
               isDragTarget={dragState.dropTarget === 'Cancelled'}
-              className="bg-[#1E1E1E] p-4 rounded-lg"
+              className="bg-secondary p-4 rounded-lg"
             />
           )}
 
@@ -759,14 +759,14 @@ export const MainContent = () => {
               onDragOver={handleDragOver}
               status="Duplicate"
               isDragTarget={dragState.dropTarget === 'Duplicate'}
-              className="bg-[#1E1E1E] p-4 rounded-lg"
+              className="bg-secondary p-4 rounded-lg"
             />
           )}
           
           {/* Virtual Drop Zone */}
           {dragState.isDragging && (
             <div
-              className="border-2 border-dashed border-indigo-500/50 rounded-lg p-4 flex items-center justify-center"
+              className="border-2 border-dashed border-primary-500/50 rounded-lg p-4 flex items-center justify-center"
               onDragOver={(e) => {
                 e.preventDefault();
                 setDragState(prev => ({ ...prev, dropTarget: 'virtual' }));
@@ -776,7 +776,7 @@ export const MainContent = () => {
                 setShowStatusModal(true);
               }}
             >
-              <div className="flex flex-col items-center gap-2 text-indigo-400">
+              <div className="flex flex-col items-center gap-2 text-primary">
                 <Plus className="w-6 h-6" />
                 <span className="text-sm">Drop to move to another status</span>
               </div>
@@ -788,7 +788,7 @@ export const MainContent = () => {
       {/* Status Selection Modal */}
       {showStatusModal && dragState.draggedIssue && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-[#161616] rounded-lg p-6 w-96">
+          <div className="bg-muted rounded-lg p-6 w-96">
             <h3 className="text-lg font-semibold mb-4">Move Issue</h3>
             <div className="space-y-2">
               {['Backlog', 'Todo', 'InProgress', 'Done', 'Cancelled', 'Duplicate'].map(status => (
@@ -800,7 +800,7 @@ export const MainContent = () => {
                     }));
                     setShowStatusModal(false);
                   }}
-                  className="w-full p-3 text-left rounded-md hover:bg-[#262626] transition-colors"
+                  className="w-full p-3 text-left rounded-md hover:bg-muted transition-colors"
                 >
                   {status}
                 </button>
@@ -808,7 +808,7 @@ export const MainContent = () => {
             </div>
             <button
               onClick={() => setShowStatusModal(false)}
-              className="mt-4 w-full p-2 bg-[#262626] rounded-md hover:bg-[#363636]"
+              className="mt-4 w-full p-2 bg-muted rounded-md hover:bg-border"
             >
               Cancel
             </button>
@@ -824,12 +824,12 @@ export const MainContent = () => {
       )}
       
       {/* Quick Create Issue Bar */}
-      <div className="fixed bottom-0 left-60 right-80 p-4 bg-[#161616] border-t border-[#262626]">
+      <div className="bottom-0 w-full p-4 bg-muted border-t border-muted">
         <div className="flex gap-3">
           <select
             value={quickCreateStatus}
             onChange={(e) => setQuickCreateStatus(e.target.value as Database['public']['Enums']['issue_status'])}
-            className="px-3 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+            className="px-3 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
           >
             <option value="Backlog">Backlog</option>
             <option value="Todo">To Do</option>
@@ -842,7 +842,7 @@ export const MainContent = () => {
             <input
               type="text"
               placeholder="Describe your task... AI will analyze the context and suggest related items"
-              className="w-full pl-4 pr-10 py-2 bg-[#262626] border border-[#363636] rounded-md text-sm focus:outline-none focus:border-indigo-500"
+              className="w-full pl-4 pr-10 py-2 bg-secondary border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring"
               onKeyDown={async (e) => {
                 if (e.key === 'Enter' && e.currentTarget.value.trim()) {
                   const title = e.currentTarget.value.trim();

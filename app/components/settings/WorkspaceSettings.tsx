@@ -101,7 +101,7 @@ export const WorkspaceSettings = () => {
               <label className="block text-sm font-medium mb-1">
                 Workspace Name
               </label>
-              <div className="text-gray-400 bg-[#1E1E1E] px-4 py-2 rounded-md">
+              <div className="text-gray-400 bg-secondary px-4 py-2 rounded-md">
                 {currentWorkspace.name}
               </div>
             </div>
@@ -109,13 +109,13 @@ export const WorkspaceSettings = () => {
               <label className="block text-sm font-medium mb-1">
                 Workspace ID
               </label>
-              <div className="text-gray-400 bg-[#1E1E1E] px-4 py-2 rounded-md font-mono text-sm">
+              <div className="text-gray-400 bg-secondary px-4 py-2 rounded-md font-mono text-sm">
                 {currentWorkspace.id}
               </div>
             </div>
             <div>
               <label className="block text-sm font-medium mb-1">Created</label>
-              <div className="text-gray-400 bg-[#1E1E1E] px-4 py-2 rounded-md">
+              <div className="text-gray-400 bg-secondary px-4 py-2 rounded-md">
                 {new Date(currentWorkspace.created_at).toLocaleDateString()} at{" "}
                 {new Date(currentWorkspace.created_at).toLocaleTimeString()}
               </div>
@@ -123,13 +123,13 @@ export const WorkspaceSettings = () => {
           </div>
         </div>
 
-        <div className="border-t border-[#262626] pt-8">
+        <div className="border-t border-muted pt-8">
           <h3 className="text-lg font-medium text-red-400 flex items-center gap-2 mb-4">
             <Trash2 className="w-5 h-5" />
             Danger Zone
           </h3>
 
-          <div className="bg-[#1E1E1E] border border-red-500/20 rounded-md p-4">
+          <div className="bg-secondary border border-red-500/20 rounded-md p-4">
             <div className="flex items-start justify-between">
               <div>
                 <h4 className="font-medium mb-1">Delete this workspace</h4>
@@ -151,7 +151,7 @@ export const WorkspaceSettings = () => {
 
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-[#161616] rounded-lg p-6 w-full max-w-md">
+          <div className="bg-muted rounded-lg p-6 w-full max-w-md">
             <div className="flex items-center gap-3 text-red-400 mb-4">
               <AlertTriangle className="w-6 h-6" />
               <h3 className="text-lg font-semibold">Delete Workspace</h3>
@@ -168,7 +168,7 @@ export const WorkspaceSettings = () => {
             <div className="mb-4">
               <label className="block text-sm font-medium mb-2">
                 Please type{" "}
-                <span className="font-mono bg-[#262626] px-1 py-0.5 rounded">
+                <span className="font-mono bg-muted px-1 py-0.5 rounded">
                   {currentWorkspace.name}
                 </span>{" "}
                 to confirm
@@ -177,7 +177,7 @@ export const WorkspaceSettings = () => {
                 type="text"
                 value={deleteText}
                 onChange={(e) => setDeleteText(e.target.value)}
-                className="w-full px-4 py-2 bg-[#262626] border border-[#363636] rounded-md focus:outline-none focus:border-red-500"
+                className="w-full px-4 py-2 bg-muted border border-border rounded-md focus:outline-none focus:border-red-500"
                 placeholder={`Type "${currentWorkspace.name}" to confirm`}
               />
             </div>
@@ -191,14 +191,14 @@ export const WorkspaceSettings = () => {
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowDeleteConfirm(false)}
-                className="px-4 py-2 bg-[#262626] text-gray-400 rounded-md hover:bg-[#363636]"
+                className="px-4 py-2 bg-muted text-gray-400 rounded-md hover:bg-border"
                 disabled={isDeleting}
               >
                 Cancel
               </button>
               <button
                 onClick={handleDeleteWorkspace}
-                className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 bg-red-500 text-foreground rounded-md hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={deleteText !== currentWorkspace.name || isDeleting}
               >
                 {isDeleting ? "Deleting..." : "Delete Workspace"}

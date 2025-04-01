@@ -97,7 +97,7 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
     <div
       draggable
       onDragStart={handleDragStart}
-      className={`group p-3 bg-[#161616] border border-[#262626] rounded-lg hover:border-[#363636] transition-colors cursor-pointer ${
+      className={`group p-3 bg-card border border-border rounded-lg hover:border-border/80 transition-colors cursor-pointer ${
         loading ? 'opacity-50' : ''
       }`}
       onClick={() => !isEditing && onSelect(issue)}
@@ -113,15 +113,15 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
               onChange={(e) => setTitle(e.target.value)}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
-              className="w-full bg-[#262626] border border-indigo-500 rounded px-2 py-1 text-sm focus:outline-none"
+              className="w-full bg-secondary border border-primary rounded px-2 py-1 text-sm focus:outline-none"
               onClick={(e) => e.stopPropagation()}
             />
           ) : (
-            <h3 className="font-medium group-hover:text-indigo-400 transition-colors">
+            <h3 className="font-medium text-foreground group-hover:text-primary transition-colors">
               {title}
             </h3>
           )}
-          <p className="text-sm text-gray-400 mt-1">{issue.description}</p>
+          <p className="text-sm text-muted-foreground mt-1">{issue.description}</p>
         </div>
         <div className="flex items-center gap-3 ml-4">
           <div className="relative">
@@ -132,11 +132,11 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
                     e.stopPropagation();
                     handlePointsChange('down');
                   }}
-                  className="p-1 hover:bg-[#363636] rounded-l border border-[#363636]"
+                  className="p-1 hover:bg-muted rounded-l border border-border"
                 >
-                  <ChevronDown className="w-3 h-3 text-gray-400" />
+                  <ChevronDown className="w-3 h-3 text-muted-foreground" />
                 </button>
-                <div className="px-3 py-1 bg-indigo-500/20 text-indigo-400 border-y border-[#363636] text-sm font-medium">
+                <div className="px-3 py-1 bg-primary/20 text-primary border-y border-border text-sm font-medium">
                   {issue.points || 1} pts
                 </div>
                 <button
@@ -144,22 +144,22 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
                     e.stopPropagation();
                     handlePointsChange('up');
                   }}
-                  className="p-1 hover:bg-[#363636] rounded-r border border-[#363636]"
+                  className="p-1 hover:bg-muted rounded-r border border-border"
                 >
-                  <ChevronUp className="w-3 h-3 text-gray-400" />
+                  <ChevronUp className="w-3 h-3 text-muted-foreground" />
                 </button>
               </div>
               <div className="relative">
                 <button
-                  className="p-1 hover:bg-[#262626] rounded-md"
+                  className="p-1 hover:bg-muted rounded-md"
                   onMouseEnter={() => setShowPointsTooltip(true)}
                   onMouseLeave={() => setShowPointsTooltip(false)}
                 >
-                  <HelpCircle className="w-4 h-4 text-gray-400" />
+                  <HelpCircle className="w-4 h-4 text-muted-foreground" />
                 </button>
                 {showPointsTooltip && (
-                  <div className="absolute left-full ml-2 w-64 p-3 bg-[#262626] rounded-lg border border-[#363636] shadow-lg z-10">
-                    <p className="text-sm text-gray-400">
+                  <div className="absolute left-full ml-2 w-64 p-3 bg-card rounded-lg border border-border shadow-lg z-10">
+                    <p className="text-sm text-muted-foreground">
                       Points follow the Fibonacci sequence (1, 2, 3, 5, 8, 13, 21) to estimate task complexity.
                       AI suggests points based on similar tasks and historical data.
                     </p>
@@ -171,7 +171,7 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
           <select
             value={issue.priority}
             onChange={handlePriorityChange}
-            className="bg-[#262626] border border-[#363636] rounded px-2 py-1 text-sm focus:outline-none focus:border-indigo-500"
+            className="bg-secondary border border-border rounded px-2 py-1 text-sm focus:outline-none focus:border-primary"
             onClick={(e) => e.stopPropagation()}
           >
             <option value="Low">Low</option>
@@ -182,7 +182,7 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
           <select
             value={issue.status}
             onChange={handleStatusChange}
-            className="bg-[#262626] border border-[#363636] rounded px-2 py-1 text-sm focus:outline-none focus:border-indigo-500"
+            className="bg-secondary border border-border rounded px-2 py-1 text-sm focus:outline-none focus:border-primary"
             onClick={(e) => e.stopPropagation()}
           >
             <option value="Todo">Todo</option>
@@ -192,7 +192,7 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
           </select>
         </div>
       </div>
-      <div className="mt-3 flex items-center justify-between text-sm text-gray-400">
+      <div className="mt-3 flex items-center justify-between text-sm text-muted-foreground">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
@@ -208,9 +208,9 @@ export const IssueRow = ({ issue, onSelect }: IssueRowProps) => {
           </div>
         </div>
         {issue.assignee && (
-          <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 group relative">
+          <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary group relative">
             {issue.assignee.full_name.charAt(0)}
-            <div className="hidden group-hover:block absolute right-0 bottom-full mb-2 whitespace-nowrap bg-[#262626] text-white text-xs px-2 py-1 rounded">
+            <div className="hidden group-hover:block absolute right-0 bottom-full mb-2 whitespace-nowrap bg-card text-foreground text-xs px-2 py-1 rounded border border-border">
               {issue.assignee.full_name}
             </div>
           </div>

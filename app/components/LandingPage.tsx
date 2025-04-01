@@ -1,22 +1,7 @@
-"use client";
-import "../index.css";
-import React from "react";
+'use client';
+import React from 'react';
 import { useRouter } from "next/navigation";
-import {
-  Bot,
-  ArrowRight,
-  Sparkles,
-  Brain,
-  Zap,
-  Table2,
-  Layout,
-  GitPullRequest,
-  Bot as BotIcon,
-  Terminal,
-  Users,
-  Star,
-  CheckCircle2,
-} from "lucide-react";
+import { Bot, ArrowRight, Sparkles, Brain, Zap, Table2, Layout, GitPullRequest, Bot as BotIcon, Terminal, Users, Star, CheckCircle2 } from 'lucide-react';
 
 export const LandingPage = () => {
   const navigate = useRouter();
