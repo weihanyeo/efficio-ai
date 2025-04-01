@@ -1,0 +1,9 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/event-notifications",
+      "schedule": "*/5 * * * *",
+      "description": "Check for upcoming events and send notifications every 5 minutes. Runs in UTC time (Vercel default). For reference: 2:30 PM SGT = 6:30 AM UTC."
+    }
+  ]
+}
