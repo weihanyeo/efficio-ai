@@ -11,10 +11,11 @@ import {
   CalendarDays, Settings,
   ChevronDown,
   Plus,
-  Link2,
   Copy,
   Check,
   Bot,
+  Activity,
+  Code
 } from "lucide-react";
 import { useWorkspace } from '../contexts/WorkspaceContext';
 
@@ -285,9 +286,11 @@ export const Sidebar: React.FC<{ className?: string }> = ({ className = "" }) =>
       <nav className="flex-1 px-3 py-6">
         <div className="space-y-2">
           <NavLink to="/dashboard" icon={<LayoutDashboard />} label="Dashboard" />
+          <NavLink to="/updates" icon={<Activity />} label="Updates" />
           <NavLink to="/calendar" icon={<CalendarDays />} label="Calendar" />
           <NavLink to="/issues" icon={<Inbox />} label="Issues" />
           <NavLink to="/projects" icon={<FolderKanban />} label="Projects" />
+          <NavLink to="/codebase" icon={<Code />} label="Codebase" />
           <NavLink to="/team" icon={<Users />} label="Team" />
           <NavLink to="/settings" icon={<Settings />} label="Settings" />
         </div>
